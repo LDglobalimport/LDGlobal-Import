@@ -332,3 +332,39 @@ footer {
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
+CSS
+/* Estilos para Sección Orígenes */
+.origins-section {
+    padding: 60px 8%;
+    background-color: #f8fafc;
+}
+
+.origins-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.origin-card {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    border-top: 4px solid var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.global-card {
+    border-top: 4px solid var(--accent-orange);
+}
+
+.flag {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.origin-card h3 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+}

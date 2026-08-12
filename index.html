@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDGlobal Import & Logistics</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
+    <!-- Favicon con Logo Secundario -->
+    <link rel="icon" type="image/png" href="logo-secundario.png">
+    <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
+    <!-- Navegación Superior con Fondo Blanco y Logo Principal -->
     <header class="navbar">
         <div class="logo">
             <img src="logo-principal.png" alt="LDGlobal Import Logo" class="nav-logo">
@@ -25,24 +28,26 @@
         </div>
     </header>
 
-    <section id="inicio" class="hero">
-        <div class="hero-overlay">
-            <div class="hero-content">
+    <!-- HERO CON PUERTO Y ALINEACIÓN IZQUIERDA -->
+    <section id="inicio" class="hero-puerto">
+        <div class="hero-overlay-puerto">
+            <div class="hero-content-puerto">
                 <div class="hero-badge">
-                    ESPECIALISTAS EN LOGÍSTICA CHINA- USA - VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA - VENEZUELA
                 </div>
-                
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
-                
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
-                
                 <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
             </div>
         </div>
     </section>
 
+    <!-- Sección Servicios con Logo Secundario -->
     <section id="servicios" class="services">
-        <h2>Nuestros Servicios</h2>
+        <div class="section-header">
+            <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
+            <h2>Nuestros Servicios</h2>
+        </div>
         <div class="services-grid">
             <div class="card">
                 <h3>🚢 Flete Marítimo</h3>
@@ -59,6 +64,7 @@
         </div>
     </section>
 
+    <!-- Sección Cotización -->
     <section id="contacto" class="contact">
         <h2>Cotiza tu Envío</h2>
         <form class="quote-form" onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto pronto.');">
@@ -75,14 +81,27 @@
         </form>
     </section>
 
-    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener">
-        💬 Chat por WhatsApp
+    <!-- Botón Flotante con Logo de WhatsApp -->
+    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+        <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
+    <!-- Footer con Logo Principal e Instagram -->
     <footer>
-        <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <img src="logo-principal.png" alt="LDGlobal Import" class="footer-logo">
+            <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
+            
+            <div class="instagram-link-container">
+                <a href="https://www.instagram.com/Ldglobal_Import/" target="_blank" rel="noopener" class="instagram-btn">
+                    <img src="logo-instagram.png" alt="Instagram LDGlobal">
+                    <span>Síguenos en Instagram <strong>@Ldglobal_Import</strong></span>
+                </a>
+            </div>
+        </div>
     </footer>
 
+    <!-- MODAL REGISTRO DE CASILLERO -->
     <div id="modalRegister" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
@@ -153,6 +172,7 @@
         </div>
     </div>
 
+    <!-- MODAL INICIO DE SESIÓN -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -165,18 +185,43 @@
         </div>
     </div>
 
+    <!-- MODAL PANEL DE CASILLERO DEL CLIENTE CON DIRECCIONES REALES -->
     <div id="modalCasillero" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
-            <h2>📦 Mi Casillero - Paquetes en Almacén</h2>
-            <p>Bienvenido, <strong id="userNombre">Cliente</strong> | Código de Casillero: <strong id="userCasillero">LDG-001</strong></p>
+            <h2>📦 Mi Casillero LDGlobal Import</h2>
+            <p>Bienvenido(a), <strong id="userNombre">Cliente</strong> | Código de Casillero: <strong id="userCasillero">LDG-8842</strong></p>
             
-            <div class="warehouse-box">
-                <h3>Dirección para enviar tus compras desde China/EE.UU.:</h3>
-                <p><strong>Dirección:</strong> 8400 NW 25th St, Suite 100 / Ref: Casillero <span id="dashCasilleroCode">LDG-001</span></p>
+            <div class="addresses-container">
+                <h3>Direcciones Oficiales para Envíos de Compras:</h3>
+
+                <!-- CHINA AÉREO -->
+                <div class="warehouse-card">
+                    <h4>🇨🇳 CHINA (AÉREO)</h4>
+                    <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
+                    <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span> (Colocar al lado de tu nombre)</p>
+                </div>
+
+                <!-- CHINA MARÍTIMO -->
+                <div class="warehouse-card">
+                    <h4>🚢 CHINA (MARÍTIMO)</h4>
+                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
+                    <p><strong>Dirección en Chino (海运仓地址):</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
+                    <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
+                    <p><em>*Nota: Llenar hoja de ingreso antes del despacho y avisar a la Sra. Huang.</em></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span></p>
+                </div>
+
+                <!-- MIAMI EE.UU. -->
+                <div class="warehouse-card">
+                    <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
+                    <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span></p>
+                </div>
             </div>
 
-            <h3>Mercancía Recibida</h3>
+            <h3 class="table-title">Estatus de Paquetes en Almacén</h3>
             <table class="casillero-table">
                 <thead>
                     <tr>
@@ -189,18 +234,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>CHN-883921</td>
-                        <td>China (Yiwu)</td>
-                        <td>Cajas de Accesorios / Electrónica</td>
-                        <td>0.35 CBM</td>
-                        <td><span class="tag tag-green">En Almacén China</span></td>
-                    </tr>
-                    <tr>
-                        <td>USA-992102</td>
-                        <td>EE.UU. (Miami)</td>
-                        <td>Repuestos Industriales</td>
-                        <td>4.2 Kg</td>
-                        <td><span class="tag tag-orange">En Tránsito a Venezuela</span></td>
+                        <td colspan="5" class="empty-warehouse">
+                            No tienes paquetes registrados en almacén actualmente. Cuando tu mercancía sea recibida en origen, aparecerá listada aquí.
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -240,7 +276,7 @@
             const asunto = encodeURIComponent("Nuevo Registro de Casillero - LDGlobal Import");
             const cuerpo = encodeURIComponent(`Nuevo registro recibido:\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${document.getElementById('telefono').value}\nEstado: ${document.getElementById('estado').value}`);
             
-            alert("¡Registro completado con éxito! Se ha creado tu casillero.");
+            alert("¡Registro completado con éxito! Se ha activado tu casillero.");
             window.open(`mailto:Ventas@ldglobalimport.com?subject=${asunto}&body=${cuerpo}`, '_blank');
 
             cerrarModal('modalRegister');

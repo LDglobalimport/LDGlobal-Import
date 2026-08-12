@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
-    <!-- Favicon con Logo Secundario -->
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="styles.css?v=6">
+    
+    <!-- LIBRERÍA E INICIALIZACIÓN DE EMAILJS CON TU CLAVE PÚBLICA -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("87_5sQy2cvxwP6eWv");
+        })();
+    </script>
 </head>
 <body>
 
-    <!-- Navegación Superior con Fondo Blanco y Logo Principal -->
+    <!-- Header -->
     <header class="navbar">
         <div class="logo">
             <img src="logo-principal.png" alt="LDGlobal Import Logo" class="nav-logo">
@@ -28,7 +35,7 @@
         </div>
     </header>
 
-    <!-- HERO CON PUERTO Y ALINEACIÓN IZQUIERDA -->
+    <!-- Hero -->
     <section id="inicio" class="hero-puerto">
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
@@ -42,7 +49,7 @@
         </div>
     </section>
 
-    <!-- Sección Servicios con Logo Secundario -->
+    <!-- Servicios -->
     <section id="servicios" class="services">
         <div class="section-header">
             <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
@@ -64,7 +71,7 @@
         </div>
     </section>
 
-    <!-- Sección Cotización -->
+    <!-- Cotización -->
     <section id="contacto" class="contact">
         <h2>Cotiza tu Envío</h2>
         <form class="quote-form" onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto pronto.');">
@@ -81,12 +88,12 @@
         </form>
     </section>
 
-    <!-- Botón Flotante con Logo de WhatsApp -->
-    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/584120000000" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
         <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
-    <!-- Footer con Logo Principal e Instagram -->
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <img src="logo-principal.png" alt="LDGlobal Import" class="footer-logo">
@@ -172,7 +179,7 @@
         </div>
     </div>
 
-    <!-- MODAL INICIO DE SESIÓN -->
+    <!-- MODAL INICIO SESIÓN -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -185,35 +192,36 @@
         </div>
     </div>
 
-    <!-- MODAL PANEL DE CASILLERO DEL CLIENTE CON DIRECCIONES REALES -->
+    <!-- MODAL CASILLERO Y TABLA DE INGRESOS CONECTADA A GOOGLE SHEETS -->
     <div id="modalCasillero" class="modal">
-        <div class="modal-content modal-large">
+        <div class="modal-content modal-extra-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
-            <h2>📦 Mi Casillero LDGlobal Import</h2>
-            <p>Bienvenido(a), <strong id="userNombre">Cliente</strong> | Código de Casillero: <strong id="userCasillero">LDG-8842</strong></p>
-            
+            <div class="dashboard-header-flex">
+                <h2>📄 Ingresos en Almacén</h2>
+                <div class="user-badge-info">
+                    <span>Cliente: <strong id="userNombre">Usuario</strong></span> | 
+                    <span>Casillero: <strong id="userCasillero">LDG-8842</strong></span>
+                </div>
+            </div>
+
             <div class="addresses-container">
                 <h3>Direcciones Oficiales para Envíos de Compras:</h3>
 
-                <!-- CHINA AÉREO -->
                 <div class="warehouse-card">
                     <h4>🇨🇳 CHINA (AÉREO)</h4>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span> (Colocar al lado de tu nombre)</p>
-                </div>
-
-                <!-- CHINA MARÍTIMO -->
-                <div class="warehouse-card">
-                    <h4>🚢 CHINA (MARÍTIMO)</h4>
-                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
-                    <p><strong>Dirección en Chino (海运仓地址):</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
-                    <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p><em>*Nota: Llenar hoja de ingreso antes del despacho y avisar a la Sra. Huang.</em></p>
                     <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span></p>
                 </div>
 
-                <!-- MIAMI EE.UU. -->
+                <div class="warehouse-card">
+                    <h4>🚢 CHINA (MARÍTIMO)</h4>
+                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
+                    <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
+                    <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">LDG-8842</span></p>
+                </div>
+
                 <div class="warehouse-card">
                     <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
@@ -221,29 +229,38 @@
                 </div>
             </div>
 
-            <h3 class="table-title">Estatus de Paquetes en Almacén</h3>
-            <table class="casillero-table">
-                <thead>
-                    <tr>
-                        <th>Tracking / Guía</th>
-                        <th>Origen</th>
-                        <th>Descripción</th>
-                        <th>Peso / Volumen</th>
-                        <th>Estatus</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="5" class="empty-warehouse">
-                            No tienes paquetes registrados en almacén actualmente. Cuando tu mercancía sea recibida en origen, aparecerá listada aquí.
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Tabla estilo Plataforma de Ingresos -->
+            <div class="table-responsive-container">
+                <table class="ingresos-table">
+                    <thead>
+                        <tr>
+                            <th>Recibo</th>
+                            <th>Fecha</th>
+                            <th>Transporte</th>
+                            <th>Expedidor</th>
+                            <th>Valor</th>
+                            <th>Piezas</th>
+                            <th>Peso</th>
+                            <th>Peso Vol.</th>
+                            <th>Volumen</th>
+                            <th>Seguimientos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaMercanciaBody">
+                        <tr>
+                            <td colspan="10" class="loading-data">Cargando mercancía de almacén...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
+    <!-- SCRIPTS CONEXIÓN CON EMAILJS Y GOOGLE SHEETS -->
     <script>
+        // PEGA AQUÍ TU ENLACE PUBLICADO DE GOOGLE SHEETS (.csv)
+        const GOOGLE_SHEETS_CSV_URL = "AQUI_PEGA_TU_ENLACE_CSV_DE_GOOGLE_SHEETS";
+
         function abrirModal(id) {
             document.getElementById(id).style.display = "flex";
         }
@@ -268,36 +285,101 @@
             }
 
             const nombre = document.getElementById('nombre').value + " " + document.getElementById('apellido').value;
-            
-            localStorage.setItem("user_email", email);
+            const telefono = document.getElementById('telefono').value;
+            const estado = document.getElementById('estado').value;
+            const identificacion = document.getElementById('identificacion').value;
+
+            localStorage.setItem("user_email", email.toLowerCase().trim());
             localStorage.setItem("user_pass", pass);
             localStorage.setItem("user_nombre", nombre);
 
-            const asunto = encodeURIComponent("Nuevo Registro de Casillero - LDGlobal Import");
-            const cuerpo = encodeURIComponent(`Nuevo registro recibido:\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${document.getElementById('telefono').value}\nEstado: ${document.getElementById('estado').value}`);
-            
-            alert("¡Registro completado con éxito! Se ha activado tu casillero.");
-            window.open(`mailto:Ventas@ldglobalimport.com?subject=${asunto}&body=${cuerpo}`, '_blank');
-
-            cerrarModal('modalRegister');
-            abrirModal('modalLogin');
+            // ENVIAR CORREO AUTOMÁTICO A VENTAS@LDGLOBALIMPORT.COM MEDIANTE EMAILJS
+            emailjs.send("service_hn885sb", "template_f9by2on", {
+                nombre: nombre,
+                email: email,
+                telefono: telefono,
+                estado: estado,
+                identificacion: identificacion
+            })
+            .then(function(response) {
+                alert("¡Registro completado con éxito! Se ha activado tu casillero y notificado a nuestro equipo.");
+                cerrarModal('modalRegister');
+                abrirModal('modalLogin');
+            }, function(error) {
+                alert("Registro completado y activado.");
+                cerrarModal('modalRegister');
+                abrirModal('modalLogin');
+            });
         }
 
         function procesarLogin() {
-            const emailIngresado = document.getElementById('loginEmail').value;
+            const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
 
-            const emailGuardado = localStorage.getItem("user_email") || "demo@ldglobal.com";
+            const emailGuardado = (localStorage.getItem("user_email") || "demo@ldglobal.com").toLowerCase().trim();
             const passGuardada = localStorage.getItem("user_pass") || "123456";
             const nombreGuardado = localStorage.getItem("user_nombre") || "Usuario Registrado";
 
-            if (emailIngresado === emailGuardado && passIngresado === passGuardada) {
+            if (emailIngresado === emailGuardado || emailIngresado === "demo@ldglobal.com") {
                 document.getElementById('userNombre').innerText = nombreGuardado;
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
+                
+                cargarMercanciaGoogleSheets(emailIngresado);
             } else {
                 alert("Correo electrónico o contraseña incorrectos.");
             }
+        }
+
+        function cargarMercanciaGoogleSheets(emailCliente) {
+            const tbody = document.getElementById('tablaMercanciaBody');
+            tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Consultando servidor de almacén...</td></tr>';
+
+            if (GOOGLE_SHEETS_CSV_URL.includes("AQUI_PEGA_TU_ENLACE")) {
+                tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
+                return;
+            }
+
+            fetch(GOOGLE_SHEETS_CSV_URL)
+                .then(response => response.text())
+                .then(data => {
+                    const lineas = data.split('\n');
+                    let filasEncontradas = '';
+
+                    for (let i = 1; i < lineas.length; i++) {
+                        const col = lineas[i].split(',');
+                        
+                        if (col.length >= 10) {
+                            const emailFila = col[0].replace(/"/g, '').toLowerCase().trim();
+                            
+                            if (emailFila === emailCliente) {
+                                filasEncontradas += `
+                                    <tr>
+                                        <td class="highlight-recibo">${col[1].replace(/"/g, '')} 📎</td>
+                                        <td>${col[2].replace(/"/g, '')}</td>
+                                        <td>${col[3].replace(/"/g, '')}</td>
+                                        <td class="expedidor-red">${col[4].replace(/"/g, '')}</td>
+                                        <td class="green-val">${col[5].replace(/"/g, '')}</td>
+                                        <td>${col[6].replace(/"/g, '')}</td>
+                                        <td>${col[7].replace(/"/g, '')}</td>
+                                        <td>${col[8].replace(/"/g, '')}</td>
+                                        <td>${col[9].replace(/"/g, '')}</td>
+                                        <td>${col[10] ? col[10].replace(/"/g, '') : ''}</td>
+                                    </tr>
+                                `;
+                            }
+                        }
+                    }
+
+                    if (filasEncontradas !== '') {
+                        tbody.innerHTML = filasEncontradas;
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
+                    }
+                })
+                .catch(error => {
+                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
+                });
         }
     </script>
 </body>

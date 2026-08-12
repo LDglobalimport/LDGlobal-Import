@@ -3,78 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDGlobal Import & Logistics | Tu aliado desde China</title>
+    <title>LD Global Import & Logistics | Envíos desde China, EE.UU. y el Mundo</title>
+    <link rel="icon" type="image/png" href="logo-secundario.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Navegación -->
+    <!-- Header / Navegación -->
     <header class="navbar">
         <div class="logo">
-            <h2>LD<span>Global</span> Import</h2>
+            <img src="logo-principal.png" alt="LD Global Import & Logistics">
         </div>
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Cotizar</a></li>
+                <li><a href="#origenes">Orígenes</a></li>
+                <li><a href="#calculadora">Calculadora</a></li>
+                <li><a href="#contacto" class="btn-nav">Cotizar Carga</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Sección Hero -->
     <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>Importa desde China a Venezuela de forma segura y rápida</h1>
-            <p>Nos encargamos de la logística, aduanas y transporte de tu mercancía para que hagas crecer tu negocio.</p>
-            <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <span class="badge">Logística Internacional Multiorigen</span>
+                <h1>Importamos tu Carga desde China, EE.UU. y Más allá</h1>
+                <p>Consolidación marítima y aérea, compras internacionales y gestión aduanera integral adaptada a tu negocio.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
+                    <a href="#calculadora" class="btn-secondary">Calcular Envío</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Sección Servicios -->
+    <!-- Sección de Orígenes / Cobertura Global -->
+    <section id="origenes" class="origins-section">
+        <div class="section-title">
+            <h2>Nuestra Cobertura Internacional</h2>
+            <p>Conectamos los principales mercados comerciales con tu destino</p>
+        </div>
+        <div class="origins-grid">
+            <div class="origin-card">
+                <span class="flag">🇨🇳</span>
+                <h3>China</h3>
+                <p>Envíos consolidados marítimos y aéreos directos. Inspección en fábrica y consolidación de proveedores.</p>
+            </div>
+            <div class="origin-card">
+                <span class="flag">🇺🇸</span>
+                <h3>Estados Unidos</h3>
+                <p>Casillero y fletes express aéreos y marítimos desde Miami. Manejo de compras corporativas y personales.</p>
+            </div>
+            <div class="origin-card global-card">
+                <span class="flag">🌍</span>
+                <h3>Otros Países</h3>
+                <p>¿Necesitas importar desde otro origen? <strong>Consulta sin compromiso</strong> con nuestro equipo de logística.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
     <section id="servicios" class="services">
-        <h2>Nuestros Servicios</h2>
+        <div class="section-title">
+            <h2>Nuestros Servicios de Importación</h2>
+            <p>Soluciones logísticas diseñadas para emprendedores y empresas</p>
+        </div>
         <div class="services-grid">
             <div class="card">
-                <h3>🚢 Flete Marítimo</h3>
-                <p>Consolidación de carga y contenedores completos para optimizar tus costos.</p>
+                <div class="card-icon">🚢</div>
+                <h3>Flete Marítimo (CBM)</h3>
+                <p>Ideal para grandes volúmenes y maquinaria. Salidas semanales consolidadas.</p>
+                <ul>
+                    <li>✓ Consolidado (LCL) y Contenedor Completo (FCL)</li>
+                    <li>✓ Tarifas calculadas por Metro Cúbico</li>
+                    <li>✓ Manejo de mercancía pesada</li>
+                </ul>
             </div>
             <div class="card">
-                <h3>✈️ Flete Aéreo</h3>
-                <p>Envíos express para cuando necesitas tu inventario con máxima urgencia.</p>
+                <div class="card-icon">✈️</div>
+                <h3>Flete Aéreo Express</h3>
+                <p>Para mercancías de alta prioridad o volumen reducido. Tiempos de entrega rápidos y monitoreados.</p>
+                <ul>
+                    <li>✓ Envíos rápidos en días hábiles</li>
+                    <li>✓ Cálculo por kilo o peso volumétrico</li>
+                    <li>✓ Despacho directo</li>
+                </ul>
             </div>
             <div class="card">
-                <h3>📑 Gestión Aduanal</h3>
-                <p>Nos encargamos de la nacionalización y trámites legales de tu mercancía.</p>
+                <div class="card-icon">📦</div>
+                <h3>Inspección y Reempaque</h3>
+                <p>Recibimos compras de distintos proveedores, consolidamos en un solo envío y optimizamos el espacio.</p>
+                <ul>
+                    <li>✓ Verificación previa de proveedores</li>
+                    <li>✓ Control de calidad</li>
+                    <li>✓ Ahorro en costos de flete</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- Sección Contacto / Cotización -->
-    <section id="contacto" class="contact">
-        <h2>Cotiza tu Envío</h2>
-        <form class="quote-form" onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto pronto.');">
-            <input type="text" placeholder="Nombre o Nombre de la Empresa" required>
-            <input type="email" placeholder="Correo Electrónico" required>
-            <input type="tel" placeholder="Teléfono / WhatsApp" required>
-            <select required>
-                <option value="" disabled selected>Tipo de Flete</option>
-                <option value="maritimo">Marítimo</option>
-                <option value="aereo">Aéreo</option>
-            </select>
-            <textarea placeholder="Describe tu carga (peso, volumen, tipo de producto)" rows="4" required></textarea>
-            <button type="submit" class="btn-submit">Enviar Cotización</button>
-        </form>
+    <!-- Calculadora Dinámica -->
+    <section id="calculadora" class="calculator-section">
+        <div class="calculator-container">
+            <h2>Calculadora Estimada de Carga Marítima</h2>
+            <p>Ingresa las dimensiones de tu caja en centímetros para calcular el volumen en Metros Cúbicos (CBM):</p>
+            <form id="cbmForm" onsubmit="event.preventDefault(); calcularCBM();">
+                <div class="input-group">
+                    <input type="number" id="largo" placeholder="Largo (cm)" step="any" required>
+                    <input type="number" id="ancho" placeholder="Ancho (cm)" step="any" required>
+                    <input type="number" id="alto" placeholder="Alto (cm)" step="any" required>
+                    <input type="number" id="cajas" placeholder="Cantidad de Cajas" value="1" min="1" required>
+                </div>
+                <button type="submit" class="btn-primary">Calcular CBM</button>
+            </form>
+            <div id="resultadoCBM" class="result-box" style="display:none;"></div>
+        </div>
     </section>
 
-    <!-- Botón Flotante de WhatsApp (Recuerda cambiar el número) -->
-    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener">
-        💬 Chat por WhatsApp
-    </a>
+    <!-- Sección Nosotros y Redes -->
+    <section id="nosotros" class="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="logo-secundario.png" alt="LD Global Emblem">
+            </div>
+            <div class="about-text">
+                <h2>¿Por qué elegir LD Global Import & Logistics?</h2>
+                <p>Somos tu brazo logístico estratégico internacional. Facilitamos todo el proceso desde la recolección con el proveedor hasta la entrega final en bodega. Síguenos en nuestras redes para ver nuestros embarques en tiempo real.</p>
+                <div class="social-badges">
+                    <a href="https://www.instagram.com/Ldglobal_Import/" target="_blank" class="social-card instagram-card">
+                        <img src="logo-instagram.png" alt="Instagram LD Global">
+                        <span>Síguenos en Instagram<br><strong>@Ldglobal_Import</strong></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Formulario de Cotización -->
+    <section id="contacto" class="contact">
+        <div class="contact-container">
+            <h2>Solicita una Cotización Directa</h2>
+            <p>Completa el formulario y te contactaremos inmediatamente con una propuesta personalizada.</p>
+            <form class="quote-form" onsubmit="event.preventDefault(); enviarCotizacion();">
+                <input type="text" id="nombre" placeholder="Nombre completo o Empresa" required>
+                <input type="tel" id="telefono" placeholder="Número de WhatsApp" required>
+                <select id="origen" required>
+                    <option value="" disabled selected>País de Origen</option>
+                    <option value="China">China</option>
+                    <option value="EE.UU.">Estados Unidos</option>
+                    <option value="Otro País">Otro País (Consultar)</option>
+                </select>
+                <select id="tipoEnvio" required>
+                    <option value="" disabled selected>Tipo de Flete</option>
+                    <option value="Marítimo">Flete Marítimo</option>
+                    <option value="Aéreo">Flete Aéreo</option>
+                    <option value="Asesoría Integral">Asesoría de Compras</option>
+                </select>
+                <textarea id="descripcion" placeholder="Detalles de la mercancía (dimensiones, peso, tipo de producto)" rows="4" required></textarea>
+                <button type="submit" class="btn-primary btn-full">Enviar a un Asesor</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <img src="logo-principal.png" alt="LD Global Import Logo" class="footer-logo">
+            <p>LD Global Import & Logistics — Conectando tu negocio con los mercados globales.</p>
+            <p class="copyright">&copy; 2026 LD Global Import. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/584120000000?text=Hola%20LD%20Global%20Import,%20deseo%20cotizar%20un%20env%C3%ADo" class="whatsapp-float" target="_blank">
+        <img src="logo-whatsapp.png" alt="WhatsApp LD Global">
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        function calcularCBM() {
+            const largo = parseFloat(document.getElementById('largo').value);
+            const ancho = parseFloat(document.getElementById('ancho').value);
+            const alto = parseFloat(document.getElementById('alto').value);
+            const cajas = parseInt(document.getElementById('cajas').value);
+
+            if (largo && ancho && alto && cajas) {
+                const cbmTotal = ((largo * ancho * alto) / 1000000) * cajas;
+                const resultBox = document.getElementById('resultadoCBM');
+                resultBox.style.display = 'block';
+                resultBox.innerHTML = `<strong>Volumen Total:</strong> ${cbmTotal.toFixed(3)} CBM (m³) para ${cajas} caja(s).`;
+            }
+        }
+
+        function enviarCotizacion() {
+            const nombre = document.getElementById('nombre').value;
+            const tel = document.getElementById('telefono').value;
+            const origen = document.getElementById('origen').value;
+            const tipo = document.getElementById('tipoEnvio').value;
+            const desc = document.getElementById('descripcion').value;
+
+            const mensaje = `Hola LD Global Import, mi nombre es ${nombre}. Deseo cotizar un flete ${tipo} desde ${origen}. Detalles: ${desc}. Mi contacto: ${tel}`;
+            const url = `https://wa.me/584120000000?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+    </script>
 </body>
 </html>

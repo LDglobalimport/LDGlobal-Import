@@ -1,112 +1,85 @@
-HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDGlobal Import & Logistics | Envíos desde China, EE.UU. y el Mundo</title>
+    <title>LD Global Import & Logistics | Tu Casillero Internacional</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
     <link rel="stylesheet" href="styles.css">
+    <!-- FormSubmit para enviar los datos de registro a Ventas@ldglobalimport.com -->
 </head>
 <body>
 
-    <!-- Header / Navegación -->
+    <!-- Header con Botones de Casillero -->
     <header class="navbar">
         <div class="logo">
-            <img src="logo-principal.png" alt="LD Global Import & Logistics">
+            <img src="logo-principal.png" alt="LD Global Import Logo">
         </div>
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#galeria">Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#origenes">Orígenes</a></li>
                 <li><a href="#calculadora">Calculadora</a></li>
-                <li><a href="#contacto" class="btn-nav">Cotizar Carga</a></li>
+                <li><button onclick="abrirModal('loginModal')" class="btn-login">🔑 Iniciar Sesión</button></li>
+                <li><button onclick="abrirModal('registerModal')" class="btn-register">👤+ Crear Casillero</button></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Sección Hero -->
+    <!-- Hero Dinámico con foto personal -->
     <section id="inicio" class="hero">
         <div class="hero-overlay">
             <div class="hero-content">
-                <span class="badge">Logística Internacional Multiorigen</span>
-                <h1>Importamos tu Carga desde China, EE.UU. y Más allá</h1>
-                <p>Consolidación marítima y aérea, compras internacionales y gestión aduanera integral adaptada a tu negocio.</p>
+                <span class="badge">Casillero & Logística China - EE.UU. - Venezuela</span>
+                <h1>Tu Mercancía en Manos de Expertos</h1>
+                <p>Abre tu casillero gratis, recibe en nuestros almacenes internacionales y rastrea tu carga hasta Venezuela.</p>
                 <div class="hero-buttons">
-                    <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
+                    <button onclick="abrirModal('registerModal')" class="btn-primary">Abre tu Casillero Gratis</button>
                     <a href="#calculadora" class="btn-secondary">Calcular Envío</a>
                 </div>
             </div>
+            <div class="hero-image">
+                <img src="foto-personal-1.png" alt="LD Global Asesoría">
+            </div>
         </div>
     </section>
 
-    <!-- Sección de Orígenes / Cobertura Global -->
-    <section id="origenes" class="origins-section">
+    <!-- Galería Real / Sobre Nosotros -->
+    <section id="galeria" class="gallery-section">
         <div class="section-title">
-            <h2>Nuestra Cobertura Internacional</h2>
-            <p>Conectamos los principales mercados comerciales con tu destino</p>
+            <h2>Nuestra Operación en Fotos Real</h2>
+            <p>Transparencia, seguridad y atención personalizada en cada embarque</p>
         </div>
-        <div class="origins-grid">
-            <div class="origin-card">
-                <span class="flag">🇨🇳</span>
-                <h3>China</h3>
-                <p>Envíos consolidados marítimos y aéreos directos. Inspección en fábrica y consolidación de proveedores.</p>
+        <div class="gallery-grid">
+            <div class="gallery-card">
+                <img src="almacen-china.jpg" alt="Almacén China">
+                <h4>Almacén en China</h4>
             </div>
-            <div class="origin-card">
-                <span class="flag">🇺🇸</span>
-                <h3>Estados Unidos</h3>
-                <p>Casillero y fletes express aéreos y marítimos desde Miami. Manejo de compras corporativas y personales.</p>
+            <div class="gallery-card">
+                <img src="verificacion-proveedor.jpg" alt="Verificación de Proveedor">
+                <h4>Verificación de Calidad</h4>
             </div>
-            <div class="origin-card global-card">
-                <span class="flag">🌍</span>
-                <h3>Otros Países</h3>
-                <p>¿Necesitas importar desde otro origen? <strong>Consulta sin compromiso</strong> con nuestro equipo de logística.</p>
+            <div class="gallery-card">
+                <img src="almacen-1.jpg" alt="Recepción de Carga">
+                <h4>Consolidación de Carga</h4>
             </div>
-        </div>
-    </section>
-
-    <!-- Servicios -->
-    <section id="servicios" class="services">
-        <div class="section-title">
-            <h2>Nuestros Servicios de Importación</h2>
-            <p>Soluciones logísticas diseñadas para emprendedores y empresas</p>
-        </div>
-        <div class="services-grid">
-            <div class="card">
-                <div class="card-icon">🚢</div>
-                <h3>Flete Marítimo (CBM)</h3>
-                <p>Ideal para grandes volúmenes y maquinaria. Salidas semanales consolidadas.</p>
-                <ul>
-                    <li>✓ Consolidado (LCL) y Contenedor Completo (FCL)</li>
-                    <li>✓ Tarifas calculadas por Metro Cúbico</li>
-                    <li>✓ Manejo de mercancía pesada</li>
-                </ul>
+            <div class="gallery-card">
+                <img src="oficina.jpg" alt="Oficina LD Global">
+                <h4>Atención Personalizada</h4>
             </div>
-            <div class="card">
-                <div class="card-icon">✈️</div>
-                <h3>Flete Aéreo Express</h3>
-                <p>Para mercancías de alta prioridad o volumen reducido. Tiempos de entrega rápidos y monitoreados.</p>
-                <ul>
-                    <li>✓ Envíos rápidos en días hábiles</li>
-                    <li>✓ Cálculo por kilo o peso volumétrico</li>
-                    <li>✓ Despacho directo</li>
-                </ul>
+            <div class="gallery-card">
+                <img src="reunion.jpg" alt="Reunión con Clientes">
+                <h4>Asesoría presencial</h4>
             </div>
-            <div class="card">
-                <div class="card-icon">📦</div>
-                <h3>Inspección y Reempaque</h3>
-                <p>Recibimos compras de distintos proveedores, consolidamos en un solo envío y optimizamos el espacio.</p>
-                <ul>
-                    <li>✓ Verificación previa de proveedores</li>
-                    <li>✓ Control de calidad</li>
-                    <li>✓ Ahorro en costos de flete</li>
-                </ul>
+            <div class="gallery-card">
+                <img src="entregas-caracas.jpg" alt="Entregas Caracas">
+                <h4>Entregas en Caracas</h4>
             </div>
         </div>
     </section>
 
-    <!-- Calculadora Dinámica -->
+    <!-- Calculadora -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora Estimada de Carga Marítima</h2>
@@ -124,67 +97,146 @@ HTML
         </div>
     </section>
 
-    <!-- Sección Nosotros y Redes -->
-    <section id="nosotros" class="about">
-        <div class="about-container">
-            <div class="about-image">
-                <img src="logo-secundario.png" alt="LD Global Emblem">
-            </div>
-            <div class="about-text">
-                <h2>¿Por qué elegir LDGlobal Import & Logistics?</h2>
-                <p>Somos tu brazo logístico estratégico internacional. Facilitamos todo el proceso desde la recolección con el proveedor hasta la entrega final en tú almacén. Síguenos en nuestras redes para ver nuestros embarques en tiempo real.</p>
-                <div class="social-badges">
-                    <a href="https://www.instagram.com/Ldglobal_Import/" target="_blank" class="social-card instagram-card">
-                        <img src="logo-instagram.png" alt="Instagram LD Global">
-                        <span>Síguenos en Instagram<br><strong>@Ldglobal_Import</strong></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- MODAL DE REGISTRO DE CASILLERO -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="cerrarModal('registerModal')">&times;</span>
+            <h2>Formulario de Registro - Crear Casillero</h2>
+            <p>Completa tus datos para asignarte tu código de casillero único</p>
+            
+            <form action="https://formsubmit.co/Ventas@ldglobalimport.com" method="POST" class="form-grid">
+                <!-- Redirección y Asunto del Correo -->
+                <input type="hidden" name="_subject" value="¡Nuevo Registro de Casillero en LD Global Import!">
+                <input type="hidden" name="_captcha" value="false">
 
-    <!-- Formulario de Cotización -->
-    <section id="contacto" class="contact">
-        <div class="contact-container">
-            <h2>Solicita una Cotización Directa</h2>
-            <p>Completa el formulario y te contactaremos inmediatamente con una propuesta personalizada.</p>
-            <form class="quote-form" onsubmit="event.preventDefault(); enviarCotizacion();">
-                <input type="text" id="nombre" placeholder="Nombre completo o Empresa" required>
-                <input type="tel" id="telefono" placeholder="Número de WhatsApp" required>
-                <select id="origen" required>
-                    <option value="" disabled selected>País de Origen</option>
-                    <option value="China">China</option>
-                    <option value="EE.UU.">Estados Unidos</option>
-                    <option value="Otro País">Otro País (Consultar)</option>
-                </select>
-                <select id="tipoEnvio" required>
-                    <option value="" disabled selected>Tipo de Flete</option>
-                    <option value="Marítimo">Flete Marítimo</option>
-                    <option value="Aéreo">Flete Aéreo</option>
-                    <option value="Asesoría Integral">Asesoría de Compras</option>
-                </select>
-                <textarea id="descripcion" placeholder="Detalles de la mercancía (dimensiones, peso, tipo de producto)" rows="4" required></textarea>
-                <button type="submit" class="btn-primary btn-full">Enviar a un Asesor</button>
+                <div class="form-group full">
+                    <label>Tipo de Registro*</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="Tipo_Registro" value="Persona" checked> Persona</label>
+                        <label><input type="radio" name="Tipo_Registro" value="Empresa"> Empresa</label>
+                    </div>
+                </div>
+
+                <div class="form-group"><label>Identificación (CI/RIF)*</label><input type="text" name="Identificacion" required></div>
+                <div class="form-group"><label>Nombre*</label><input type="text" name="Nombre" required></div>
+                <div class="form-group"><label>Apellido*</label><input type="text" name="Apellido" required></div>
+                <div class="form-group"><label>Email*</label><input type="email" id="regEmail" name="Email" required></div>
+                <div class="form-group"><label>Confirmar Email*</label><input type="email" name="Confirmar_Email" required></div>
+                <div class="form-group"><label>Password*</label><input type="password" id="regPass" name="Password" required></div>
+                <div class="form-group"><label>Confirmar Password*</label><input type="password" name="Confirmar_Password" required></div>
+
+                <div class="form-group">
+                    <label>País*</label>
+                    <select name="Pais" required>
+                        <option value="">:: Seleccione ::</option>
+                        <option value="Venezuela" selected>Venezuela</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado*</label>
+                    <select name="Estado" required>
+                        <option value="">:: Seleccione ::</option>
+                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option>
+                    </select>
+                </div>
+
+                <div class="form-group"><label>Ciudad*</label><input type="text" name="Ciudad" placeholder="Ej: Caracas" required></div>
+                <div class="form-group full"><label>Dirección 1*</label><input type="text" name="Direccion1" required></div>
+                <div class="form-group"><label>Código Postal</label><input type="text" name="Codigo_Postal"></div>
+                <div class="form-group"><label>Teléfono*</label><input type="tel" name="Telefono" required></div>
+                <div class="form-group"><label>Celular</label><input type="tel" name="Celular"></div>
+
+                <button type="submit" class="btn-primary full">Completar Registro y Crear Casillero</button>
             </form>
         </div>
-    </section>
+    </div>
+
+    <!-- MODAL DE INICIO DE SESIÓN -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content small">
+            <span class="close-btn" onclick="cerrarModal('loginModal')">&times;</span>
+            <h2>Iniciar Sesión en tu Casillero</h2>
+            <form onsubmit="event.preventDefault(); iniciarSesion();">
+                <div class="form-group full">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group full">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginPass" required>
+                </div>
+                <button type="submit" class="btn-primary full">Ingresar al Almacén</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DEL CASILLERO/ALMACÉN DE CLIENTE -->
+    <div id="warehouseModal" class="modal">
+        <div class="modal-content large">
+            <span class="close-btn" onclick="cerrarModal('warehouseModal')">&times;</span>
+            <div class="user-header">
+                <h2>📦 Panel de Casillero - <span id="userDisp">Cliente</span></h2>
+                <span class="badge-status">Casillero Activo: LDG-8842</span>
+            </div>
+            <h3>Paquetes Recibidos en Almacén China / Miami</h3>
+            
+            <table class="warehouse-table">
+                <thead>
+                    <tr>
+                        <th>Tracking / WR</th>
+                        <th>Origen</th>
+                        <th>Descripción</th>
+                        <th>Peso / CBM</th>
+                        <th>Estatus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>WR-99831</strong></td>
+                        <td>🇨🇳 Guangzhou, China</td>
+                        <td>Cajas de Repuestos / Muestras</td>
+                        <td>0.120 CBM</td>
+                        <td><span class="status green">Recibido en Almacén</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>WR-99832</strong></td>
+                        <td>🇺🇸 Miami, EE.UU.</td>
+                        <td>Paquete Express Electrónicos</td>
+                        <td>3.5 Kg</td>
+                        <td><span class="status orange">En Tránsito a Venezuela</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
             <img src="logo-principal.png" alt="LD Global Import Logo" class="footer-logo">
-            <p>LD Global Import & Logistics — Conectando tu negocio con los mercados globales.</p>
+            <p>LD Global Import & Logistics — Tu casillero seguro desde China y EE.UU.</p>
             <p class="copyright">&copy; 2026 LD Global Import. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Botón Flotante de WhatsApp -->
-    <a href="https://wa.me/584242474580?text=Hola%20LD%20Global%20Import,%20deseo%20cotizar%20un%20env%C3%ADo" class="whatsapp-float" target="_blank">
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/584120000000?text=Hola%20LD%20Global%20Import,%20necesito%20ayuda%20con%20mi%20casillero" class="whatsapp-float" target="_blank">
         <img src="logo-whatsapp.png" alt="WhatsApp LD Global">
     </a>
 
-    <!-- JavaScript -->
+    <!-- JavaScript para Modales y Lógica -->
     <script>
+        function abrirModal(id) { document.getElementById(id).style.display = 'block'; }
+        function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function iniciarSesion() {
+            const email = document.getElementById('loginEmail').value;
+            cerrarModal('loginModal');
+            document.getElementById('userDisp').innerText = email;
+            abrirModal('warehouseModal');
+        }
+
         function calcularCBM() {
             const largo = parseFloat(document.getElementById('largo').value);
             const ancho = parseFloat(document.getElementById('ancho').value);
@@ -197,18 +249,6 @@ HTML
                 resultBox.style.display = 'block';
                 resultBox.innerHTML = `<strong>Volumen Total:</strong> ${cbmTotal.toFixed(3)} CBM (m³) para ${cajas} caja(s).`;
             }
-        }
-
-        function enviarCotizacion() {
-            const nombre = document.getElementById('nombre').value;
-            const tel = document.getElementById('telefono').value;
-            const origen = document.getElementById('origen').value;
-            const tipo = document.getElementById('tipoEnvio').value;
-            const desc = document.getElementById('descripcion').value;
-
-            const mensaje = `Hola LDGlobal Import, mi nombre es ${nombre}. Deseo cotizar un flete ${tipo} desde ${origen}. Detalles: ${desc}. Mi contacto: ${tel}`;
-            const url = `https://wa.me/584242474580?text=${encodeURIComponent(mensaje)}`;
-            window.open(url, '_blank');
         }
     </script>
 </body>

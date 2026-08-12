@@ -1,146 +1,34 @@
-/* Reset general */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Estilos para Sección Orígenes */
+.origins-section {
+    padding: 60px 8%;
+    background-color: #f8fafc;
 }
 
-body {
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    background-color: #0b2545;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.logo span {
-    color: #f26419;
-}
-
-.navbar nav ul {
-    display: flex;
-    list-style: none;
-}
-
-.navbar nav ul li {
-    margin-left: 20px;
-}
-
-.navbar nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Hero Section */
-.hero {
-    background: linear-gradient(rgba(11, 37, 69, 0.8), rgba(11, 37, 69, 0.8)), url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d') no-repeat center center/cover;
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    padding: 0 20px;
-}
-
-.hero-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
-
-.btn-primary, .btn-submit {
-    background-color: #f26419;
-    color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn-primary:hover, .btn-submit:hover {
-    background-color: #d9530f;
-}
-
-/* Servicios */
-.services {
-    padding: 60px 5%;
-    text-align: center;
-    background-color: #f4f4f9;
-}
-
-.services-grid {
+.origins-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
 }
 
-.card {
+.origin-card {
     background: white;
-    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Contacto */
-.contact {
-    padding: 60px 5%;
+    padding: 30px;
     text-align: center;
+    border-top: 4px solid var(--primary-blue);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.quote-form {
-    max-width: 500px;
-    margin: 30px auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.global-card {
+    border-top: 4px solid var(--accent-orange);
 }
 
-.quote-form input, .quote-form select, .quote-form textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
+.flag {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
 }
 
-/* Botón Flotante WhatsApp */
-.whatsapp-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #25d366;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
-}
-
-footer {
-    background-color: #0b2545;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
+.origin-card h3 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;

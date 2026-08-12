@@ -40,7 +40,7 @@
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
                 <div class="hero-badge">
-                    ESPECIALISTAS EN LOGÍSTICA CHINA - VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA-USA- VENEZUELA
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
@@ -89,7 +89,7 @@
     </section>
 
     <!-- WhatsApp -->
-    <a href="https://wa.me/584120000000" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
         <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
@@ -270,48 +270,47 @@
         }
 
         function procesarRegistro() {
-            const email = document.getElementById('email').value;
-            const confirmEmail = document.getElementById('confirmEmail').value;
-            const pass = document.getElementById('password').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
+    const email = document.getElementById('email').value;
+    const confirmEmail = document.getElementById('confirmEmail').value;
+    const pass = document.getElementById('password').value;
+    const confirmPass = document.getElementById('confirmPassword').value;
 
-            if (email !== confirmEmail) {
-                alert("Los correos electrónicos no coinciden.");
-                return;
-            }
-            if (pass !== confirmPass) {
-                alert("Las contraseñas no coinciden.");
-                return;
-            }
+    if (email !== confirmEmail) {
+        alert("Los correos electrónicos no coinciden.");
+        return;
+    }
+    if (pass !== confirmPass) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
 
-            const nombre = document.getElementById('nombre').value + " " + document.getElementById('apellido').value;
-            const telefono = document.getElementById('telefono').value;
-            const estado = document.getElementById('estado').value;
-            const identificacion = document.getElementById('identificacion').value;
+    const nombre = document.getElementById('nombre').value + " " + document.getElementById('apellido').value;
+    const telefono = document.getElementById('telefono').value;
+    const estado = document.getElementById('estado').value;
+    const identificacion = document.getElementById('identificacion').value;
 
-            localStorage.setItem("user_email", email.toLowerCase().trim());
-            localStorage.setItem("user_pass", pass);
-            localStorage.setItem("user_nombre", nombre);
+    localStorage.setItem("user_email", email.toLowerCase().trim());
+    localStorage.setItem("user_pass", pass);
+    localStorage.setItem("user_nombre", nombre);
 
-            // ENVIAR CORREO AUTOMÁTICO A VENTAS@LDGLOBALIMPORT.COM MEDIANTE EMAILJS
-            emailjs.send("service_hn885sb", "template_f9by2on", {
-                nombre: nombre,
-                email: email,
-                telefono: telefono,
-                estado: estado,
-                identificacion: identificacion
-            })
-            .then(function(response) {
-                alert("¡Registro completado con éxito! Se ha activado tu casillero y notificado a nuestro equipo.");
-                cerrarModal('modalRegister');
-                abrirModal('modalLogin');
-            }, function(error) {
-                alert("Registro completado y activado.");
-                cerrarModal('modalRegister');
-                abrirModal('modalLogin');
-            });
-        }
-
+    // REEMPLAZA "NUEVO_SERVICE_ID_AQUI" CON EL CÓDIGO QUE COPIASTE EN EL PASO 1
+    emailjs.send("NUEVO_SERVICE_ID_AQUI", "template_f9by2on", {
+        nombre: nombre,
+        email: email,
+        telefono: telefono,
+        estado: estado,
+        identificacion: identificacion
+    })
+    .then(function(response) {
+        alert("¡Registro completado con éxito! Se ha activado tu casillero y notificado a nuestro equipo.");
+        cerrarModal('modalRegister');
+        abrirModal('modalLogin');
+    }, function(error) {
+        alert("Registro completado y activado.");
+        cerrarModal('modalRegister');
+        abrirModal('modalLogin');
+    });
+}
         function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;

@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado desde China</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Librería para el envío automático de correo a Ventas@ldglobalimport.com -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -22,11 +20,6 @@
                 <li><a href="#contacto">Cotizar</a></li>
             </ul>
         </nav>
-        <!-- Botones Superiores a la Derecha -->
-        <div class="auth-buttons">
-            <button onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
-            <button onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
-        </div>
     </header>
 
     <!-- Sección Hero -->
@@ -74,8 +67,8 @@
         </form>
     </section>
 
-    <!-- Botón Flotante de WhatsApp -->
-    <a href="https://wa.me/584120000000" class="whatsapp-btn" target="_blank" rel="noopener">
+    <!-- Botón Flotante de WhatsApp (Recuerda cambiar el número) -->
+    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener">
         💬 Chat por WhatsApp
     </a>
 
@@ -83,194 +76,5 @@
         <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- ================= MODAL REGISTRO DE CASILLERO ================= -->
-    <div id="modalRegister" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
-            <h2>Formulario de Registro - Crea tu Casillero</h2>
-            
-            <form id="registerForm" onsubmit="event.preventDefault(); procesarRegistro();">
-                <div class="form-group-radio">
-                    <label><strong>Tipo de Registro*</strong></label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="tipoRegistro" value="Persona" checked> Persona</label>
-                        <label><input type="radio" name="tipoRegistro" value="Empresa"> Empresa</label>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <input type="text" id="identificacion" placeholder="Identificación*" required>
-                    <input type="text" id="nombre" placeholder="Nombre*" required>
-                    <input type="text" id="apellido" placeholder="Apellido*" required>
-                    
-                    <input type="email" id="email" placeholder="Email*" required>
-                    <input type="email" id="confirmEmail" placeholder="Confirmar Email*" required>
-                    
-                    <input type="password" id="password" placeholder="Password*" required>
-                    <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
-
-                    <select id="pais" required>
-                        <option value="" disabled selected>:: Seleccione País ::</option>
-                        <option value="Venezuela">Venezuela</option>
-                    </select>
-
-                    <select id="estado" required>
-                        <option value="" disabled selected>:: Seleccione Estado ::</option>
-                        <option value="Amazonas">Amazonas</option>
-                        <option value="Anzoategui">Anzoategui</option>
-                        <option value="Apure">Apure</option>
-                        <option value="Aragua">Aragua</option>
-                        <option value="Barinas">Barinas</option>
-                        <option value="Bolivar">Bolivar</option>
-                        <option value="Carabobo">Carabobo</option>
-                        <option value="Cojedes">Cojedes</option>
-                        <option value="Delta Amacuro">Delta Amacuro</option>
-                        <option value="Distrito Capital">Distrito Capital</option>
-                        <option value="Falcon">Falcon</option>
-                        <option value="Guarico">Guarico</option>
-                        <option value="Lara">Lara</option>
-                        <option value="Merida">Merida</option>
-                        <option value="Miranda">Miranda</option>
-                        <option value="Monagas">Monagas</option>
-                        <option value="Nueva Esparta">Nueva Esparta</option>
-                        <option value="Portuguesa">Portuguesa</option>
-                        <option value="Sucre">Sucre</option>
-                        <option value="Tachira">Tachira</option>
-                        <option value="Trujillo">Trujillo</option>
-                        <option value="Vargas">Vargas</option>
-                        <option value="Yaracuy">Yaracuy</option>
-                        <option value="Zulia">Zulia</option>
-                    </select>
-
-                    <input type="text" id="ciudad" placeholder="Ciudad*" required>
-                    <input type="text" id="direccion1" placeholder="Dirección 1*" required>
-                    <input type="text" id="codigoPostal" placeholder="Código Postal">
-                    <input type="tel" id="telefono" placeholder="Teléfono*" required>
-                    <input type="tel" id="celular" placeholder="Celular">
-                </div>
-
-                <button type="submit" class="btn-primary btn-block">Registrarse y Crear Casillero</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ================= MODAL INICIO DE SESIÓN ================= -->
-    <div id="modalLogin" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
-            <h2>Inicio de Sesión</h2>
-            <form onsubmit="event.preventDefault(); procesarLogin();">
-                <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input">
-                <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input">
-                <button type="submit" class="btn-primary btn-block">Ingresar</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ================= MODAL ALMACÉN DEL CLIENTE ================= -->
-    <div id="modalCasillero" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
-            <h2>📦 Mi Casillero - Paquetes en Almacén</h2>
-            <p>Bienvenido, <strong id="userNombre">Cliente</strong> | Código de Casillero: <strong id="userCasillero">LDG-001</strong></p>
-            
-            <div class="warehouse-box">
-                <h3>Dirección para enviar tus compras desde China/EE.UU.:</h3>
-                <p><strong>Dirección:</strong> 8400 NW 25th St, Suite 100 / Ref: Casillero <span id="dashCasilleroCode">LDG-001</span></p>
-            </div>
-
-            <h3>Mercancía Recibida</h3>
-            <table class="casillero-table">
-                <thead>
-                    <tr>
-                        <th>Tracking / Guía</th>
-                        <th>Origen</th>
-                        <th>Descripción</th>
-                        <th>Peso / Volumen</th>
-                        <th>Estatus</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>CHN-883921</td>
-                        <td>China (Yiwu)</td>
-                        <td>Cajas de Accesorios / Electrónica</td>
-                        <td>0.35 CBM</td>
-                        <td><span class="tag tag-green">En Almacén China</span></td>
-                    </tr>
-                    <tr>
-                        <td>USA-992102</td>
-                        <td>EE.UU. (Miami)</td>
-                        <td>Repuestos Industriales</td>
-                        <td>4.2 Kg</td>
-                        <td><span class="tag tag-orange">En Tránsito a Venezuela</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- SCRIPT DE FUNCIONALIDADES -->
-    <script>
-        function abrirModal(id) {
-            document.getElementById(id).style.display = "flex";
-        }
-
-        function cerrarModal(id) {
-            document.getElementById(id).style.display = "none";
-        }
-
-        function procesarRegistro() {
-            const email = document.getElementById('email').value;
-            const confirmEmail = document.getElementById('confirmEmail').value;
-            const pass = document.getElementById('password').value;
-            const confirmPass = document.getElementById('confirmPassword').value;
-
-            if (email !== confirmEmail) {
-                alert("Los correos electrónicos no coinciden.");
-                return;
-            }
-            if (pass !== confirmPass) {
-                alert("Las contraseñas no coinciden.");
-                return;
-            }
-
-            const nombre = document.getElementById('nombre').value + " " + document.getElementById('apellido').value;
-            
-            // Guardar credenciales temporalmente para permitir login
-            localStorage.setItem("user_email", email);
-            localStorage.setItem("user_pass", pass);
-            localStorage.setItem("user_nombre", nombre);
-
-            // Notificación vía Email/Enlace automático a Ventas@ldglobalimport.com
-            const asunto = encodeURIComponent("Nuevo Registro de Casillero - LDGlobal Import");
-            const cuerpo = encodeURIComponent(`Nuevo registro recibido:\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${document.getElementById('telefono').value}\nEstado: ${document.getElementById('estado').value}`);
-            
-            alert("¡Registro completado con éxito! Se ha creado tu casillero. Ahora puedes Iniciar Sesión.");
-            
-            // Envío en segundo plano
-            window.open(`mailto:Ventas@ldglobalimport.com?subject=${asunto}&body=${cuerpo}`, '_blank');
-
-            cerrarModal('modalRegister');
-            abrirModal('modalLogin');
-        }
-
-        function procesarLogin() {
-            const emailIngresado = document.getElementById('loginEmail').value;
-            const passIngresado = document.getElementById('loginPass').value;
-
-            const emailGuardado = localStorage.getItem("user_email") || "demo@ldglobal.com";
-            const passGuardada = localStorage.getItem("user_pass") || "123456";
-            const nombreGuardado = localStorage.getItem("user_nombre") || "Usuario Registrado";
-
-            if (emailIngresado === emailGuardado && passIngresado === passGuardada) {
-                document.getElementById('userNombre').innerText = nombreGuardado;
-                cerrarModal('modalLogin');
-                abrirModal('modalCasillero');
-            } else {
-                alert("Correo electrónico o contraseña incorrectos.");
-            }
-        }
-    </script>
 </body>
 </html>

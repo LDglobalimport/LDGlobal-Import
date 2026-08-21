@@ -1,259 +1,382 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
+@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LD Global Import & Logistics | Rastreo de Almacén</title>
-    <style>
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --success-color: #16a34a;
-            --bg-color: #f8fafc;
-            --text-color: #334155;
-            --border-color: #cbd5e1;
-        }
+    <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
+    <link rel="icon" type="image/png" href="logo-secundario.png">
+    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+@@ -26,6 +26,7 @@
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#calculadora">Calculadora</a></li>
+                <li><a href="#contacto">Cotizar</a></li>
+            </ul>
+        </nav>
+@@ -40,7 +41,7 @@
+        <div class="hero-overlay-puerto">
+            <div class="hero-content-puerto">
+                <div class="hero-badge">
+                    ESPECIALISTAS EN LOGÍSTICA CHINA- USA - VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA - VENEZUELA
+                </div>
+                <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
+                <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
+@@ -71,6 +72,175 @@ <h3>📑 Gestión Aduanal</h3>
+        </div>
+    </section>
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid var(--accent-color);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            margin: 0.5rem 0 0;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .search-box input {
-            flex: 1;
-            min-width: 250px;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        .search-box button {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .search-box button:hover {
-            background-color: #1d4ed8;
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        th, td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: #f1f5f9;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .highlight-recibo {
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .green-val {
-            color: var(--success-color);
-            font-weight: bold;
-        }
-
-        .expedidor-red {
-            color: #475569;
-        }
-
-        .loading-data, .empty-warehouse {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            font-style: italic;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            color: #64748b;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 3rem;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>LD GLOBAL IMPORT & LOGISTICS</h1>
-        <p>Sistema de Consulta y Rastreo de Almacén</p>
-    </header>
-
-    <div class="container">
-        <div class="card">
-            <h2>Consulta de Mercancía en Almacén</h2>
-            <p>Ingresa el correo electrónico asociado a tus envíos para verificar el estatus de tu carga.</p>
+    <!-- SECCIÓN CALCULADORA DE ENVÍOS -->
+    <section id="calculadora" class="calculator-section">
+        <div class="calculator-container">
+            <h2>Calculadora de Envíos</h2>
+            <p class="calc-subtitle">Calcula de forma aproximada el costo de tu flete marítimo o aéreo</p>
             
-            <div class="search-box">
-                <input type="email" id="emailClienteInput" placeholder="Ejemplo: tu-correo@dominio.com">
-                <button onclick="consultarAlmacen()">Consultar Estatus</button>
+            <div class="calc-tabs">
+                <button class="calc-tab active" onclick="cambiarTabCalc('maritimo')">🚢 Envío Marítimo</button>
+                <button class="calc-tab" onclick="cambiarTabCalc('aereo')">✈️ Envío Aéreo</button>
+            </div>
+
+            <!-- CALCULADORA MARÍTIMA (IMAGEN 1) -->
+            <div id="calcMaritimo" class="calc-content active">
+                <h3>Calcula tu envío marítimo</h3>
+                
+                <div class="calc-form-group">
+                    <label>Origen de la Carga:</label>
+                    <select id="marOrigen" onchange="actualizarTarifasMaritimas()">
+                        <option value="china" selected>China 🇨🇳</option>
+                        <option value="miami">Miami (EE.UU.) 🇺🇸</option>
+                    </select>
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Largo (cm):</label>
+                    <input type="number" id="marLargo" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Ancho (cm):</label>
+                    <input type="number" id="marAncho" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Alto (cm):</label>
+                    <input type="number" id="marAlto" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>PESO DE MERCANCIA (KG):</label>
+                    <input type="number" id="marPeso" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Cantidad de cajas:</label>
+                    <input type="number" id="marCajas" value="1" min="1">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>¿Cómo viene embalada la mercancía?</label>
+                    <div class="radio-group-calc">
+                        <label><input type="radio" name="embalaje" value="carton" checked> Caja de Cartón</label>
+                        <label><input type="radio" name="embalaje" value="madera"> Caja de Madera</label>
+                        <label><input type="radio" name="embalaje" value="paleta"> Paleta</label>
+                    </div>
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Precio del m3 / Destino:</label>
+                    <select id="marDestinoTarifa">
+                        <!-- Se llena dinámicamente según el origen elegido -->
+                    </select>
+                </div>
+
+                <div class="calc-form-group checkbox-group">
+                    <label><input type="checkbox" id="marBateria"> ¿Tu carga es una fuente de energía? (batería o UPS)</label>
+                </div>
+
+                <button class="btn-calc-submit" onclick="calcularMaritimo()">CALCULAR</button>
+
+                <div class="calc-results">
+                    <div class="calc-result-field">
+                        <label>Metro cúbico (m3):</label>
+                        <input type="text" id="resMarCbm" readonly placeholder="0.00">
+                    </div>
+                    <div class="calc-result-field">
+                        <label>Precio aproximado a pagar por este envío:</label>
+                        <input type="text" id="resMarTotal" readonly placeholder="$0.00">
+                    </div>
+                </div>
+
+                <div class="calc-disclaimer">
+                    <h4>FINANCIAMIENTO 100%</h4>
+                    <p><strong>Realiza el pago de tu envío cuando llegue a Puerto Nacional (Venezuela).</strong></p>
+                    <p>TARIFAS APLICADAS PARA SOLO PAGOS EN DIVISAS.</p>
+                    <p class="note-highlight">(SI SU PAQUETE ES EQUIPOS, INSUMOS MEDICOS O DE ALTO VALOR DEBE CONSULTAR CON SU ASESOR)</p>
+                </div>
+            </div>
+
+            <!-- CALCULADORA AÉREA (IMAGEN 2) -->
+            <div id="calcAereo" class="calc-content">
+                <h3>Cotiza tu envío aéreo con nosotros</h3>
+
+                <div class="calc-form-group">
+                    <label>Origen de la Carga:</label>
+                    <select id="aerOrigen">
+                        <option value="china" selected>China 🇨🇳 ($27 por Kilo)</option>
+                        <option value="miami">Miami (EE.UU.) 🇺🇸 ($7 por Libra)</option>
+                    </select>
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Alto (cm):</label>
+                    <input type="number" id="aerAlto" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Ancho (cm):</label>
+                    <input type="number" id="aerAncho" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Largo (cm):</label>
+                    <input type="number" id="aerLargo" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Peso Real (kg):</label>
+                    <input type="number" id="aerPeso" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Cantidad de Cajas:</label>
+                    <input type="number" id="aerCajas" value="1" min="1">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Valor en $ de su mercancía:</label>
+                    <input type="number" id="aerValor" placeholder="0" min="0" step="any">
+                </div>
+
+                <div class="calc-form-group">
+                    <label>Cantidad de unidades del producto:</label>
+                    <input type="number" id="aerUnidades" value="1" min="1">
+                </div>
+
+                <button class="btn-calc-submit" onclick="calcularAereo()">CALCULAR</button>
+
+                <div class="calc-results">
+                    <div class="calc-result-field">
+                        <label>Peso volumétrico (kg):</label>
+                        <input type="text" id="resAerPesoVol" readonly placeholder="0.00">
+                    </div>
+                    <div class="calc-result-field">
+                        <label>Costo de envío (USD):</label>
+                        <input type="text" id="resAerCostoEnvio" readonly placeholder="$0.00">
+                    </div>
+                    <div class="calc-result-field">
+                        <label>Impuestos aproximados:</label>
+                        <input type="text" id="resAerImpuestos" readonly placeholder="$0.00">
+                    </div>
+                    <div class="calc-result-field highlight-total">
+                        <label>TOTAL (Impuesto + envío) (USD):</label>
+                        <input type="text" id="resAerTotal" readonly placeholder="$0.00">
+                    </div>
+                </div>
+
+                <div class="calc-disclaimer-aereo">
+                    <p><strong>IMPORTANTE:</strong> Debes enviar la siguiente información a tu asesor para que el paquete aéreo sea procesado.</p>
+                    <ol>
+                        <li>INVOICE (factura de compra).</li>
+                        <li>Comprobante de pago.</li>
+                        <li>Código HS del producto.</li>
+                    </ol>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="card">
-            <h3>Detalle de Carga Recibida</h3>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Recibo / Tracking</th>
-                            <th>Fecha</th>
-                            <th>Descripción</th>
-                            <th>Expedidor</th>
-                            <th>Peso / Vol</th>
-                            <th>Piezas</th>
-                            <th>Casillero</th>
-                            <th>Estatus</th>
-                            <th>Almacén</th>
-                            <th>Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaMercanciaBody">
-                        <tr>
-                            <td colspan="10" class="empty-warehouse">Ingrese su correo arriba para consultar el almacén.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <!-- Cotización -->
+    <section id="contacto" class="contact">
+        <h2>Cotiza tu Envío</h2>
+@@ -89,7 +259,7 @@ <h2>Cotiza tu Envío</h2>
+    </section>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+    <a href="https://wa.me/584120000000" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+        <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
+    </a>
+
+@@ -192,7 +362,7 @@ <h2>Inicio de Sesión</h2>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 LD Global Import & Logistics. Todos los derechos reservados.
-    </footer>
+    <!-- MODAL CASILLERO CON BOTÓN DE CERRAR SESIÓN -->
+    <!-- MODAL CASILLERO CON CERRAR SESIÓN -->
+    <div id="modalCasillero" class="modal">
+        <div class="modal-content modal-extra-large">
+            <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
+@@ -205,7 +375,6 @@ <h2>📄 Ingresos en Almacén</h2>
+                        <span>Casillero: <strong id="userCasillero">LDG-8842</strong></span>
+                    </div>
+                </div>
+                <!-- BOTÓN PARA SALIR / CERRAR SESIÓN -->
+                <button onclick="cerrarSesion();" class="btn-logout">🚪 Cerrar Sesión</button>
+            </div>
 
+@@ -260,9 +429,133 @@ <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
-        // PEGA AQUÍ EL ENLACE CSV DE TU GOOGLE SHEETS PUBLICADO EN LA WEB
-        const GOOGLE_SHEETS_CSV_URL = "AQUI_PEGA_TU_ENLACE";
+        const GOOGLE_SHEETS_CSV_URL = "AQUI_PEGA_TU_ENLACE_CSV_DE_GOOGLE_SHEETS";
 
-        function consultarAlmacen() {
-            const emailInput = document.getElementById('emailClienteInput').value.toLowerCase().trim();
-            if (!emailInput) {
-                alert("Por favor, introduce un correo electrónico válido.");
-                return;
+        // TARIFAS MARÍTIMAS
+        const TARIFAS_CHINA_MAR = [
+            { destino: "Caracas", precio: 970 },
+            { destino: "Maracay", precio: 910 },
+            { destino: "Valencia", precio: 930 },
+            { destino: "Barquisimeto", precio: 1030 },
+            { destino: "Margarita", precio: 1240 },
+            { destino: "Cojedes y Yaracuy", precio: 1110 },
+            { destino: "Miranda y Vargas", precio: 990 },
+            { destino: "Otros estados", precio: 1140 }
+        ];
+
+        const TARIFAS_MIAMI_MAR = [
+            { destino: "Caracas", precio: 1220 },
+            { destino: "Barquisimeto", precio: 1370 },
+            { destino: "Ciudad Bolivar", precio: 1370 },
+            { destino: "Cumana", precio: 1370 },
+            { destino: "Guarenas / Guatire", precio: 1260 },
+            { destino: "La Guaira", precio: 1296 },
+            { destino: "Los Teques", precio: 1259 },
+            { destino: "Maracay", precio: 1333 },
+            { destino: "Maracaibo", precio: 1370 },
+            { destino: "Porlamar", precio: 1370 },
+            { destino: "Puerto La Cruz", precio: 1370 },
+            { destino: "Rio Chico", precio: 1740 },
+            { destino: "San Diego", precio: 1370 },
+            { destino: "Valera", precio: 1370 },
+            { destino: "Valles del Tuy", precio: 1296 },
+            { destino: "Tejerias", precio: 1333 }
+        ];
+
+        // LÓGICA DE PESTAÑAS DE CALCULADORA
+        function cambiarTabCalc(tipo) {
+            document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.calc-content').forEach(c => c.classList.remove('active'));
+
+            if (tipo === 'maritimo') {
+                event.target.classList.add('active');
+                document.getElementById('calcMaritimo').classList.add('active');
+            } else {
+                event.target.classList.add('active');
+                document.getElementById('calcAereo').classList.add('active');
             }
-            cargarMercanciaGoogleSheets(emailInput);
         }
 
-        function cargarMercanciaGoogleSheets(emailCliente) {
-            const tbody = document.getElementById('tablaMercanciaBody');
-            tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Consultando servidor de almacén...</td></tr>';
+        function actualizarTarifasMaritimas() {
+            const origen = document.getElementById('marOrigen').value;
+            const select = document.getElementById('marDestinoTarifa');
+            select.innerHTML = '';
 
-            if (GOOGLE_SHEETS_CSV_URL.includes("AQUI_PEGA_TU_ENLACE")) {
-                tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">Configuración pendiente: Enlace de Google Sheets no configurado.</td></tr>';
+            const lista = (origen === 'china') ? TARIFAS_CHINA_MAR : TARIFAS_MIAMI_MAR;
+            lista.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.precio;
+                opt.textContent = `${item.destino} $${item.precio}`;
+                select.appendChild(opt);
+            });
+        }
+
+        // CALCULAR MARÍTIMO (IMAGEN 1)
+        function calcularMaritimo() {
+            const largo = parseFloat(document.getElementById('marLargo').value) || 0;
+            const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
+            const alto = parseFloat(document.getElementById('marAlto').value) || 0;
+            const cajas = parseInt(document.getElementById('marCajas').value) || 1;
+            const precioM3 = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
+
+            if (largo <= 0 || ancho <= 0 || alto <= 0) {
+                alert("Por favor ingrese las dimensiones válidas (Largo, Ancho, Alto).");
                 return;
             }
 
-            fetch(GOOGLE_SHEETS_CSV_URL)
-                .then(response => response.text())
-                .then(data => {
-                    const lineas = data.split('\n');
-                    let filasEncontradas = '';
+            // CBM = (Largo * Ancho * Alto) / 1,000,000 * Cajas
+            const cbm = ((largo * ancho * alto) / 1000000) * cajas;
+            const total = cbm * precioM3;
 
-                    for (let i = 1; i < lineas.length; i++) {
-                        const col = lineas[i].split(',');
-                        
-                        if (col.length >= 10) {
-                            const emailFila = col[0].replace(/"/g, '').toLowerCase().trim();
-                            
-                            if (emailFila === emailCliente) {
-                                filasEncontradas += `
-                                    <tr>
-                                        <td class="highlight-recibo">${col[1].replace(/"/g, '')} 📎</td>
-                                        <td>${col[2].replace(/"/g, '')}</td>
-                                        <td>${col[3].replace(/"/g, '')}</td>
-                                        <td class="expedidor-red">${col[4].replace(/"/g, '')}</td>
-                                        <td class="green-val">${col[5].replace(/"/g, '')}</td>
-                                        <td>${col[6].replace(/"/g, '')}</td>
-                                        <td>${col[7].replace(/"/g, '')}</td>
-                                        <td>${col[8].replace(/"/g, '')}</td>
-                                        <td>${col[9].replace(/"/g, '')}</td>
-                                        <td>${col[10] ? col[10].replace(/"/g, '') : ''}</td>
-                                    </tr>`;
-                            }
-                        }
-                    }
+            document.getElementById('resMarCbm').value = cbm.toFixed(3) + " m³";
+            document.getElementById('resMarTotal').value = "$" + total.toFixed(2);
+        }
 
-                    if (filasEncontradas !== '') {
-                        tbody.innerHTML = filasEncontradas;
-                    } else {
-                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes mercancía registrada con este correo en este momento.</td></tr>';
-                    }
-                })
-                .catch(error => {
-                    console.error("Error al cargar los datos:", error);
-                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">Error al consultar el almacén. Intente más tarde.</td></tr>';
+        // CALCULAR AÉREO (IMAGEN 2)
+        function calcularAereo() {
+            const origen = document.getElementById('aerOrigen').value;
+            const alto = parseFloat(document.getElementById('aerAlto').value) || 0;
+            const ancho = parseFloat(document.getElementById('aerAncho').value) || 0;
+            const largo = parseFloat(document.getElementById('aerLargo').value) || 0;
+            const pesoKg = parseFloat(document.getElementById('aerPeso').value) || 0;
+            const cajas = parseInt(document.getElementById('aerCajas').value) || 1;
+            const valorDeclarado = parseFloat(document.getElementById('aerValor').value) || 0;
+
+            if (largo <= 0 || ancho <= 0 || alto <= 0) {
+                alert("Por favor ingrese las dimensiones válidas (Alto, Ancho, Largo).");
+                return;
+            }
+
+            // Peso Volumétrico (Kg) = (Alto * Ancho * Largo) / 5000 * cajas
+            const pesoVolKg = ((alto * ancho * largo) / 5000) * cajas;
+            document.getElementById('resAerPesoVol').value = pesoVolKg.toFixed(2) + " kg";
+
+            let costoEnvio = 0;
+
+            if (origen === 'china') {
+                // China: $27 el Kilo. Se cobra el mayor entre Peso Real Kg y Peso Volumétrico Kg
+                const pesoACobrar = Math.max(pesoKg, pesoVolKg);
+                costoEnvio = pesoACobrar * 27;
+            } else {
+                // Miami: $7 la Libra. Convertimos Kg a Libras (1 Kg = 2.20462 lbs)
+                const pesoVolLbs = pesoVolKg * 2.20462;
+                const pesoRealLbs = pesoKg * 2.20462;
+                const pesoACobrarLbs = Math.max(pesoRealLbs, pesoVolLbs);
+                costoEnvio = pesoACobrarLbs * 7;
+            }
+
+            // Impuesto aproximado estimado (ejemplo 5% sobre valor declarado si aplica)
+            const impuestos = valorDeclarado > 100 ? (valorDeclarado * 0.05) : 0;
+            const total = costoEnvio + impuestos;
+
+            document.getElementById('resAerCostoEnvio').value = "$" + costoEnvio.toFixed(2);
+            document.getElementById('resAerImpuestos').value = "$" + impuestos.toFixed(2);
+            document.getElementById('resAerTotal').value = "$" + total.toFixed(2);
+        }
+
+        // Modales
+        function abrirModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+@@ -271,7 +564,6 @@ <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
+            document.getElementById(id).style.display = "none";
+        }
+
+        // FUNCIÓN PARA CERRAR SESIÓN
+        function cerrarSesion() {
+            cerrarModal('modalCasillero');
+            alert("Has cerrado sesión correctamente.");
+@@ -388,6 +680,11 @@ <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
+                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
                 });
         }
+
+        // Inicializar opciones de tarifas al cargar
+        window.onload = function() {
+            actualizarTarifasMaritimas();
+        };
     </script>
 </body>
 </html>

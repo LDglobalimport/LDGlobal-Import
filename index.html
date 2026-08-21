@@ -42,7 +42,7 @@
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
                 <div class="hero-badge">
-                    ESPECIALISTAS EN LOGÍSTICA CHINA - VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA- EEUU - VENEZUELA
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
@@ -300,7 +300,7 @@
     </section>
 
     <!-- WhatsApp -->
-    <a href="https://wa.me/584120000000" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
+    <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
         <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
@@ -400,7 +400,7 @@
                 <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input">
                 
                 <div class="forgot-pass-container">
-                    <a href="https://wa.me/584120000000?text=Hola,%20olvide%20mi%20contrase%C3%B1a%20para%20ingresar%20a%20mi%20casillero." target="_blank" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
+                    <a href="https://wa.me/584242474580?text=Hola,%20olvide%20mi%20contrase%C3%B1a%20para%20ingresar%20a%20mi%20casillero." target="_blank" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
 
                 <button type="submit" class="btn-primary btn-block">Ingresar</button>
@@ -555,34 +555,7 @@
             });
         }
 
-        // REGLAS AJUSTADAS DE CBM
-        function calcularMaritimo() {
-            const largo = parseFloat(document.getElementById('marLargo').value) || 0;
-            const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
-            const alto = parseFloat(document.getElementById('marAlto').value) || 0;
-            const cajas = parseInt(document.getElementById('marCajas').value) || 1;
-            const precioM3Estandar = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
-
-            if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                alert("Por favor ingrese las dimensiones válidas (Largo, Ancho, Alto).");
-                return;
-            }
-
-            const cbm = ((largo * ancho * alto) / 1000000) * cajas;
-            let total = 0;
-
-            if (cbm >= 0.01 && cbm <= 0.20) {
-                total = 200; // Tarifa Plana
-            } else if (cbm >= 0.21 && cbm <= 0.99) {
-                total = cbm * 1000; // Proporcional base $1000
-            } else {
-                total = cbm * precioM3Estandar; // Tarifa estándar
-            }
-
-            document.getElementById('resMarCbm').value = cbm.toFixed(3) + " m³";
-            document.getElementById('resMarTotal').value = "$" + total.toFixed(2);
-        }
-
+        
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const alto = parseFloat(document.getElementById('aerAlto').value) || 0;

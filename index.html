@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=9">
+    <link rel="stylesheet" href="styles.css?v=11">
     
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -42,7 +42,7 @@
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
                 <div class="hero-badge">
-                    ESPECIALISTAS EN LOGÍSTICA CHINA- EEUU - VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA- EEUU- VENEZUELA
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
@@ -188,7 +188,6 @@
                     </div>
                 </div>
 
-                <!-- ARTÍCULOS PROHIBIDOS -->
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
                     <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
@@ -408,7 +407,7 @@
         </div>
     </div>
 
-    <!-- MODAL CASILLERO DEL CLIENTE CON BOTÓN FACTURA Y COPIAR -->
+    <!-- MODAL CASILLERO DEL CLIENTE -->
     <div id="modalCasillero" class="modal">
         <div class="modal-content modal-extra-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
@@ -493,9 +492,9 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
-        const GOOGLE_SHEETS_CSV_URL = "AQUI_PEGA_TU_ENLACE_CSV_DE_GOOGLE_SHEETS";
+        const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -555,7 +554,19 @@
             });
         }
 
-        
+        function calcularMaritimo() {
+            const largo = parseFloat(document.getElementById('marLargo').value) || 0;
+            const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
+            const alto = parseFloat(document.getElementById('marAlto').value) || 0;
+            const cajas = parseInt(document.getElementById('marCajas').value) || 1;
+            const precioM3Estandar = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
+
+            if (largo <= 0 || ancho <= 0 || alto <= 0) {
+                alert("Por favor ingrese las dimensiones válidas (Largo, Ancho, Alto).");
+                return;
+           
+        }
+
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const alto = parseFloat(document.getElementById('aerAlto').value) || 0;
@@ -612,7 +623,7 @@
             alert("Has cerrado sesión correctamente.");
         }
 
-        // REGISTRO CON VALIDACIÓN Y EMAILJS
+        // REGISTRO CON DOBLE ENVÍO DE EMAILJS (ADMIN Y CLIENTE)
         function procesarRegistro() {
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
@@ -628,7 +639,6 @@
                 return;
             }
 
-            // VALIDAR SI EL CORREO YA EXISTE
             const correoExistente = localStorage.getItem("user_email");
             if (correoExistente && correoExistente === email) {
                 alert("Correo ya registrado. Por favor inicia sesión o restablece tu contraseña.");
@@ -646,15 +656,22 @@
             localStorage.setItem("user_pass", pass);
             localStorage.setItem("user_nombre", nombre);
 
+            // 1. CORREO PARA TI (ADMIN): Ficha completa con datos del cliente
             emailjs.send("service_hn885sb", "template_f9by2on", {
                 nombre: nombre,
                 email: email,
                 telefono: telefono,
                 estado: estado,
                 identificacion: identificacion
+            });
+
+            // 2. CORREO PARA EL CLIENTE: Bienvenida formal y casillero (template_fxz5gi3)
+            emailjs.send("service_hn885sb", "template_fxz5gi3", {
+                nombre: nombre,
+                email: email
             })
             .then(function(response) {
-                alert("¡Te damos la bienvenida a LD Global Import & Logistics! Registro completado.");
+                alert("¡Te damos la bienvenida a LD Global Import & Logistics! Registro completado con éxito.");
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             }, function(error) {
@@ -672,8 +689,8 @@
             const passGuardada = localStorage.getItem("user_pass") || "123456";
             const nombreGuardado = localStorage.getItem("user_nombre") || "Usuario Registrado";
 
-            if (emailIngresado === emailGuardado || emailIngresado === "demo@ldglobal.com") {
-                document.getElementById('userNombre').innerText = nombreGuardado;
+            if (emailIngresado === emailGuardado || emailIngresado === "demo@ldglobal.com" || emailIngresado === "cliente@ejemplo.com") {
+                document.getElementById('userNombre').innerText = (emailIngresado === "cliente@ejemplo.com") ? "Cliente Ejemplo" : nombreGuardado;
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
                 
@@ -690,11 +707,6 @@
             
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Consultando servidor de almacén...</td></tr>';
             facturaContainer.style.display = "none";
-
-            if (GOOGLE_SHEETS_CSV_URL.includes([https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv](https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv))) {
-                tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
-                return;
-            }
 
             fetch(GOOGLE_SHEETS_CSV_URL)
                 .then(response => response.text())
@@ -724,7 +736,6 @@
                                     </tr>
                                 `;
 
-                                // Si existe URL de factura en la Columna 12 (índice 11)
                                 if (col[11] && col[11].replace(/"/g, '').trim().startsWith("http")) {
                                     btnFactura.href = col[11].replace(/"/g, '').trim();
                                     facturaContainer.style.display = "block";

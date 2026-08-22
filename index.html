@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=11">
+    <link rel="stylesheet" href="styles.css?v=12">
     
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -42,7 +42,7 @@
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
                 <div class="hero-badge">
-                    ESPECIALISTAS EN LOGÍSTICA CHINA- EEUU- VENEZUELA
+                    ESPECIALISTAS EN LOGÍSTICA CHINA - EEUU - VENEZUELA
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
@@ -284,7 +284,7 @@
     <!-- Cotización -->
     <section id="contacto" class="contact">
         <h2>Cotiza tu Envío</h2>
-        <form class="quote-form" onsubmit="event.preventDefault(); alert('¡Gracias! Nos pondremos en contacto pronto.');">
+        <form class="quote-form" onsubmit="event.preventDefault(); window.open('https://wa.me/584242474580?text=Hola,%20deseo%20solicitar%20una%20cotizaci%C3%B3n%20para%20un%20env%C3%ADo.', '_blank');">
             <input type="text" placeholder="Nombre o Nombre de la Empresa" required>
             <input type="email" placeholder="Correo Electrónico" required>
             <input type="tel" placeholder="Teléfono / WhatsApp" required>
@@ -294,11 +294,11 @@
                 <option value="aereo">Aéreo</option>
             </select>
             <textarea placeholder="Describe tu carga (peso, volumen, tipo de producto)" rows="4" required></textarea>
-            <button type="submit" class="btn-submit">Enviar Cotización</button>
+            <button type="submit" class="btn-submit">Enviar Cotización por WhatsApp</button>
         </form>
     </section>
 
-    <!-- WhatsApp -->
+    <!-- WhatsApp Flotante Oficial -->
     <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
         <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
@@ -389,7 +389,7 @@
         </div>
     </div>
 
-    <!-- MODAL INICIO SESIÓN CON RECUPERACIÓN -->
+    <!-- MODAL INICIO SESIÓN CON RECUPERACIÓN Y REENVÍO DE BIENVENIDA -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -399,7 +399,7 @@
                 <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input">
                 
                 <div class="forgot-pass-container">
-                    <a href="https://wa.me/584242474580?text=Hola,%20olvide%20mi%20contrase%C3%B1a%20para%20ingresar%20a%20mi%20casillero." target="_blank" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
+                    <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
 
                 <button type="submit" class="btn-primary btn-block">Ingresar</button>
@@ -621,6 +621,34 @@
         function cerrarSesion() {
             cerrarModal('modalCasillero');
             alert("Has cerrado sesión correctamente.");
+        }
+
+        // FUNCIÓN DE OLVIDO DE CONTRASEÑA / REENVÍO DE BIENVENIDA
+        function procesarOlvidoPass() {
+            const emailIngresado = prompt("Por favor ingresa tu correo electrónico registrado para reenviarte tus datos de casillero:");
+            
+            if (!emailIngresado) return;
+
+            const emailLimpio = emailIngresado.toLowerCase().trim();
+            const emailGuardado = localStorage.getItem("user_email");
+            const nombreGuardado = localStorage.getItem("user_nombre") || "Cliente";
+
+            if (emailGuardado && emailGuardado === emailLimpio) {
+                emailjs.send("service_hn885sb", "template_fxz5gi3", {
+                    nombre: nombreGuardado,
+                    email: emailLimpio
+                })
+                .then(function() {
+                    alert("¡Te hemos reenviado la información de tu casillero a tu correo electrónico! Serás redirigido a WhatsApp con un asesor.");
+                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20el%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                }, function() {
+                    alert("Te redirigiremos con un asesor a WhatsApp para ayudarte con tu contraseña.");
+                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20el%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                });
+            } else {
+                alert("El correo ingresado no coincide con ningún registro activo. Te comunicaremos con un asesor vía WhatsApp.");
+                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20recuperar%20mi%20contrase%C3%B1a%20para%20el%20correo%20${emailLimpio}`, '_blank');
+            }
         }
 
         // REGISTRO CON DOBLE ENVÍO DE EMAILJS (ADMIN Y CLIENTE)

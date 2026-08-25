@@ -190,7 +190,7 @@
 
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
-                    <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
+                    <p>Está strictly prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
                 </div>
 
                 <div class="calc-disclaimer">
@@ -496,8 +496,6 @@
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
-        
-        // URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT:
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxDbuHMI5y0bxyyUmGinYCblFXf2n35u3MXM-I94RJd_PWI0an698iO3t-WH5GtwrpGCQ/exec";
 
         // TARIFAS MARÍTIMAS
@@ -642,8 +640,7 @@
         }
 
         function procesarOlvidoPass() {
-            const emailIngresado = prompt("Por favor ingresa tu correo electrónico registrado para reenviarte tus datos de casillero:");
-            
+            const emailIngresado = prompt("Por favor ingresa tu correo electrónico registrado:");
             if (!emailIngresado) return;
 
             const emailLimpio = emailIngresado.toLowerCase().trim();
@@ -652,23 +649,25 @@
 
             if (emailGuardado && emailGuardado === emailLimpio) {
                 emailjs.send("service_hn885sb", "template_fxz5gi3", {
-                    nombre: nombreGuardado,
-                    email: emailLimpio
+                    nombre_completo: nombreGuardado,
+                    email: emailLimpio,
+                    user_email: emailLimpio,
+                    nombre: nombreGuardado
                 })
                 .then(function() {
-                    alert("¡Te hemos reenviado la información de tu casillero a tu correo electrónico! Serás redirigido a WhatsApp con un asesor.");
-                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20el%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                    alert("Te hemos reenviado la información a tu correo. Te redirigiremos a WhatsApp.");
+                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20${emailLimpio}`, '_blank');
                 }, function() {
-                    alert("Te redirigiremos con un asesor a WhatsApp para ayudarte con tu contraseña.");
-                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20el%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                    alert("Redirigiendo con un asesor a WhatsApp...");
+                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20${emailLimpio}`, '_blank');
                 });
             } else {
-                alert("El correo ingresado no coincide con ningún registro activo. Te comunicaremos con un asesor vía WhatsApp.");
-                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20recuperar%20mi%20contrase%C3%B1a%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                alert("El correo no coincide con un registro activo en este navegador. Te comunicaremos con un asesor.");
+                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20recuperar%20mi%20clave%20del%20correo%20${emailLimpio}`, '_blank');
             }
         }
 
-        // FUNCIÓN REGISTRO CON CÓDIGO ÚNICO + EMAILJS + GUARDADO EN SHEETS
+        // REGISTRO CORREGIDO CON EMAILJS Y GOOGLE SHEETS
         function procesarRegistro() {
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
@@ -684,30 +683,22 @@
                 return;
             }
 
-            const correoExistente = localStorage.getItem("user_email");
-            if (correoExistente && correoExistente === email) {
-                alert("Correo ya registrado. Por favor inicia sesión o restablece tu contraseña.");
-                cerrarModal('modalRegister');
-                abrirModal('modalLogin');
-                return;
-            }
-
             const nombre = document.getElementById('nombre').value + " " + document.getElementById('apellido').value;
             const telefono = document.getElementById('telefono').value;
             const estado = document.getElementById('estado').value;
             const identificacion = document.getElementById('identificacion').value;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
-            // GENERACIÓN DE CÓDIGO ÚNICO DE CLIENTE (ej. LD-5839)
+            // Generación de Código Único de Cliente
             const codigoCliente = "LD-" + Math.floor(1000 + Math.random() * 9000);
 
-            // GUARDAR EN LOCALSTORAGE
+            // Guardar localmente para sesión rápida
             localStorage.setItem("user_email", email);
             localStorage.setItem("user_pass", pass);
             localStorage.setItem("user_nombre", nombre);
             localStorage.setItem("user_codigo", codigoCliente);
 
-            // 1. REGISTRO EN GOOGLE SHEETS VIA WEB APP (APPS SCRIPT)
+            // 1. REGISTRO EN GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST',
@@ -725,28 +716,28 @@
                 });
             }
 
-            // 2. CORREO ADMIN VIA EMAILJS
-            emailjs.send("service_hn885sb", "template_f9by2on", {
+            // Parámetros formateados exactamente para EmailJS (cubriendo múltiples sintaxis de etiquetas)
+            const paramsEmail = {
+                nombre_completo: nombre,
                 nombre: nombre,
                 email: email,
+                user_email: email,
                 telefono: telefono,
                 estado: estado,
                 identificacion: identificacion,
                 codigo_cliente: codigoCliente
-            });
+            };
 
-            // 3. CORREO CLIENTE VIA EMAILJS
-            emailjs.send("service_hn885sb", "template_fxz5gi3", {
-                nombre: nombre,
-                email: email,
-                codigo_cliente: codigoCliente
-            })
+            // 2. ENVÍO DE CORREOS VÍA EMAILJS
+            emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail);
+
+            emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
             .then(function(response) {
-                alert(`¡Te damos la bienvenida a LD Global Import! Registro completado. Tu Código Único de Cliente es: ${codigoCliente}`);
+                alert(`¡Registro exitoso! Tu Código de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             }, function(error) {
-                alert(`¡Te damos la bienvenida a LD Global Import! Registro completado. Tu Código Único de Cliente es: ${codigoCliente}`);
+                alert(`¡Registro completado! Tu Código de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             });
@@ -756,34 +747,34 @@
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
 
-            const emailGuardado = (localStorage.getItem("user_email") || "demo@ldglobal.com").toLowerCase().trim();
-            const nombreGuardado = localStorage.getItem("user_nombre") || "Usuario Registrado";
-            const codigoGuardado = localStorage.getItem("user_codigo") || "LD-1001";
+            const emailGuardado = (localStorage.getItem("user_email") || "").toLowerCase().trim();
+            const nombreGuardado = localStorage.getItem("user_nombre") || "Cliente Registrado";
+            const codigoGuardado = localStorage.getItem("user_codigo") || "LD-0000";
 
-            if (emailIngresado === emailGuardado || emailIngresado === "demo@ldglobal.com" || emailIngresado === "cliente@ejemplo.com") {
-                const nombreMostrar = (emailIngresado === "cliente@ejemplo.com") ? "Cliente Ejemplo" : nombreGuardado;
-                const codigoMostrar = (emailIngresado === "cliente@ejemplo.com") ? "LD-0001" : codigoGuardado;
-
-                document.getElementById('userNombre').innerText = nombreMostrar;
-                document.getElementById('userCodigoCliente').innerText = codigoMostrar;
+            if (emailIngresado) {
+                const nombreMostrar = (emailIngresado === emailGuardado) ? nombreGuardado : emailIngresado.split('@')[0];
                 
-                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = codigoMostrar);
+                document.getElementById('userNombre').innerText = nombreMostrar;
+                document.getElementById('userCodigoCliente').innerText = codigoGuardado;
+                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = codigoGuardado);
 
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
                 
-                cargarMercanciaGoogleSheets(emailIngresado, codigoMostrar);
+                // BÚSQUEDA EN GOOGLE SHEETS POR CORREO
+                cargarMercanciaPorCorreo(emailIngresado);
             } else {
-                alert("Correo electrónico o contraseña incorrectos.");
+                alert("Por favor ingresa un correo electrónico válido.");
             }
         }
 
-        function cargarMercanciaGoogleSheets(emailCliente, codigoCliente) {
+        // BÚSQUEDA EN GOOGLE SHEETS BASADA EXCLUSIVAMENTE EN EL CORREO REGISTRADO
+        function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
             const btnFactura = document.getElementById('btnVerFactura');
             
-            tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Consultando servidor de almacén...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Buscando mercancía para ' + emailCliente + '...</td></tr>';
             facturaContainer.style.display = "none";
 
             fetch(GOOGLE_SHEETS_CSV_URL)
@@ -796,11 +787,10 @@
                         const col = lineas[i].split(',');
                         
                         if (col.length >= 10) {
-                            const emailFila = col[0].replace(/"/g, '').toLowerCase().trim();
-                            const codigoFila = col[1] ? col[1].replace(/"/g, '').trim() : '';
+                            // Columna 0 contiene el correo electrónico registrado
+                            const emailEnFila = col[0].replace(/"/g, '').toLowerCase().trim();
                             
-                            // BUSCA SI COINCIDE EL EMAIL O EL CÓDIGO DE CLIENTE
-                            if (emailFila === emailCliente || (codigoCliente && codigoFila.includes(codigoCliente))) {
+                            if (emailEnFila === emailCliente) {
                                 filasEncontradas += `
                                     <tr>
                                         <td class="highlight-recibo">${col[1].replace(/"/g, '')} 📎</td>
@@ -827,11 +817,11 @@
                     if (filasEncontradas !== '') {
                         tbody.innerHTML = filasEncontradas;
                     } else {
-                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
+                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados para el correo: <strong>' + emailCliente + '</strong></td></tr>';
                     }
                 })
                 .catch(error => {
-                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No tienes ingresos registrados en almacén actualmente.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No se pudieron consultar los datos del servidor de almacén.</td></tr>';
                 });
         }
 
@@ -840,4 +830,4 @@
         };
     </script>
 </body>
-</html>  
+</html>

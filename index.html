@@ -454,7 +454,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span>
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ/ </strong></span>
                     </div>
                 </div>
                 
@@ -532,7 +532,9 @@
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
-        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyauE_rbB4ctKS9Nz69ZEvQZiwwviexybKTH0SUuasxYiNCOcAVD8aO2gxRjWC8JYtf/exec";
+        
+        // URL OFICIAL VERSIÓN 4
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -832,7 +834,6 @@
             }
         }
 
-        // REGISTRO CON ENVÍO EN PARALELO A AMBAS PLANTILLAS
         async function procesarRegistro() {
             const aceptaTerminos = document.getElementById('aceptaTerminos');
             if (aceptaTerminos && !aceptaTerminos.checked) {
@@ -902,7 +903,7 @@
                             estado: estado,
                             tipoRegistro: tipoRegistro
                         })
-                    }).catch(err => console.log("Aviso: Registro enviado a Google Sheets."));
+                    }).catch(err => console.log("Aviso: Intento de registro enviado a Google Sheets."));
                 } catch(e) {
                     console.log("Error en fetch a Google Sheets", e);
                 }
@@ -923,7 +924,6 @@
                 subject: `Nuevo Registro de Casillero - ${nombre} ${codigoCliente}`
             };
 
-            // ENVÍO EN PARALELO A AMBAS PLANTILLAS PARA QUE TE LLEGUE A TI Y AL CLIENTE
             Promise.all([
                 emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail),
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)

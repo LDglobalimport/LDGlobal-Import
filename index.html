@@ -32,8 +32,8 @@
             </ul>
         </nav>
         <div class="auth-buttons">
-            <button onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
-            <button onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
+            <button type="button" onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
+            <button type="button" onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
         </div>
     </header>
 
@@ -115,8 +115,8 @@
             <p class="calc-subtitle">Calcula de forma aproximada el costo de tu flete marítimo o aéreo</p>
             
             <div class="calc-tabs">
-                <button class="calc-tab active" onclick="cambiarTabCalc('maritimo')">🚢 Envío Marítimo</button>
-                <button class="calc-tab" onclick="cambiarTabCalc('aereo')">✈️ Envío Aéreo</button>
+                <button type="button" class="calc-tab active" onclick="cambiarTabCalc(event, 'maritimo')">🚢 Envío Marítimo</button>
+                <button type="button" class="calc-tab" onclick="cambiarTabCalc(event, 'aereo')">✈️ Envío Aéreo</button>
             </div>
 
             <!-- CALCULADORA MARÍTIMA -->
@@ -175,7 +175,7 @@
                     <label><input type="checkbox" id="marBateria"> ¿Tu carga es una fuente de energía? (batería o UPS)</label>
                 </div>
 
-                <button class="btn-calc-submit" onclick="calcularMaritimo()">CALCULAR</button>
+                <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()">CALCULAR</button>
 
                 <div class="calc-results">
                     <div class="calc-result-field">
@@ -248,7 +248,7 @@
                     <input type="number" id="aerUnidades" value="1" min="1">
                 </div>
 
-                <button class="btn-calc-submit" onclick="calcularAereo()">CALCULAR</button>
+                <button type="button" class="btn-calc-submit" onclick="calcularAereo()">CALCULAR</button>
 
                 <div class="calc-results">
                     <div class="calc-result-field">
@@ -416,8 +416,9 @@
                 <div>
                     <h2>📄 Ingresos en Almacén</h2>
                     <div class="user-badge-info">
-                        <span>Titular: <strong>LENNIS GONZÁLEZ / <span id="userNombre">Cliente</span></strong></span> | 
-                        <span>Casillero Único: <strong id="userCasillero">SMA03776</strong></span>
+                        <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
+                        <span>Código Cliente: <strong id="userCodigoCliente">LD-0000</strong></span> | 
+                        <span>Casillero General: <strong id="userCasillero">SMA03776</strong></span>
                     </div>
                 </div>
                 
@@ -425,7 +426,7 @@
                     <div id="btnFacturaContainer" style="display: none;">
                         <a id="btnVerFactura" href="#" target="_blank" class="btn-factura">📄 Ver Factura</a>
                     </div>
-                    <button onclick="cerrarSesion();" class="btn-logout">🚪 Cerrar Sesión</button>
+                    <button type="button" onclick="cerrarSesion();" class="btn-logout">🚪 Cerrar Sesión</button>
                 </div>
             </div>
 
@@ -436,33 +437,33 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ')" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ</span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
 
                 <!-- CHINA MARÍTIMO -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ')" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
                     <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
                     <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ</span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
 
                 <!-- MIAMI EE.UU. -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ')" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ</span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
             </div>
 
@@ -495,6 +496,9 @@
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
+        
+        // URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT:
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxDbuHMI5y0bxyyUmGinYCblFXf2n35u3MXM-I94RJd_PWI0an698iO3t-WH5GtwrpGCQ/exec";
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -527,15 +531,17 @@
             { destino: "Tejerias", precio: 1333 }
         ];
 
-        function cambiarTabCalc(tipo) {
+        function cambiarTabCalc(evt, tipo) {
             document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.calc-content').forEach(c => c.classList.remove('active'));
 
+            if (evt && evt.target) {
+                evt.target.classList.add('active');
+            }
+
             if (tipo === 'maritimo') {
-                event.target.classList.add('active');
                 document.getElementById('calcMaritimo').classList.add('active');
             } else {
-                event.target.classList.add('active');
                 document.getElementById('calcAereo').classList.add('active');
             }
         }
@@ -564,7 +570,13 @@
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
                 alert("Por favor ingrese las dimensiones válidas (Largo, Ancho, Alto).");
                 return;
-           
+            }
+
+            const cbm = ((largo * ancho * alto) / 1000000) * cajas;
+            const totalUSD = cbm * precioM3Estandar;
+
+            document.getElementById('resMarCbm').value = cbm.toFixed(3) + " m³";
+            document.getElementById('resMarTotal').value = "$" + totalUSD.toFixed(2);
         }
 
         function calcularAereo() {
@@ -611,11 +623,17 @@
         }
 
         function abrirModal(id) {
-            document.getElementById(id).style.display = "flex";
+            const modal = document.getElementById(id);
+            if(modal) {
+                modal.style.display = "flex";
+            }
         }
 
         function cerrarModal(id) {
-            document.getElementById(id).style.display = "none";
+            const modal = document.getElementById(id);
+            if(modal) {
+                modal.style.display = "none";
+            }
         }
 
         function cerrarSesion() {
@@ -623,7 +641,6 @@
             alert("Has cerrado sesión correctamente.");
         }
 
-        // FUNCIÓN DE OLVIDO DE CONTRASEÑA / REENVÍO DE BIENVENIDA
         function procesarOlvidoPass() {
             const emailIngresado = prompt("Por favor ingresa tu correo electrónico registrado para reenviarte tus datos de casillero:");
             
@@ -651,7 +668,7 @@
             }
         }
 
-        // REGISTRO CON DOBLE ENVÍO DE EMAILJS (ADMIN Y CLIENTE)
+        // FUNCIÓN REGISTRO CON CÓDIGO ÚNICO + EMAILJS + GUARDADO EN SHEETS
         function procesarRegistro() {
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
@@ -679,31 +696,57 @@
             const telefono = document.getElementById('telefono').value;
             const estado = document.getElementById('estado').value;
             const identificacion = document.getElementById('identificacion').value;
+            const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
+            // GENERACIÓN DE CÓDIGO ÚNICO DE CLIENTE (ej. LD-5839)
+            const codigoCliente = "LD-" + Math.floor(1000 + Math.random() * 9000);
+
+            // GUARDAR EN LOCALSTORAGE
             localStorage.setItem("user_email", email);
             localStorage.setItem("user_pass", pass);
             localStorage.setItem("user_nombre", nombre);
+            localStorage.setItem("user_codigo", codigoCliente);
 
-            // 1. CORREO PARA TI (ADMIN): Ficha completa con datos del cliente
+            // 1. REGISTRO EN GOOGLE SHEETS VIA WEB APP (APPS SCRIPT)
+            if (WEB_APP_SHEETS_URL) {
+                fetch(WEB_APP_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        codigoCliente: codigoCliente,
+                        nombre: nombre,
+                        identificacion: identificacion,
+                        email: email,
+                        telefono: telefono,
+                        estado: estado,
+                        tipoRegistro: tipoRegistro
+                    })
+                });
+            }
+
+            // 2. CORREO ADMIN VIA EMAILJS
             emailjs.send("service_hn885sb", "template_f9by2on", {
                 nombre: nombre,
                 email: email,
                 telefono: telefono,
                 estado: estado,
-                identificacion: identificacion
+                identificacion: identificacion,
+                codigo_cliente: codigoCliente
             });
 
-            // 2. CORREO PARA EL CLIENTE: Bienvenida formal y casillero (template_fxz5gi3)
+            // 3. CORREO CLIENTE VIA EMAILJS
             emailjs.send("service_hn885sb", "template_fxz5gi3", {
                 nombre: nombre,
-                email: email
+                email: email,
+                codigo_cliente: codigoCliente
             })
             .then(function(response) {
-                alert("¡Te damos la bienvenida a LD Global Import & Logistics! Registro completado con éxito.");
+                alert(`¡Te damos la bienvenida a LD Global Import! Registro completado. Tu Código Único de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             }, function(error) {
-                alert("¡Te damos la bienvenida a LD Global Import & Logistics! Registro activado.");
+                alert(`¡Te damos la bienvenida a LD Global Import! Registro completado. Tu Código Único de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             });
@@ -714,21 +757,28 @@
             const passIngresado = document.getElementById('loginPass').value;
 
             const emailGuardado = (localStorage.getItem("user_email") || "demo@ldglobal.com").toLowerCase().trim();
-            const passGuardada = localStorage.getItem("user_pass") || "123456";
             const nombreGuardado = localStorage.getItem("user_nombre") || "Usuario Registrado";
+            const codigoGuardado = localStorage.getItem("user_codigo") || "LD-1001";
 
             if (emailIngresado === emailGuardado || emailIngresado === "demo@ldglobal.com" || emailIngresado === "cliente@ejemplo.com") {
-                document.getElementById('userNombre').innerText = (emailIngresado === "cliente@ejemplo.com") ? "Cliente Ejemplo" : nombreGuardado;
+                const nombreMostrar = (emailIngresado === "cliente@ejemplo.com") ? "Cliente Ejemplo" : nombreGuardado;
+                const codigoMostrar = (emailIngresado === "cliente@ejemplo.com") ? "LD-0001" : codigoGuardado;
+
+                document.getElementById('userNombre').innerText = nombreMostrar;
+                document.getElementById('userCodigoCliente').innerText = codigoMostrar;
+                
+                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = codigoMostrar);
+
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
                 
-                cargarMercanciaGoogleSheets(emailIngresado);
+                cargarMercanciaGoogleSheets(emailIngresado, codigoMostrar);
             } else {
                 alert("Correo electrónico o contraseña incorrectos.");
             }
         }
 
-        function cargarMercanciaGoogleSheets(emailCliente) {
+        function cargarMercanciaGoogleSheets(emailCliente, codigoCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
             const btnFactura = document.getElementById('btnVerFactura');
@@ -747,8 +797,10 @@
                         
                         if (col.length >= 10) {
                             const emailFila = col[0].replace(/"/g, '').toLowerCase().trim();
+                            const codigoFila = col[1] ? col[1].replace(/"/g, '').trim() : '';
                             
-                            if (emailFila === emailCliente) {
+                            // BUSCA SI COINCIDE EL EMAIL O EL CÓDIGO DE CLIENTE
+                            if (emailFila === emailCliente || (codigoCliente && codigoFila.includes(codigoCliente))) {
                                 filasEncontradas += `
                                     <tr>
                                         <td class="highlight-recibo">${col[1].replace(/"/g, '')} 📎</td>
@@ -788,4 +840,4 @@
         };
     </script>
 </body>
-</html>
+</html>  

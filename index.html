@@ -384,8 +384,44 @@
                     <input type="tel" id="celular" placeholder="Celular">
                 </div>
 
+                <!-- CHECKBOX TÉRMINOS Y CONDICIONES -->
+                <div class="form-group checkbox-group terms-checkbox" style="margin-top: 15px; margin-bottom: 15px; text-align: left;">
+                    <label style="font-size: 0.9em; cursor: pointer;">
+                        <input type="checkbox" id="aceptaTerminos" required> 
+                        He leído y acepto los <a href="#" onclick="abrirModal('modalTerminos'); return false;" style="color: #0056b3; text-decoration: underline;">Términos y Condiciones del Servicio</a>*
+                    </label>
+                </div>
+
                 <button type="submit" class="btn-primary btn-block">Registrarse y Crear Casillero</button>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL TÉRMINOS Y CONDICIONES -->
+    <div id="modalTerminos" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
+            <h2>Términos y Condiciones del Servicio</h2>
+            <div class="terms-text-container" style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; border: 1px solid #ddd; border-radius: 6px; background-color: #f9f9f9;">
+                <h3>1. Registro y Asignación de Casillero</h3>
+                <p>Al completarse el registro en LD Global Import & Logistics, se asignará un Código Único de Cliente y direcciones físicas oficiales en nuestros almacenes de China y Miami. Cada cuenta es personal e intransferible.</p>
+
+                <h3>2. Recepción e Ingreso de Carga</h3>
+                <p>Los paquetes recibidos en nuestros almacenes se procesarán y registrarán en el sistema en un lapso de 12 a 24 horas hábiles posteriores a su recepción física.</p>
+
+                <h3>3. Reempaque y Consolidación</h3>
+                <p>LD Global ofrece el servicio de consolidación y reempaque para optimizar los costos de flete. Una vez iniciada la consolidación o preparación del embalaje, no será posible agregar, retirar o modificar mercancía del paquete.</p>
+
+                <h3>4. Artículos Prohibidos y De Especial Atención</h3>
+                <p>Está estrictamente prohibido importar armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, joyas, materiales inflamables, químicos peligrosos, aerosoles, plantas y semillas. En caso de enviar equipos tecnológicos, insumos médicos o artículos de alto valor, el cliente debe notificarlos previamente a su asesor.</p>
+
+                <h3>5. Responsabilidad sobre Compras y Declaración</h3>
+                <p>LD Global Import & Logistics no se hace responsable por errores imputables a las tiendas o proveedores del cliente (tallas, modelos, productos defectuosos de fábrica o envíos incompletos por parte del vendedor).</p>
+
+                <h3>6. Entregas y Pago de Fletes</h3>
+                <p>El cliente se compromete a realizar el pago correspondiente a su flete de importación al momento de la llegada de la mercancía a Puerto o Aeropuerto Nacional en Venezuela, de acuerdo a la modalidad acordada.</p>
+            </div>
+            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px;">Entendido y Cerrar</button>
         </div>
     </div>
 
@@ -418,7 +454,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ /</strong></span>
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span>
                     </div>
                 </div>
                 
@@ -437,33 +473,33 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <!-- CHINA MARÍTIMO -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ /' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
                     <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
                     <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <!-- MIAMI EE.UU. -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
             </div>
 
@@ -496,7 +532,7 @@
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
-        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxDbuHMI5y0bxyyUmGinYCblFXf2n35u3MXM-I94RJd_PWI0an698iO3t-WH5GtwrpGCQ/exec";
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbyauE_rbB4ctKS9Nz69ZEvQZiwwviexybKTH0SUuasxYiNCOcAVD8aO2gxRjWC8JYtf/exec";
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -797,6 +833,13 @@
         }
 
         async function procesarRegistro() {
+            // VALIDACIÓN DEL CHECKBOX DE TÉRMINOS Y CONDICIONES
+            const aceptaTerminos = document.getElementById('aceptaTerminos');
+            if (aceptaTerminos && !aceptaTerminos.checked) {
+                alert("Debes leer y aceptar los Términos y Condiciones para crear tu casillero.");
+                return;
+            }
+
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
             const pass = document.getElementById('password').value;
@@ -845,20 +888,24 @@
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
             if (WEB_APP_SHEETS_URL) {
-                fetch(WEB_APP_SHEETS_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        codigoCliente: codigoCliente,
-                        nombre: nombre,
-                        identificacion: identificacion,
-                        email: email,
-                        telefono: telefono,
-                        estado: estado,
-                        tipoRegistro: tipoRegistro
-                    })
-                });
+                try {
+                    fetch(WEB_APP_SHEETS_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            codigoCliente: codigoCliente,
+                            nombre: nombre,
+                            identificacion: identificacion,
+                            email: email,
+                            telefono: telefono,
+                            estado: estado,
+                            tipoRegistro: tipoRegistro
+                        })
+                    }).catch(err => console.log("Aviso: Google Sheets no respondió pero EmailJS continúa."));
+                } catch(e) {
+                    console.log("Error en fetch a Google Sheets", e);
+                }
             }
 
             const paramsEmail = {
@@ -886,6 +933,7 @@
                 abrirModal('modalLogin');
             })
             .catch(function(error) {
+                console.error("Error al enviar con EmailJS:", error);
                 alert(`¡Registro realizado con éxito! Tu Código de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');

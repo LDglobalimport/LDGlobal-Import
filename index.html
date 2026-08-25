@@ -55,7 +55,7 @@
     <section id="quienes-somos" class="about-section">
         <div class="about-container">
             <div class="section-header">
-                <img src="logo-secundario.png" alt="LD Global Emblema" class="section-secondary-logo">
+                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
                 <h2>Quiénes Somos</h2>
             </div>
             
@@ -437,7 +437,7 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
@@ -448,7 +448,7 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
                     <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
@@ -460,7 +460,7 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ / ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
                     <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
@@ -558,7 +558,6 @@
             });
         }
 
-        // FÓRMULA MARÍTIMA CON REGLAS DE NEGOCIO PERSONALIZADAS
         function calcularMaritimo() {
             const origen = document.getElementById('marOrigen').value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
@@ -596,7 +595,6 @@
             document.getElementById('resMarTotal').value = "$" + totalUSD.toFixed(2);
         }
 
-        // FÓRMULA AÉREA CON REGLAS DE NEGOCIO PERSONALIZADAS
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const alto = parseFloat(document.getElementById('aerAlto').value) || 0;
@@ -671,30 +669,110 @@
             alert("Has cerrado sesión correctamente.");
         }
 
-        // FUNCIONES DE GESTIÓN DE USUARIOS LOCALES
-        function obtenerUsuarios() {
-            return JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+        function parsearLineaCSV(linea) {
+            const resultado = [];
+            let campoActual = '';
+            let enComillas = false;
+
+            for (let i = 0; i < linea.length; i++) {
+                const char = linea[i];
+                if (char === '"') {
+                    enComillas = !enComillas;
+                } else if (char === ',' && !enComillas) {
+                    resultado.push(campoActual.trim());
+                    campoActual = '';
+                } else {
+                    campoActual += char;
+                }
+            }
+            resultado.push(campoActual.trim());
+            return resultado;
         }
 
-        function guardarUsuario(usuario) {
-            const lista = obtenerUsuarios();
-            lista.push(usuario);
-            localStorage.setItem("usuarios_registrados", JSON.stringify(lista));
+        // BÚSQUEDA CENTRAL EN GOOGLE SHEETS PARA VERIFICAR O RECUPERAR DATOS DEL CLIENTE
+        async function consultarClienteEnSheets(emailCliente) {
+            try {
+                const res = await fetch(GOOGLE_SHEETS_CSV_URL);
+                const data = await res.text();
+                const lineas = data.split(/\r?\n/);
+
+                for (let i = 1; i < lineas.length; i++) {
+                    if (!lineas[i].trim()) continue;
+                    const col = parsearLineaCSV(lineas[i]);
+                    if (col.length >= 1) {
+                        const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
+                        if (emailEnFila === emailCliente) {
+                            return {
+                                existe: true,
+                                email: emailEnFila,
+                                recibo: col[1] ? col[1].replace(/^"|"$/g, '') : '',
+                                expedidor: col[4] ? col[4].replace(/^"|"$/g, '') : ''
+                            };
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Error consultando Google Sheets", e);
+            }
+            return { existe: false };
         }
 
-        function buscarUsuarioPorCorreo(correo) {
-            const emailLimpio = correo.toLowerCase().trim();
-            const lista = obtenerUsuarios();
-            return lista.find(u => u.email === emailLimpio);
+        // GENERACIÓN DE CÓDIGO ÚNICO INCREMENTAL (SIN REPETICIÓN)
+        async function generarCodigoClienteUnico() {
+            let ultimoNumero = 1000;
+            try {
+                const res = await fetch(GOOGLE_SHEETS_CSV_URL);
+                const data = await res.text();
+                const lineas = data.split(/\r?\n/);
+
+                for (let i = 1; i < lineas.length; i++) {
+                    if (!lineas[i].trim()) continue;
+                    const col = parsearLineaCSV(lineas[i]);
+                    // Se busca en las columnas si existe un patrón "LDG-"
+                    col.forEach(val => {
+                        const txt = val.replace(/^"|"$/g, '').trim();
+                        if (txt.startsWith("LDG-")) {
+                            const num = parseInt(txt.replace("LDG-", ""), 10);
+                            if (!isNaN(num) && num > ultimoNumero) {
+                                ultimoNumero = num;
+                            }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Error leyendo códigos existentes", e);
+            }
+
+            // Si hay un contador guardado localmente mayor, se incrementa sobre él
+            const localNum = parseInt(localStorage.getItem("ultimo_num_codigo") || "1000", 10);
+            const numFinal = Math.max(ultimoNumero, localNum) + 1;
+            localStorage.setItem("ultimo_num_codigo", numFinal.toString());
+
+            return "LDG-" + numFinal;
         }
 
-        // RECUPERACIÓN / REENVÍO DE DATOS DE USUARIO
-        function procesarOlvidoPass() {
+        // OPCIÓN: RESTABLECER / OLVIDO DE CONTRASEÑA
+        async function procesarOlvidoPass() {
             const emailIngresado = prompt("Por favor ingresa tu correo electrónico registrado:");
             if (!emailIngresado) return;
 
             const emailLimpio = emailIngresado.toLowerCase().trim();
-            const usuario = buscarUsuarioPorCorreo(emailLimpio);
+
+            // 1. Buscar en memoria local
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            let usuario = usuariosLocales.find(u => u.email === emailLimpio);
+
+            // 2. Si no está en local, verificar en Google Sheets
+            if (!usuario) {
+                const datosSheets = await consultarClienteEnSheets(emailLimpio);
+                if (datosSheets.existe) {
+                    usuario = {
+                        email: emailLimpio,
+                        nombre: datosSheets.expedidor || emailLimpio.split('@')[0],
+                        codigo: "LDG-REGISTRADO"
+                    };
+                }
+            }
 
             if (usuario) {
                 const paramsEmail = {
@@ -702,26 +780,26 @@
                     nombre: usuario.nombre,
                     email: usuario.email,
                     user_email: usuario.email,
-                    codigo_cliente: usuario.codigo,
-                    subject: `Datos de Casillero - ${usuario.nombre} (${usuario.codigo})`
+                    codigo_cliente: usuario.codigo || "LDG-CLIENTE",
+                    subject: `Datos de Casillero - ${usuario.nombre}`
                 };
 
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
                 .then(function() {
-                    alert(`¡Te hemos reenviado la información a tu correo! Tu Código de Cliente es ${usuario.codigo}. Redirigiendo a WhatsApp...`);
+                    alert(`Te hemos reenviado la información de tu casillero al correo ${emailLimpio}. Redirigiendo a WhatsApp con un asesor...`);
                     window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
                 }, function(err) {
-                    alert(`Tu Código de Cliente es ${usuario.codigo}. Te redirigiremos con un asesor a WhatsApp.`);
+                    alert(`Información procesada para ${emailLimpio}. Te redirigiremos con un asesor a WhatsApp.`);
                     window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
                 });
             } else {
                 alert(`El correo ${emailLimpio} no se encuentra registrado en el sistema. Serás redirigido con un asesor vía WhatsApp.`);
-                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20asistencia%20con%20el%20registro%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20asistencia%20con%20mi%20registro%20para%20el%20correo%20${emailLimpio}`, '_blank');
             }
         }
 
-        // PROCESAMIENTO DE REGISTRO CON VALIDACIÓN Y EMAILJS ENCADENADO
-        function procesarRegistro() {
+        // PROCESAMIENTO DE REGISTRO CON VALIDACIÓN CENTRAL Y CÓDIGO ÚNICO
+        async function procesarRegistro() {
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
             const pass = document.getElementById('password').value;
@@ -736,9 +814,13 @@
                 return;
             }
 
-            // VERIFICACIÓN DE CORREO EXISTENTE
-            if (buscarUsuarioPorCorreo(email)) {
-                alert("⚠️ El correo electrónico ya se encuentra registrado. Por favor inicia sesión o recupera tu contraseña.");
+            // VERIFICACIÓN DE CORREO EXISTENTE EN LOCAL Y EN GOOGLE SHEETS
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            const yaEnLocal = usuariosLocales.some(u => u.email === email);
+            const yaEnSheets = await consultarClienteEnSheets(email);
+
+            if (yaEnLocal || yaEnSheets.existe) {
+                alert("⚠️ El correo electrónico ya se encuentra registrado. Por favor inicia sesión o solicita la recuperación de tus datos.");
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
                 return;
@@ -750,7 +832,8 @@
             const identificacion = document.getElementById('identificacion').value;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
-            const codigoCliente = "LDG-" + Math.floor(1000 + Math.random() * 9000);
+            // GENERACIÓN DE CÓDIGO ÚNICO INCREMENTAL
+            const codigoCliente = await generarCodigoClienteUnico();
 
             const nuevoUsuario = {
                 email: email,
@@ -763,7 +846,10 @@
             };
 
             // REGISTRAR EN LISTA LOCAL
-            guardarUsuario(nuevoUsuario);
+            usuariosLocales.push(nuevoUsuario);
+            localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
+            localStorage.setItem("ultimo_usuario_email", email);
+            localStorage.setItem("ultimo_usuario_codigo", codigoCliente);
 
             // REGISTRO EN GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
@@ -783,7 +869,6 @@
                 });
             }
 
-            // PARÁMETROS PARA EMAILJS CON NOMBRE Y CÓDIGO INCLUIDOS
             const paramsEmail = {
                 nombre_completo: nombre,
                 nombre: nombre,
@@ -796,7 +881,7 @@
                 subject: `Nuevo Cliente: ${nombre} (${codigoCliente})`
             };
 
-            // ENVÍO EN CADENA DE EMAILJS
+            // ENVÍO DE EMAILJS
             emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail)
             .then(function() {
                 return emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail);
@@ -807,17 +892,29 @@
                 abrirModal('modalLogin');
             })
             .catch(function(error) {
-                alert(`¡Registro realizado! Tu Código de Cliente es: ${codigoCliente}`);
+                alert(`¡Registro realizado con éxito! Tu Código de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             });
         }
 
-        function procesarLogin() {
+        async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
 
-            const usuario = buscarUsuarioPorCorreo(emailIngresado);
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            let usuario = usuariosLocales.find(u => u.email === emailIngresado);
+
+            if (!usuario) {
+                const datosSheets = await consultarClienteEnSheets(emailIngresado);
+                if (datosSheets.existe) {
+                    usuario = {
+                        email: emailIngresado,
+                        nombre: datosSheets.expedidor || emailIngresado.split('@')[0],
+                        codigo: datosSheets.recibo || "LDG-CLIENTE"
+                    };
+                }
+            }
 
             if (usuario) {
                 if (usuario.pass && usuario.pass !== passIngresado) {
@@ -834,11 +931,10 @@
                 
                 cargarMercanciaPorCorreo(emailIngresado);
             } else if (emailIngresado) {
-                // MODO CONSULTA DIRECTA
                 const nombreCorto = emailIngresado.split('@')[0];
                 document.getElementById('userNombre').innerText = nombreCorto;
-                document.getElementById('userCodigoCliente').innerText = "LDG-0000";
-                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = "LDG-0000");
+                document.getElementById('userCodigoCliente').innerText = "LDG-CLIENTE";
+                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = "LDG-CLIENTE");
 
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
@@ -847,26 +943,6 @@
             } else {
                 alert("Por favor ingresa un correo electrónico válido.");
             }
-        }
-
-        function parsearLineaCSV(linea) {
-            const resultado = [];
-            let campoActual = '';
-            let enComillas = false;
-
-            for (let i = 0; i < linea.length; i++) {
-                const char = linea[i];
-                if (char === '"') {
-                    enComillas = !enComillas;
-                } else if (char === ',' && !enComillas) {
-                    resultado.push(campoActual.trim());
-                    campoActual = '';
-                } else {
-                    campoActual += char;
-                }
-            }
-            resultado.push(campoActual.trim());
-            return resultado;
         }
 
         function cargarMercanciaPorCorreo(emailCliente) {

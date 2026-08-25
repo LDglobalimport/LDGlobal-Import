@@ -209,7 +209,7 @@
                     <label>Origen de la Carga:</label>
                     <select id="aerOrigen">
                         <option value="china" selected>China 🇨🇳 ($27 por Kilo)</option>
-                        <option value="miami">Miami (EE.UU.) 🇺🇸 ($7 por Libra)</option>
+                        <option value="miami">Miami (EE.UU.) 🇺🇸 ($6.50 por Libra)</option>
                     </select>
                 </div>
 
@@ -252,7 +252,7 @@
 
                 <div class="calc-results">
                     <div class="calc-result-field">
-                        <label>Peso volumétrico (kg):</label>
+                        <label>Peso volumétrico:</label>
                         <input type="text" id="resAerPesoVol" readonly placeholder="0.00">
                     </div>
                     <div class="calc-result-field">
@@ -417,8 +417,8 @@
                     <h2>📄 Ingresos en Almacén</h2>
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
-                        <span>Código Cliente: <strong id="userCodigoCliente">LD-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776</strong></span>
+                        <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZÁLEZ /</strong></span>
                     </div>
                 </div>
                 
@@ -441,7 +441,7 @@
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ / <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
 
                 <!-- CHINA MARÍTIMO -->
@@ -453,7 +453,7 @@
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
                     <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
                     <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ / <span class="lblUserCodigo">LD-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ /  <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
 
                 <!-- MIAMI EE.UU. -->
@@ -463,7 +463,7 @@
                         <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZÁLEZ / ' + (localStorage.getItem('user_codigo') || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZÁLEZ /  <span class="lblUserCodigo">LD-0000</span></span></p>
                 </div>
             </div>
 
@@ -471,10 +471,10 @@
                 <table class="ingresos-table">
                     <thead>
                         <tr>
-                            <th>Recibo</th>
+                            <th>Cod Cliente</th>
                             <th>Fecha</th>
                             <th>Transporte</th>
-                            <th>Expedidor</th>
+                            <th>Cliente</th>
                             <th>Valor</th>
                             <th>Piezas</th>
                             <th>Peso</th>
@@ -553,30 +553,55 @@
             lista.forEach(item => {
                 const opt = document.createElement('option');
                 opt.value = item.precio;
-                opt.textContent = `${item.destino} $${item.precio}`;
+                opt.textContent = `${item.destino} $${item.precio}/m³`;
                 select.appendChild(opt);
             });
         }
 
+        // FÓRMULA MARÍTIMA CON REGLAS DE NEGOCIO PERSONALIZADAS
         function calcularMaritimo() {
+            const origen = document.getElementById('marOrigen').value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
             const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
             const alto = parseFloat(document.getElementById('marAlto').value) || 0;
             const cajas = parseInt(document.getElementById('marCajas').value) || 1;
-            const precioM3Estandar = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
+            const precioDestino = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                alert("Por favor ingrese las dimensiones válidas (Largo, Ancho, Alto).");
+                alert("Por favor ingrese las dimensiones válidas en centímetros (Largo, Ancho, Alto).");
                 return;
             }
 
-            const cbm = ((largo * ancho * alto) / 1000000) * cajas;
-            const totalUSD = cbm * precioM3Estandar;
+            // Volumen total en CBM (cm³ / 1.000.000)
+            const cbmTotal = ((largo * ancho * alto) / 1000000) * cajas;
+            let totalUSD = 0;
 
-            document.getElementById('resMarCbm').value = cbm.toFixed(3) + " m³";
+            if (origen === 'china') {
+                // CHINA MARÍTIMO
+                if (cbmTotal < 0.20) {
+                    totalUSD = 200; // Tarifa plana fija
+                } else if (cbmTotal >= 0.20 && cbmTotal < 1.00) {
+                    totalUSD = cbmTotal * 1000; // $1000 por CBM
+                } else {
+                    totalUSD = cbmTotal * precioDestino; // Tarifa según destino
+                }
+            } else {
+                // MIAMI MARÍTIMO
+                // Mínimo 30x30x30 cm (0.027 CBM) = $40
+                const cbmMinimo = (30 * 30 * 30) / 1000000;
+                
+                if (cbmTotal <= cbmMinimo) {
+                    totalUSD = 40;
+                } else {
+                    totalUSD = cbmTotal * precioDestino;
+                }
+            }
+
+            document.getElementById('resMarCbm').value = cbmTotal.toFixed(3) + " m³";
             document.getElementById('resMarTotal').value = "$" + totalUSD.toFixed(2);
         }
 
+        // FÓRMULA AÉREA CON REGLAS DE NEGOCIO PERSONALIZADAS
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const alto = parseFloat(document.getElementById('aerAlto').value) || 0;
@@ -587,31 +612,46 @@
             const valorDeclarado = parseFloat(document.getElementById('aerValor').value) || 0;
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                alert("Por favor ingrese las dimensiones válidas (Alto, Ancho, Largo).");
+                alert("Por favor ingrese las dimensiones válidas en centímetros (Alto, Ancho, Largo).");
                 return;
             }
 
-            const pesoVolKg = ((alto * ancho * largo) / 5000) * cajas;
-            document.getElementById('resAerPesoVol').value = pesoVolKg.toFixed(2) + " kg";
-
             let costoEnvio = 0;
+            let pesoVolMostrar = "";
 
             if (origen === 'china') {
-                const pesoACobrar = Math.max(pesoKg, pesoVolKg);
-                costoEnvio = pesoACobrar * 27;
+                // AÉREO CHINA: Cálculo en Kg ($27/Kg - Mínimo 2 Kg = $54)
+                const pesoVolKg = ((largo * ancho * alto) / 5000) * cajas;
+                const pesoACobrarKg = Math.max(pesoKg, pesoVolKg);
+
+                if (pesoACobrarKg <= 2) {
+                    costoEnvio = 54;
+                } else {
+                    costoEnvio = pesoACobrarKg * 27;
+                }
+                pesoVolMostrar = pesoVolKg.toFixed(2) + " kg";
             } else {
-                const pesoVolLbs = pesoVolKg * 2.20462;
+                // AÉREO MIAMI: Cálculo en Lbs ($6.50/lb - Mínimo 5 Lb = $32.50)
                 const pesoRealLbs = pesoKg * 2.20462;
+                const pesoVolLbs = (((largo * ancho * alto) / 6000) * 2.20462) * cajas;
                 const pesoACobrarLbs = Math.max(pesoRealLbs, pesoVolLbs);
-                costoEnvio = pesoACobrarLbs * 7;
+
+                if (pesoACobrarLbs <= 5) {
+                    costoEnvio = 32.50;
+                } else {
+                    costoEnvio = pesoACobrarLbs * 6.50;
+                }
+                pesoVolMostrar = pesoVolLbs.toFixed(2) + " lbs";
             }
 
+            // Impuestos (5% si el valor de la mercancía supera $100 USD)
             const impuestos = valorDeclarado > 100 ? (valorDeclarado * 0.05) : 0;
-            const total = costoEnvio + impuestos;
+            const totalFinal = costoEnvio + impuestos;
 
+            document.getElementById('resAerPesoVol').value = pesoVolMostrar;
             document.getElementById('resAerCostoEnvio').value = "$" + costoEnvio.toFixed(2);
             document.getElementById('resAerImpuestos').value = "$" + impuestos.toFixed(2);
-            document.getElementById('resAerTotal').value = "$" + total.toFixed(2);
+            document.getElementById('resAerTotal').value = "$" + totalFinal.toFixed(2);
         }
 
         function copiarTexto(texto) {
@@ -743,7 +783,7 @@
 
             const emailGuardado = (localStorage.getItem("user_email") || "").toLowerCase().trim();
             const nombreGuardado = localStorage.getItem("user_nombre") || "Cliente Registrado";
-            const codigoGuardado = localStorage.getItem("user_codigo") || "LD-0000";
+            const codigoGuardado = localStorage.getItem("user_codigo") || "LDG-0000";
 
             if (emailIngresado) {
                 const nombreMostrar = (emailIngresado === emailGuardado) ? nombreGuardado : emailIngresado.split('@')[0];
@@ -761,7 +801,7 @@
             }
         }
 
-        // PARSEADOR CSV ROBUSTO QUE RESPETA COMILLAS Y COMAS
+        // PARSEADOR CSV QUE MANEJA COMILLAS DOBLES Y RUTAS DE FACTURA DE MANERA ROBUSTA
         function parsearLineaCSV(linea) {
             const resultado = [];
             let campoActual = '';
@@ -782,7 +822,7 @@
             return resultado;
         }
 
-        // BÚSQUEDA EN GOOGLE SHEETS Y MUESTRA DINÁMICA DE BOTÓN DE FACTURA SI EXISTE URL
+        // BÚSQUEDA EN GOOGLE SHEETS Y DETECCIÓN FLEXIBLE DE URL DE FACTURA
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -805,30 +845,29 @@
                         const col = parsearLineaCSV(lineas[i]);
                         
                         if (col.length >= 2) {
-                            const emailEnFila = col[0].replace(/"/g, '').toLowerCase().trim();
+                            const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
                             
                             if (emailEnFila === emailCliente) {
                                 filasEncontradas += `
                                     <tr>
-                                        <td class="highlight-recibo">${(col[1] || '').replace(/"/g, '')} 📎</td>
-                                        <td>${(col[2] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[3] || '').replace(/"/g, '')}</td>
-                                        <td class="expedidor-red">${(col[4] || '').replace(/"/g, '')}</td>
-                                        <td class="green-val">${(col[5] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[6] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[7] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[8] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[9] || '').replace(/"/g, '')}</td>
-                                        <td>${(col[10] || '').replace(/"/g, '')}</td>
+                                        <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
+                                        <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[3] || '').replace(/^"|"$/g, '')}</td>
+                                        <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
+                                        <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[10] || '').replace(/^"|"$/g, '')}</td>
                                     </tr>
                                 `;
 
-                                // ESCANEO DINÁMICO EN BUSCA DE URL DE FACTURA EN LA FILA
-                                for (let c = 10; c < col.length; c++) {
-                                    const valLimpio = col[c].replace(/"/g, '').trim();
-                                    if (valLimpio.startsWith("http://") || valLimpio.startsWith("https://")) {
-                                        enlaceFacturaEncontrado = valLimpio;
-                                        break;
+                                // DETECCIÓN DE LINK WEB O GOOGLE DRIVE EN LA COLUMNA 11 (facturaUrl)
+                                if (col[11]) {
+                                    let urlLimpia = col[11].replace(/^"|"$/g, '').trim();
+                                    if (urlLimpia.startsWith("http://") || urlLimpia.startsWith("https://") || urlLimpia.includes("drive.google.com")) {
+                                        enlaceFacturaEncontrado = urlLimpia;
                                     }
                                 }
                             }
@@ -838,7 +877,7 @@
                     if (filasEncontradas !== '') {
                         tbody.innerHTML = filasEncontradas;
                         
-                        // MOSTRAR EL BOTÓN SOLO SI SE ENCONTRÓ UNA URL VÁLIDA
+                        // MOSTRAR BOTÓN SI HAY UN ENLACE WEB VÁLIDO
                         if (enlaceFacturaEncontrado !== '') {
                             btnFactura.href = enlaceFacturaEncontrado;
                             facturaContainer.style.display = "block";

@@ -190,7 +190,7 @@
 
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
-                    <p>Está strictly prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
+                    <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
                 </div>
 
                 <div class="calc-disclaimer">
@@ -667,7 +667,6 @@
             }
         }
 
-        // REGISTRO CORREGIDO CON EMAILJS Y GOOGLE SHEETS
         function procesarRegistro() {
             const email = document.getElementById('email').value.toLowerCase().trim();
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
@@ -689,16 +688,13 @@
             const identificacion = document.getElementById('identificacion').value;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
-            // Generación de Código Único de Cliente
             const codigoCliente = "LD-" + Math.floor(1000 + Math.random() * 9000);
 
-            // Guardar localmente para sesión rápida
             localStorage.setItem("user_email", email);
             localStorage.setItem("user_pass", pass);
             localStorage.setItem("user_nombre", nombre);
             localStorage.setItem("user_codigo", codigoCliente);
 
-            // 1. REGISTRO EN GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST',
@@ -716,7 +712,6 @@
                 });
             }
 
-            // Parámetros formateados exactamente para EmailJS (cubriendo múltiples sintaxis de etiquetas)
             const paramsEmail = {
                 nombre_completo: nombre,
                 nombre: nombre,
@@ -728,7 +723,6 @@
                 codigo_cliente: codigoCliente
             };
 
-            // 2. ENVÍO DE CORREOS VÍA EMAILJS
             emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail);
 
             emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
@@ -761,14 +755,34 @@
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
                 
-                // BÚSQUEDA EN GOOGLE SHEETS POR CORREO
                 cargarMercanciaPorCorreo(emailIngresado);
             } else {
                 alert("Por favor ingresa un correo electrónico válido.");
             }
         }
 
-        // BÚSQUEDA EN GOOGLE SHEETS BASADA EXCLUSIVAMENTE EN EL CORREO REGISTRADO
+        // PARSEADOR CSV ROBUSTO QUE RESPETA COMILLAS Y COMAS
+        function parsearLineaCSV(linea) {
+            const resultado = [];
+            let campoActual = '';
+            let enComillas = false;
+
+            for (let i = 0; i < linea.length; i++) {
+                const char = linea[i];
+                if (char === '"') {
+                    enComillas = !enComillas;
+                } else if (char === ',' && !enComillas) {
+                    resultado.push(campoActual.trim());
+                    campoActual = '';
+                } else {
+                    campoActual += char;
+                }
+            }
+            resultado.push(campoActual.trim());
+            return resultado;
+        }
+
+        // BÚSQUEDA EN GOOGLE SHEETS Y MUESTRA DINÁMICA DE BOTÓN DE FACTURA SI EXISTE URL
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -776,39 +790,46 @@
             
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Buscando mercancía para ' + emailCliente + '...</td></tr>';
             facturaContainer.style.display = "none";
+            btnFactura.href = "#";
 
             fetch(GOOGLE_SHEETS_CSV_URL)
                 .then(response => response.text())
                 .then(data => {
-                    const lineas = data.split('\n');
+                    const lineas = data.split(/\r?\n/);
                     let filasEncontradas = '';
+                    let enlaceFacturaEncontrado = '';
 
                     for (let i = 1; i < lineas.length; i++) {
-                        const col = lineas[i].split(',');
+                        if (!lineas[i].trim()) continue;
+
+                        const col = parsearLineaCSV(lineas[i]);
                         
-                        if (col.length >= 10) {
-                            // Columna 0 contiene el correo electrónico registrado
+                        if (col.length >= 2) {
                             const emailEnFila = col[0].replace(/"/g, '').toLowerCase().trim();
                             
                             if (emailEnFila === emailCliente) {
                                 filasEncontradas += `
                                     <tr>
-                                        <td class="highlight-recibo">${col[1].replace(/"/g, '')} 📎</td>
-                                        <td>${col[2].replace(/"/g, '')}</td>
-                                        <td>${col[3].replace(/"/g, '')}</td>
-                                        <td class="expedidor-red">${col[4].replace(/"/g, '')}</td>
-                                        <td class="green-val">${col[5].replace(/"/g, '')}</td>
-                                        <td>${col[6].replace(/"/g, '')}</td>
-                                        <td>${col[7].replace(/"/g, '')}</td>
-                                        <td>${col[8].replace(/"/g, '')}</td>
-                                        <td>${col[9].replace(/"/g, '')}</td>
-                                        <td>${col[10] ? col[10].replace(/"/g, '') : ''}</td>
+                                        <td class="highlight-recibo">${(col[1] || '').replace(/"/g, '')} 📎</td>
+                                        <td>${(col[2] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[3] || '').replace(/"/g, '')}</td>
+                                        <td class="expedidor-red">${(col[4] || '').replace(/"/g, '')}</td>
+                                        <td class="green-val">${(col[5] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[6] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[7] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[8] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[9] || '').replace(/"/g, '')}</td>
+                                        <td>${(col[10] || '').replace(/"/g, '')}</td>
                                     </tr>
                                 `;
 
-                                if (col[11] && col[11].replace(/"/g, '').trim().startsWith("http")) {
-                                    btnFactura.href = col[11].replace(/"/g, '').trim();
-                                    facturaContainer.style.display = "block";
+                                // ESCANEO DINÁMICO EN BUSCA DE URL DE FACTURA EN LA FILA
+                                for (let c = 10; c < col.length; c++) {
+                                    const valLimpio = col[c].replace(/"/g, '').trim();
+                                    if (valLimpio.startsWith("http://") || valLimpio.startsWith("https://")) {
+                                        enlaceFacturaEncontrado = valLimpio;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -816,6 +837,12 @@
 
                     if (filasEncontradas !== '') {
                         tbody.innerHTML = filasEncontradas;
+                        
+                        // MOSTRAR EL BOTÓN SOLO SI SE ENCONTRÓ UNA URL VÁLIDA
+                        if (enlaceFacturaEncontrado !== '') {
+                            btnFactura.href = enlaceFacturaEncontrado;
+                            facturaContainer.style.display = "block";
+                        }
                     } else {
                         tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados para el correo: <strong>' + emailCliente + '</strong></td></tr>';
                     }

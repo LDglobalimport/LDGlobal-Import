@@ -15,7 +15,6 @@
         })();
     </script>
     <style>
-        /* Estilos UI/UX adicionales incorporados */
         .status-badge {
             padding: 4px 8px;
             border-radius: 12px;
@@ -176,7 +175,7 @@
                 </div>
                 <div class="about-card">
                     <img src="oficina.jpg" alt="Gestión de procura LDGlobal">
-                    <div class="card-caption">Atención y monitoreo contante de tus cargas internacionales</div>
+                    <div class="card-caption">Atención y monitoreo constante de tus cargas internacionales</div>
                 </div>
             </div>
 
@@ -233,30 +232,11 @@
                     </select>
                 </div>
 
-                <div class="calc-form-group">
-                    <label>Largo (cm):</label>
-                    <input type="number" id="marLargo" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Ancho (cm):</label>
-                    <input type="number" id="marAncho" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Alto (cm):</label>
-                    <input type="number" id="marAlto" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>PESO DE MERCANCIA (KG):</label>
-                    <input type="number" id="marPeso" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Cantidad de cajas:</label>
-                    <input type="number" id="marCajas" value="1" min="1">
-                </div>
+                <div class="calc-form-group"><label>Largo (cm):</label><input type="number" id="marLargo" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Ancho (cm):</label><input type="number" id="marAncho" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Alto (cm):</label><input type="number" id="marAlto" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>PESO DE MERCANCIA (KG):</label><input type="number" id="marPeso" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Cantidad de cajas:</label><input type="number" id="marCajas" value="1" min="1"></div>
 
                 <div class="calc-form-group">
                     <label>¿Cómo viene embalada la mercancía?</label>
@@ -279,14 +259,8 @@
                 <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()">CALCULAR</button>
 
                 <div class="calc-results">
-                    <div class="calc-result-field">
-                        <label>Metro cúbico (m3):</label>
-                        <input type="text" id="resMarCbm" readonly placeholder="0.00">
-                    </div>
-                    <div class="calc-result-field">
-                        <label>Precio aproximado a pagar por este envío:</label>
-                        <input type="text" id="resMarTotal" readonly placeholder="$0.00">
-                    </div>
+                    <div class="calc-result-field"><label>Metro cúbico (m3):</label><input type="text" id="resMarCbm" readonly placeholder="0.00"></div>
+                    <div class="calc-result-field"><label>Precio aproximado a pagar por este envío:</label><input type="text" id="resMarTotal" readonly placeholder="$0.00"></div>
                 </div>
 
                 <div class="prohibited-box">
@@ -361,7 +335,7 @@
 
                 <!-- Caso 2: Laboratorio Dental Pluz -->
                 <div class="testimonial-card-real">
-                    <img src="Foto cliente 3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img">
+                    <img src="foto-cliente-3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -378,7 +352,7 @@
 
                 <!-- Caso 3: Gimnastas -->
                 <div class="testimonial-card-real">
-                    <img src="Foto cliente 4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img">
+                    <img src="foto-cliente-4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -395,7 +369,7 @@
 
                 <!-- Caso 4: Amazon / Guatire -->
                 <div class="testimonial-card-real">
-                    <img src="Foto cliente 2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
+                    <img src="foto-cliente-2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -646,28 +620,28 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
             </div>
 
@@ -1157,7 +1131,6 @@
             const clienteEmail = usuarioSesionActual.email || 'cliente@ldglobalimport.com';
             const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
 
-            // Feedback visual: Estado de carga
             btn.disabled = true;
             btn.innerText = "Enviando...";
             btn.style.backgroundColor = "#ffc107";
@@ -1178,7 +1151,6 @@
 
             emailjs.send("service_hn885sb", "template_ck1kr09", paramsInstruccion)
             .then(function(res) {
-                // Feedback visual: Confirmado en verde
                 btn.innerText = "✔ Confirmado";
                 btn.classList.add("btn-confirmado");
                 alert(`¡Instrucción enviada con éxito para la carga ${tracking}: ${modoElegido}!`);

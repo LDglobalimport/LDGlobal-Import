@@ -429,7 +429,6 @@
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
-            Replace con tus credenciales
             <h2>Inicio de Sesión</h2>
             <form onsubmit="event.preventDefault(); procesarLogin();">
                 <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input">
@@ -1073,7 +1072,6 @@
                     const linea = lineas[i];
                     if (!linea) continue;
 
-                    // Filtro ultra rápido por correo antes de parsear completo
                     if (linea.toLowerCase().indexOf(emailCliente) !== -1) {
                         const col = parsearLineaCSV(linea);
                         if (col.length >= 2) {

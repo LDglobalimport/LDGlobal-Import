@@ -103,9 +103,9 @@
         }
         .testimonial-img {
             width: 100%;
-            height: 220px;
+            height: 250px;
             object-fit: cover;
-            background-color: #eef2f5;
+            display: block;
         }
         .testimonial-body {
             padding: 20px;
@@ -131,7 +131,7 @@
     <!-- Header -->
     <header class="navbar">
         <div class="logo">
-            <img src="logo-principal.png" alt="LDGlobal Import Logo" class="nav-logo">
+            <img src="./logo-principal.png" alt="LDGlobal Import Logo" class="nav-logo">
         </div>
         <nav>
             <ul>
@@ -145,7 +145,7 @@
             </ul>
         </nav>
         
-        <!-- BOTONES Y CASILLA DE RASTREO RÁPIDO -->
+        <!-- BOTONES Y CASILLA DE RASTREO RÁPIDO COMPACTA DEBAJO -->
         <div class="header-auth-container">
             <div class="auth-buttons">
                 <button type="button" onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
@@ -187,7 +187,7 @@
     <section id="quienes-somos" class="about-section">
         <div class="about-container">
             <div class="section-header">
-                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
+                <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
                 <h2>Quiénes Somos</h2>
             </div>
             
@@ -201,11 +201,11 @@
             <!-- Galería de fotos reales -->
             <div class="about-gallery">
                 <div class="about-card">
-                    <img src="foto-reunion.jpg" alt="Asesoría personalizada LDGlobal" onerror="this.src='logo-secundario.png'">
+                    <img src="./foto-reunion.jpg" alt="Asesoría personalizada LDGlobal">
                     <div class="card-caption">Asesoría personalizada y acompañamiento en compra con clientes</div>
                 </div>
                 <div class="about-card">
-                    <img src="oficina.jpg" alt="Gestión de procura LDGlobal" onerror="this.src='logo-secundario.png'">
+                    <img src="./oficina.jpg" alt="Gestión de procura LDGlobal">
                     <div class="card-caption">Atención y monitoreo constante de tus cargas internacionales</div>
                 </div>
             </div>
@@ -213,7 +213,7 @@
             <!-- Misión y Visión -->
             <div class="mision-vision-container">
                 <h3>Nuestra Misión & Visión</h3>
-                <img src="foto-mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision" onerror="this.src='logo-secundario.png'">
+                <img src="./foto-mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
             </div>
         </div>
     </section>
@@ -221,7 +221,7 @@
     <!-- Servicios -->
     <section id="servicios" class="services">
         <div class="section-header">
-            <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
+            <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
             <h2>Nuestros Servicios</h2>
         </div>
         <div class="services-grid">
@@ -341,7 +341,7 @@
         <div style="max-width: 1200px; margin: 0 auto;">
             
             <div class="section-header-centered">
-                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 50px; margin-bottom: 10px;">
+                <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 50px; margin-bottom: 10px;">
                 <h2 style="color: #003366; font-size: 2.2em; margin: 0 0 10px 0;">Casos de Éxito y Entregas Reales</h2>
                 <p style="color: #666; font-size: 1.05em; margin: 0; max-width: 800px; line-height: 1.4;">Acompañamos a nuestros clientes desde la negociación en fábrica hasta la puerta de su negocio</p>
             </div>
@@ -350,7 +350,7 @@
                 
                 <!-- Caso 1: Tubos de escape -->
                 <div class="testimonial-card-real">
-                    <img src="foto-china.jpg" alt="Carga de tubos de escape" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./foto-china.jpg" alt="Carga de tubos de escape" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -367,7 +367,7 @@
 
                 <!-- Caso 2: Laboratorio Dental Pluz -->
                 <div class="testimonial-card-real">
-                    <img src="foto-cliente-3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./Foto-cliente-3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -384,7 +384,7 @@
 
                 <!-- Caso 3: Gimnastas -->
                 <div class="testimonial-card-real">
-                    <img src="foto-cliente-4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./foto-cliente-4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -401,7 +401,7 @@
 
                 <!-- Caso 4: Amazon / Guatire -->
                 <div class="testimonial-card-real">
-                    <img src="foto-cliente-2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./Foto-cliente-2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -418,7 +418,7 @@
 
                 <!-- Caso 5: Shein y Amazon -->
                 <div class="testimonial-card-real">
-                    <img src="foto-cliente1.png" alt="Entrega Compras Shein y Amazon" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./Foto-Cliente1.jpg" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -435,7 +435,7 @@
 
                 <!-- Caso 6: Consultorio Odontológico Orto Muelitas -->
                 <div class="testimonial-card-real">
-                    <img src="cliente-5.jpg" alt="Consultorio Odontológico Orto Muelitas" class="testimonial-img" onerror="this.src='logo-secundario.png'">
+                    <img src="./Cliente-5.jpg" alt="Consultorio Odontológico Orto Muelitas" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -473,10 +473,10 @@
                 </div>
                 <div class="faq-answer">
                     <ul>
-                        <li><strong>Aéreo China - Venezuela:</strong> 10 a 15 días hábiles.</li>
-                        <li><strong>Marítimo China - Venezuela:</strong> 45 a 60 días continuos.</li>
-                        <li><strong>Aéreo Miami - Venezuela:</strong> 3 a 5 días hábiles.</li>
-                        <li><strong>Marítimo Miami - Venezuela:</strong> 12 a 15 días continuos.</li>
+                        <li><strong>Aéreo China - Venezuela:</strong> 30 a 45 días hábiles.</li>
+                        <li><strong>Marítimo China - Venezuela:</strong> 60 a 90 días continuos. (Tomando en cuenta que son aproximadamente 75 días de navio y el resto procesos de aduana </li>
+                        <li><strong>Aéreo Miami - Venezuela:</strong> 5 a 7 días hábiles.</li>
+                        <li><strong>Marítimo Miami - Venezuela:</strong> 15 a 20 días continuos.</li>
                     </ul>
                 </div>
             </div>
@@ -527,13 +527,13 @@
 
     <!-- WhatsApp Flotante Oficial -->
     <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
-        <img src="logo-whatsapp.png" alt="WhatsApp LDGlobal">
+        <img src="./logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <img src="logo-principal.png" alt="LDGlobal Import" class="footer-logo">
+            <img src="./logo-principal.png" alt="LDGlobal Import" class="footer-logo">
             <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
             
             <div style="margin-top: 10px;">
@@ -542,7 +542,7 @@
 
             <div class="instagram-link-container" style="margin-top: 15px;">
                 <a href="https://www.instagram.com/Ldglobal_Import/" target="_blank" rel="noopener" class="instagram-btn">
-                    <img src="logo-instagram.png" alt="Instagram LDGlobal">
+                    <img src="./logo-instagram.png" alt="Instagram LDGlobal">
                     <span>Síguenos en Instagram <strong>@Ldglobal_Import</strong></span>
                 </a>
             </div>

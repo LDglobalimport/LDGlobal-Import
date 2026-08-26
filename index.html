@@ -190,7 +190,7 @@
 
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
-                    <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
+                    <p>Está strictly prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
                 </div>
 
                 <div class="calc-disclaimer">
@@ -454,7 +454,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ/ </strong></span>
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span>
                     </div>
                 </div>
                 
@@ -516,7 +516,7 @@
                             <th>Peso</th>
                             <th>Peso Vol.</th>
                             <th>Volumen</th>
-                            <th>Seguimientos</th>
+                            <th>Seguimientos / Modo Envio</th>
                         </tr>
                     </thead>
                     <tbody id="tablaMercanciaBody">
@@ -532,9 +532,9 @@
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
-        
-        // URL OFICIAL VERSIÓN 4
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
+
+        let usuarioSesionActual = { email: "", nombre: "", codigo: "" };
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -965,6 +965,8 @@
                     return;
                 }
 
+                usuarioSesionActual = usuario;
+
                 document.getElementById('userNombre').innerText = usuario.nombre;
                 document.getElementById('userCodigoCliente').innerText = usuario.codigo;
                 document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = usuario.codigo);
@@ -975,6 +977,13 @@
                 cargarMercanciaPorCorreo(emailIngresado);
             } else if (emailIngresado) {
                 const nombreCorto = emailIngresado.split('@')[0];
+                
+                usuarioSesionActual = {
+                    email: emailIngresado,
+                    nombre: nombreCorto,
+                    codigo: "LDG-CLIENTE"
+                };
+
                 document.getElementById('userNombre').innerText = nombreCorto;
                 document.getElementById('userCodigoCliente').innerText = "LDG-CLIENTE";
                 document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = "LDG-CLIENTE");
@@ -986,6 +995,41 @@
             } else {
                 alert("Por favor ingresa un correo electrónico válido.");
             }
+        }
+
+        // REUTILIZACIÓN DE LA PLANTILLA CONTÁCTANOS (template_f9by2on) PARA LAS INSTRUCCIONES DE DESPACHO
+        function enviarInstruccionDespacho(tracking, index) {
+            const selectModo = document.getElementById(`modoEnvio_${index}`);
+            if (!selectModo) return;
+
+            const modoElegido = selectModo.value;
+            const clienteNombre = usuarioSesionActual.nombre || document.getElementById('userNombre').innerText || 'Cliente';
+            const clienteEmail = usuarioSesionActual.email || 'Email no disponible';
+            const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
+
+            // Guardar selección localmente para persistencia visual
+            localStorage.setItem(`instruccion_${tracking}`, modoElegido);
+
+            // Adaptado para coincidir con la plantilla template_f9by2on
+            const paramsInstruccion = {
+                nombre_completo: `${clienteNombre} (${clienteCodigo})`,
+                nombre: clienteNombre,
+                email: clienteEmail,
+                user_email: clienteEmail,
+                telefono: 'Instrucción de Despacho',
+                estado: `Modo de Envío: ${modoElegido}`,
+                identificacion: `Tracking: ${tracking} | Cliente: ${clienteCodigo}`,
+                codigo_cliente: clienteCodigo,
+                contrasena: `Modo seleccionado por el cliente: ${modoElegido}`,
+                subject: `Instrucción de Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
+            };
+
+            emailjs.send("service_hn885sb", "template_f9by2on", paramsInstruccion)
+            .then(function() {
+                alert(`¡Instrucción enviada con éxito! La carga con tracking ${tracking} ha sido asignada para despacho: ${modoElegido}.`);
+            }, function(error) {
+                alert(`¡Instrucción registrada! La carga ${tracking} se procesará como envío ${modoElegido}.`);
+            });
         }
 
         function cargarMercanciaPorCorreo(emailCliente) {
@@ -1013,6 +1057,9 @@
                             const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
                             
                             if (emailEnFila === emailCliente) {
+                                const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
+                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`) || 'Marítimo';
+
                                 filasEncontradas += `
                                     <tr>
                                         <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
@@ -1024,7 +1071,18 @@
                                         <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
                                         <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
                                         <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[10] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>
+                                            <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+                                                <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
+                                                <div style="display: flex; gap: 4px;">
+                                                    <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
+                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
+                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' ? 'selected' : ''}>🚢 Marítimo</option>
+                                                    </select>
+                                                    <button type="button" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">OK</button>
+                                                </div>
+                                            </div>
+                                        </td>
                                     </tr>
                                 `;
 

@@ -1011,20 +1011,18 @@
             localStorage.setItem(`instruccion_${tracking}`, modoElegido);
 
             const paramsInstruccion = {
-                nombre_completo: clienteNombre,
                 nombre: clienteNombre,
                 email: clienteEmail,
-                user_email: clienteEmail,
                 codigo_cliente: clienteCodigo,
                 tracking: tracking,
-                modo_envio: modoElegido,
-                subject: `Instrucción- Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
+                modo_envio: modoElegido
             };
 
             emailjs.send("service_hn885sb", "template_lq07diw", paramsInstruccion)
             .then(function() {
                 alert(`¡Instrucción enviada con éxito! La carga con tracking ${tracking} ha sido asignada para despacho: ${modoElegido}.`);
             }, function(error) {
+                console.error("Error EmailJS:", error);
                 alert(`¡Instrucción registrada! La carga ${tracking} se procesará como envío ${modoElegido}.`);
             });
         }

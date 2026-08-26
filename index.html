@@ -190,7 +190,7 @@
 
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
-                    <p>Está strictly prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
+                    <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
                 </div>
 
                 <div class="calc-disclaimer">
@@ -473,7 +473,7 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
@@ -997,7 +997,7 @@
             }
         }
 
-        // REUTILIZACIÓN DE LA PLANTILLA CONTÁCTANOS (template_f9by2on) PARA LAS INSTRUCCIONES DE DESPACHO
+        // VINCULACIÓN A TU NUEVA PLANTILLA DEDICADA DE DESPACHO (template_lq07diw)
         function enviarInstruccionDespacho(tracking, index) {
             const selectModo = document.getElementById(`modoEnvio_${index}`);
             if (!selectModo) return;
@@ -1007,24 +1007,21 @@
             const clienteEmail = usuarioSesionActual.email || 'Email no disponible';
             const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
 
-            // Guardar selección localmente para persistencia visual
+            // Guardar selección localmente
             localStorage.setItem(`instruccion_${tracking}`, modoElegido);
 
-            // Adaptado para coincidir con la plantilla template_f9by2on
             const paramsInstruccion = {
-                nombre_completo: `${clienteNombre} (${clienteCodigo})`,
+                nombre_completo: clienteNombre,
                 nombre: clienteNombre,
                 email: clienteEmail,
                 user_email: clienteEmail,
-                telefono: 'Instrucción de Despacho',
-                estado: `Modo de Envío: ${modoElegido}`,
-                identificacion: `Tracking: ${tracking} | Cliente: ${clienteCodigo}`,
                 codigo_cliente: clienteCodigo,
-                contrasena: `Modo seleccionado por el cliente: ${modoElegido}`,
+                tracking: tracking,
+                modo_envio: modoElegido,
                 subject: `Instrucción de Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
             };
 
-            emailjs.send("service_hn885sb", "template_f9by2on", paramsInstruccion)
+            emailjs.send("service_hn885sb", "template_lq07diw", paramsInstruccion)
             .then(function() {
                 alert(`¡Instrucción enviada con éxito! La carga con tracking ${tracking} ha sido asignada para despacho: ${modoElegido}.`);
             }, function(error) {

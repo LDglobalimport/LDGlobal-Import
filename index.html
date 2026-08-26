@@ -53,7 +53,6 @@
             border-top: 1px solid #eee;
         }
 
-        /* Buscador compacto debajo de botones de autenticación */
         .header-auth-container {
             display: flex;
             flex-direction: column;
@@ -114,6 +113,16 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        }
+
+        /* Estilo centrado para la sección de testimonios */
+        .section-header-centered {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 40px;
         }
     </style>
 </head>
@@ -192,7 +201,7 @@
             <!-- Galería de fotos reales -->
             <div class="about-gallery">
                 <div class="about-card">
-                    <img src="foto-reunión.jpg" alt="Asesoría personalizada LDGlobal">
+                    <img src="foto-reunion.jpg" alt="Asesoría personalizada LDGlobal">
                     <div class="card-caption">Asesoría personalizada y acompañamiento en compra con clientes</div>
                 </div>
                 <div class="about-card">
@@ -327,13 +336,14 @@
         </div>
     </section>
 
-    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO -->
+    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO (ENCABEZADO CENTRADO) -->
     <section id="testimonios" style="padding: 60px 20px; background-color: #f4f7f6; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <div class="section-header" style="margin-bottom: 40px;">
-                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 50px;">
-                <h2 style="color: #003366; font-size: 2.2em; margin-top: 10px;">Casos de Éxito y Entregas Reales</h2>
-                <p style="color: #666; font-size: 1.05em;">Acompañamos a nuestros clientes desde la negociación en fábrica hasta la puerta de su negocio</p>
+            
+            <div class="section-header-centered">
+                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 50px; margin-bottom: 10px;">
+                <h2 style="color: #003366; font-size: 2.2em; margin: 0 0 10px 0;">Casos de Éxito y Entregas Reales</h2>
+                <p style="color: #666; font-size: 1.05em; margin: 0; max-width: 800px; line-height: 1.4;">Acompañamos a nuestros clientes desde la negociación en fábrica hasta la puerta de su negocio</p>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left;">
@@ -406,9 +416,9 @@
                     </div>
                 </div>
 
-                <!-- Caso 5: Shein y Amazon (foto-Cliente1.png) -->
+                <!-- Caso 5: Shein y Amazon -->
                 <div class="testimonial-card-real">
-                    <img src="foto-Cliente1.png" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
+                    <img src="foto-cliente1.png" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
@@ -671,7 +681,7 @@
                         <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <div class="warehouse-card">

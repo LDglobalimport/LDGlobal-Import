@@ -425,10 +425,11 @@
         </div>
     </div>
 
-    <!-- MODAL INICIO SESIÓN -->
+    <!-- MODAL INICIO SESIÓN CON RECUPERACIÓN Y REENVÍO DE BIENVENIDA -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
+            Replace con tus credenciales
             <h2>Inicio de Sesión</h2>
             <form onsubmit="event.preventDefault(); procesarLogin();">
                 <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input">
@@ -454,7 +455,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ/ </strong></span>
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ</strong></span>
                     </div>
                 </div>
                 
@@ -473,33 +474,33 @@
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
                     <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <!-- CHINA MARÍTIMO -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
                     <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
                     <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
                 <!-- MIAMI EE.UU. -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
             </div>
 
@@ -535,7 +536,16 @@
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "" };
-        let cacheCSVMercancia = null; // Caché para ultra velocidad de carga
+        let cacheCSVMercancia = null;
+
+        // PRE-CARGA EN SEGUNDO PLANO INMEDIATA
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch(GOOGLE_SHEETS_CSV_URL)
+                .then(r => r.text())
+                .then(txt => { cacheCSVMercancia = txt; })
+                .catch(e => {});
+            actualizarTarifasMaritimas();
+        });
 
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
@@ -939,7 +949,6 @@
                 subject: `Nuevo Registro de Casillero - ${nombreCompleto} ${codigoCliente}`
             };
 
-            // SE MANTIENEN LAS PLANTILLAS ORIGINALES SIN MODIFICAR
             Promise.all([
                 emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail),
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
@@ -1036,7 +1045,6 @@
                 subject: `Instrucción- Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
             };
 
-            // USO DE LOS NUEVOS IDS DE SERVICE Y TEMPLATE
             emailjs.send("service_2izjpc5", "template_0ousct", paramsInstruccion)
             .then(function(res) {
                 alert(`¡Instrucción enviada con éxito! La carga con tracking ${tracking} ha sido asignada para despacho: ${modoElegido}.`);
@@ -1046,7 +1054,7 @@
             });
         }
 
-        // BÚSQUEDA Y MONTAJE ULTRA RÁPIDO CON CACHÉ
+        // BÚSQUEDA Y MONTAJE INSTANTÁNEO
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1056,59 +1064,62 @@
             facturaContainer.style.display = "none";
             btnFactura.href = "#";
 
-            const procesarCSV = (data) => {
-                const lineas = data.split(/\r?\n/);
+            const renderTabla = (csvTexto) => {
+                const lineas = csvTexto.split(/\r?\n/);
                 let filasEncontradas = '';
                 let enlaceFacturaEncontrado = '';
 
                 for (let i = 1; i < lineas.length; i++) {
-                    if (!lineas[i].trim()) continue;
+                    const linea = lineas[i];
+                    if (!linea) continue;
 
-                    const col = parsearLineaCSV(lineas[i]);
-                    
-                    if (col.length >= 2) {
-                        const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
-                        
-                        if (emailEnFila === emailCliente) {
-                            if (!usuarioSesionActual.email) {
-                                usuarioSesionActual.email = emailCliente;
-                                usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
-                                usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
-                            }
+                    // Filtro ultra rápido por correo antes de parsear completo
+                    if (linea.toLowerCase().indexOf(emailCliente) !== -1) {
+                        const col = parsearLineaCSV(linea);
+                        if (col.length >= 2) {
+                            const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
+                            
+                            if (emailEnFila === emailCliente) {
+                                if (!usuarioSesionActual.email) {
+                                    usuarioSesionActual.email = emailCliente;
+                                    usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
+                                    usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
+                                }
 
-                            const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
-                            const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`) || 'Marítimo';
+                                const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
+                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`) || 'Marítimo';
 
-                            filasEncontradas += `
-                                <tr>
-                                    <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
-                                    <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>${(col[3] || '').replace(/^"|"$/g, '')}</td>
-                                    <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
-                                    <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
-                                    <td>
-                                        <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
-                                            <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
-                                            <div style="display: flex; gap: 4px;">
-                                                <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
-                                                    <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
-                                                    <option value="Marítimo" ${modoGuardado === 'Marítimo' ? 'selected' : ''}>🚢 Marítimo</option>
-                                                </select>
-                                                <button type="button" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">OK</button>
+                                filasEncontradas += `
+                                    <tr>
+                                        <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
+                                        <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[3] || '').replace(/^"|"$/g, '')}</td>
+                                        <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
+                                        <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>
+                                            <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+                                                <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
+                                                <div style="display: flex; gap: 4px;">
+                                                    <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
+                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
+                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' ? 'selected' : ''}>🚢 Marítimo</option>
+                                                    </select>
+                                                    <button type="button" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">OK</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            `;
+                                        </td>
+                                    </tr>
+                                `;
 
-                            if (col[11]) {
-                                let urlLimpia = col[11].replace(/^"|"$/g, '').trim();
-                                if (urlLimpia.startsWith("http://") || urlLimpia.startsWith("https://") || urlLimpia.includes("drive.google.com")) {
-                                    enlaceFacturaEncontrado = urlLimpia;
+                                if (col[11]) {
+                                    let urlLimpia = col[11].replace(/^"|"$/g, '').trim();
+                                    if (urlLimpia.startsWith("http://") || urlLimpia.startsWith("https://") || urlLimpia.includes("drive.google.com")) {
+                                        enlaceFacturaEncontrado = urlLimpia;
+                                    }
                                 }
                             }
                         }
@@ -1117,7 +1128,6 @@
 
                 if (filasEncontradas !== '') {
                     tbody.innerHTML = filasEncontradas;
-                    
                     if (enlaceFacturaEncontrado !== '') {
                         btnFactura.href = enlaceFacturaEncontrado;
                         facturaContainer.style.display = "block";
@@ -1128,23 +1138,23 @@
             };
 
             if (cacheCSVMercancia) {
-                procesarCSV(cacheCSVMercancia);
+                renderTabla(cacheCSVMercancia);
             } else {
-                fetch(GOOGLE_SHEETS_CSV_URL)
-                    .then(response => response.text())
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+                fetch(GOOGLE_SHEETS_CSV_URL, { signal: controller.signal })
+                    .then(res => res.text())
                     .then(data => {
+                        clearTimeout(timeoutId);
                         cacheCSVMercancia = data;
-                        procesarCSV(data);
+                        renderTabla(data);
                     })
-                    .catch(error => {
-                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No se pudieron consultar los datos del servidor de almacén.</td></tr>';
+                    .catch(err => {
+                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados temporalmente o reintente en unos segundos.</td></tr>';
                     });
             }
         }
-
-        window.onload = function() {
-            actualizarTarifasMaritimas();
-        };
     </script>
 </body>
 </html>

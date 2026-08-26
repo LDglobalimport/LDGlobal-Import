@@ -53,24 +53,38 @@
             border-top: 1px solid #eee;
         }
 
-        .public-tracker-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: 20px auto 0 auto;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .tracker-flex {
+        /* Buscador compacto debajo de botones de autenticación */
+        .header-auth-container {
             display: flex;
-            gap: 8px;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
         }
-        .tracker-input {
-            flex: 1;
-            padding: 10px;
+        .header-tracker-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4px 8px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            max-width: 260px;
+        }
+        .header-tracker-input {
+            padding: 4px 8px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 0.9em;
+            border-radius: 4px;
+            font-size: 0.78em;
+            width: 140px;
+        }
+        .header-tracker-btn {
+            padding: 4px 8px;
+            font-size: 0.78em;
+            background: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         .btn-confirmado {
@@ -121,11 +135,30 @@
                 <li><a href="#contacto">Cotizar</a></li>
             </ul>
         </nav>
-        <div class="auth-buttons">
-            <button type="button" onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
-            <button type="button" onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
+        
+        <!-- BOTONES Y CASILLA DE RASTREO RÁPIDO COMPACTA DEBAJO -->
+        <div class="header-auth-container">
+            <div class="auth-buttons">
+                <button type="button" onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
+                <button type="button" onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
+            </div>
+            
+            <div class="header-tracker-box">
+                <input type="text" id="publicTrackingInput" class="header-tracker-input" placeholder="Rastreo (Tracking/Correo)...">
+                <button type="button" onclick="rastrearPublico()" class="header-tracker-btn">Buscar</button>
+            </div>
         </div>
     </header>
+
+    <!-- Modal Resultados Rastreo Público -->
+    <div id="modalRastreoResultado" class="modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <span class="close-btn" onclick="cerrarModal('modalRastreoResultado')">&times;</span>
+            <h3 style="color: #003366; margin-bottom: 15px;">🔎 Estado de tu Carga</h3>
+            <div id="publicTrackerResult" style="text-align: left; font-size: 0.9em;"></div>
+            <button type="button" onclick="cerrarModal('modalRastreoResultado')" class="btn-primary" style="margin-top: 15px; width: 100%;">Cerrar</button>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section id="inicio" class="hero-puerto">
@@ -136,17 +169,6 @@
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
-                
-                <!-- RASTREADOR PÚBLICO DE TRACKING (LANDING PAGE) -->
-                <div class="public-tracker-box">
-                    <h4 style="margin-bottom: 10px; color: #003366;">🔎 Rastreo Rápido de Carga</h4>
-                    <div class="tracker-flex">
-                        <input type="text" id="publicTrackingInput" class="tracker-input" placeholder="Ingresa tu Tracking o Correo...">
-                        <button type="button" onclick="rastrearPublico()" class="btn-primary" style="padding: 10px 15px;">Buscar</button>
-                    </div>
-                    <div id="publicTrackerResult" style="margin-top: 10px; font-size: 0.85em; color: #333; text-align: left;"></div>
-                </div>
-
                 <a href="#contacto" class="btn-primary" style="margin-top: 15px; display: inline-block;">Solicitar Cotización</a>
             </div>
         </div>
@@ -380,6 +402,23 @@
                         <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
                             <strong style="color: #222; font-size: 0.95em;">Sra. Lennis González</strong><br>
                             <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Entrega Puerta a Puerta (Guatire)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 5: Shein y Amazon (foto-cliente1.png) -->
+                <div class="testimonial-card-real">
+                    <img src="foto-cliente1.png" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Consolidé varios paquetes de Shein y Amazon en mi casillero. Me llegó todo junto, seguro y súper rápido a Caracas."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Cliente Frecuente</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Consolidación Shein & Amazon</span>
                         </div>
                     </div>
                 </div>
@@ -693,17 +732,18 @@
             answer.style.display = answer.style.display === "block" ? "none" : "block";
         }
 
-        // RASTREADOR PÚBLICO DE TRACKING
+        // RASTREADOR PÚBLICO EN HEADER
         function rastrearPublico() {
             const query = document.getElementById('publicTrackingInput').value.trim().toLowerCase();
             const resDiv = document.getElementById('publicTrackerResult');
             
             if (!query) {
-                resDiv.innerHTML = "<span style='color: red;'>Por favor ingresa un tracking válido.</span>";
+                alert("Por favor ingresa un número de tracking o correo.");
                 return;
             }
 
-            resDiv.innerHTML = "🔍 Buscando carga...";
+            abrirModal('modalRastreoResultado');
+            resDiv.innerHTML = "🔍 Buscando información de carga...";
 
             const buscarEnTexto = (csv) => {
                 const lineas = csv.split(/\r?\n/);
@@ -714,10 +754,11 @@
                         const col = parsearLineaCSV(lineas[i]);
                         encontrado = true;
                         resDiv.innerHTML = `
-                            <div style="background: #e9f7ef; padding: 10px; border-radius: 5px; border-left: 4px solid #28a745;">
+                            <div style="background: #e9f7ef; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;">
                                 <strong> Tracking:</strong> ${col[10] || query}<br>
-                                <strong> Status:</strong> <span class="status-badge badge-almacen">${col[3] || 'En almacén'}</span><br>
-                                <strong> Recibo:</strong> ${col[1] || 'N/A'} | <strong> Piezas:</strong> ${col[6] || '1'}
+                                <strong> Estado:</strong> <span class="status-badge badge-almacen">${col[3] || 'En almacén'}</span><br>
+                                <strong> Recibo:</strong> ${col[1] || 'N/A'}<br>
+                                <strong> Piezas:</strong> ${col[6] || '1'} | <strong> Peso:</strong> ${col[7] || 'N/A'}
                             </div>
                         `;
                         break;
@@ -725,7 +766,7 @@
                 }
 
                 if (!encontrado) {
-                    resDiv.innerHTML = "<span style='color: #d9534f;'> Carga no encontrada. Por favor verifica el número o inicia sesión.</span>";
+                    resDiv.innerHTML = "<div style='color: #d9534f; padding: 10px; border: 1px solid #f5c6cb; border-radius: 4px; background: #f8d7da;'> Carga no encontrada. Por favor verifica el tracking o inicia sesión en tu casillero.</div>";
                 }
             };
 

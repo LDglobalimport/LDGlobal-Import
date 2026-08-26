@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=12">
+    <link rel="stylesheet" href="styles.css?v=13">
     
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -14,6 +14,95 @@
             emailjs.init("87_5sQy2cvxwP6eWv");
         })();
     </script>
+    <style>
+        /* Estilos UI/UX adicionales incorporados */
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .badge-almacen { background-color: #ffeba2; color: #856404; }
+        .badge-transito { background-color: #cce5ff; color: #004085; }
+        .badge-entregado { background-color: #d4edda; color: #155724; }
+        
+        .faq-item {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            text-align: left;
+        }
+        .faq-question {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            font-weight: bold;
+            color: #003366;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding: 15px 20px;
+            display: none;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.5;
+            border-top: 1px solid #eee;
+        }
+
+        .public-tracker-box {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 20px auto 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .tracker-flex {
+            display: flex;
+            gap: 8px;
+        }
+        .tracker-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .btn-confirmado {
+            background-color: #28a745 !important;
+            color: white !important;
+            cursor: default !important;
+        }
+
+        .testimonial-card-real {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid #0056b3;
+        }
+        .testimonial-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .testimonial-body {
+            padding: 20px;
+            text-align: left;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    </style>
 </head>
 <body>
 
@@ -28,6 +117,8 @@
                 <li><a href="#quienes-somos">Quiénes Somos</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#calculadora">Calculadora</a></li>
+                <li><a href="#testimonios">Casos de Éxito</a></li>
+                <li><a href="#faq">FAQ</a></li>
                 <li><a href="#contacto">Cotizar</a></li>
             </ul>
         </nav>
@@ -46,7 +137,18 @@
                 </div>
                 <h1>Tu carga Segura y a Tiempo con LDGlobal import</h1>
                 <p>Consolidación de carga marítima y aérea, compras internacionales y gestión aduanera integral</p>
-                <a href="#contacto" class="btn-primary">Solicitar Cotización</a>
+                
+                <!-- RASTREADOR PÚBLICO DE TRACKING (LANDING PAGE) -->
+                <div class="public-tracker-box">
+                    <h4 style="margin-bottom: 10px; color: #003366;">🔎 Rastreo Rápido de Carga</h4>
+                    <div class="tracker-flex">
+                        <input type="text" id="publicTrackingInput" class="tracker-input" placeholder="Ingresa tu Tracking o Correo...">
+                        <button type="button" onclick="rastrearPublico()" class="btn-primary" style="padding: 10px 15px;">Buscar</button>
+                    </div>
+                    <div id="publicTrackerResult" style="margin-top: 10px; font-size: 0.85em; color: #333; text-align: left;"></div>
+                </div>
+
+                <a href="#contacto" class="btn-primary" style="margin-top: 15px; display: inline-block;">Solicitar Cotización</a>
             </div>
         </div>
     </section>
@@ -63,22 +165,22 @@
             
             <div class="about-text-content">
                 <p>En <strong>LD Global</strong> no solo movemos mercancía; impulsamos la rentabilidad de tu inversión. Como tu <strong>Agente de Procura Internacional</strong>, nos encargamos de localizar, negociar y adquirir tus suministros en el extranjero bajo los más altos estándares de seguridad y transparencia.</p>
-                <p>Complementamos nuestra gestión con un análisis financiero de plusvalía, evaluando los costos reales y el margen de ganancia antes de cada operación. Desde el primer contacto con el proveedor hasta la entrega en la puerta de tu negocio en Venezuela. Conectamos tu negocio con los principales mercados del mundo. En LD Global nos encargamos de toda la gestión de tus importaciones y logística internacional, para que tú solo te preocupes por hacer crecer tu empresa. <strong>Somos el puente seguro hacia tu expansión global.</strong></p>
+                <p>Complementamos nuestra gestión con un análisis financiero de plusvalía, evaluando los costos reales y el margen de ganancia antes de cada operación. Desde el primer contacto con el proveedor hasta la entrega en la puerta de tu negocio en Venezuela. <strong>Somos el puente seguro hacia tu expansión global.</strong></p>
             </div>
 
             <!-- Galería de fotos reales -->
             <div class="about-gallery">
                 <div class="about-card">
-                    <img src="foto-reunion.jpg" alt="Reunión con clientes en oficina LDGlobal">
-                    <div class="card-caption">Asesoría personalizada y atención en nuestras oficinas</div>
+                    <img src="foto-reunion.jpg" alt="Asesoría personalizada LDGlobal">
+                    <div class="card-caption">Asesoría personalizada y acompañamiento en compra con clientes</div>
                 </div>
                 <div class="about-card">
-                    <img src="foto-almacen.jpg" alt="Almacén de recepción de carga LDGlobal">
-                    <div class="card-caption">Recepción y consolidación segura en nuestros almacenes</div>
+                    <img src="oficina.jpg" alt="Gestión de procura LDGlobal">
+                    <div class="card-caption">Atención y monitoreo contante de tus cargas internacionales</div>
                 </div>
             </div>
 
-            <!-- Imagen Misión y Visión Oficial -->
+            <!-- Misión y Visión -->
             <div class="mision-vision-container">
                 <h3>Nuestra Misión & Visión</h3>
                 <img src="foto-mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
@@ -102,8 +204,8 @@
                 <p>Envíos express para cuando necesitas tu inventario con máxima urgencia.</p>
             </div>
             <div class="card">
-                <h3>📑 Gestión Aduanal</h3>
-                <p>Nos encargamos de la nacionalización y trámites legales de tu mercancía.</p>
+                <h3>📑 Gestión Aduanal y Procura</h3>
+                <p>Nos encargamos de la nacionalización, negociación e inspección con proveedores en China.</p>
             </div>
         </div>
     </section>
@@ -167,8 +269,7 @@
 
                 <div class="calc-form-group">
                     <label>Precio del m3 / Destino:</label>
-                    <select id="marDestinoTarifa">
-                    </select>
+                    <select id="marDestinoTarifa"></select>
                 </div>
 
                 <div class="calc-form-group checkbox-group">
@@ -190,14 +291,12 @@
 
                 <div class="prohibited-box">
                     <h4>⚠️ Artículos Prohibidos para Importar a Venezuela:</h4>
-                    <p>Está strictly prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, tarjetas de crédito, joyas, metales preciosos, materiales inflamables, químicos peligrosos, aerosoles, plantas, semillas, animales (vivos o muertos) y material pornográfico.</p>
+                    <p>Está estrictamente prohibido importar: armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, joyas, químicos peligrosos, aerosoles, plantas y semillas.</p>
                 </div>
 
                 <div class="calc-disclaimer">
                     <h4>FINANCIAMIENTO 100%</h4>
                     <p><strong>Realiza el pago de tu envío cuando llegue a Puerto Nacional (Venezuela).</strong></p>
-                    <p>TARIFAS APLICADAS PARA SOLO PAGOS EN DIVISAS.</p>
-                    <p class="note-highlight">(SI SU PAQUETE ES EQUIPOS, INSUMOS MEDICOS O DE ALTO VALOR DEBE CONSULTAR CON SU ASESOR)</p>
                 </div>
             </div>
 
@@ -213,69 +312,157 @@
                     </select>
                 </div>
 
-                <div class="calc-form-group">
-                    <label>Alto (cm):</label>
-                    <input type="number" id="aerAlto" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Ancho (cm):</label>
-                    <input type="number" id="aerAncho" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Largo (cm):</label>
-                    <input type="number" id="aerLargo" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Peso Real (kg):</label>
-                    <input type="number" id="aerPeso" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Cantidad de Cajas:</label>
-                    <input type="number" id="aerCajas" value="1" min="1">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Valor en $ de su mercancía:</label>
-                    <input type="number" id="aerValor" placeholder="0" min="0" step="any">
-                </div>
-
-                <div class="calc-form-group">
-                    <label>Cantidad de unidades del producto:</label>
-                    <input type="number" id="aerUnidades" value="1" min="1">
-                </div>
+                <div class="calc-form-group"><label>Alto (cm):</label><input type="number" id="aerAlto" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Ancho (cm):</label><input type="number" id="aerAncho" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Largo (cm):</label><input type="number" id="aerLargo" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Peso Real (kg):</label><input type="number" id="aerPeso" placeholder="0" min="0" step="any"></div>
+                <div class="calc-form-group"><label>Cantidad de Cajas:</label><input type="number" id="aerCajas" value="1" min="1"></div>
+                <div class="calc-form-group"><label>Valor en $ de su mercancía:</label><input type="number" id="aerValor" placeholder="0" min="0" step="any"></div>
 
                 <button type="button" class="btn-calc-submit" onclick="calcularAereo()">CALCULAR</button>
 
                 <div class="calc-results">
-                    <div class="calc-result-field">
-                        <label>Peso volumétrico:</label>
-                        <input type="text" id="resAerPesoVol" readonly placeholder="0.00">
-                    </div>
-                    <div class="calc-result-field">
-                        <label>Costo de envío (USD):</label>
-                        <input type="text" id="resAerCostoEnvio" readonly placeholder="$0.00">
-                    </div>
-                    <div class="calc-result-field">
-                        <label>Impuestos aproximados:</label>
-                        <input type="text" id="resAerImpuestos" readonly placeholder="$0.00">
-                    </div>
-                    <div class="calc-result-field highlight-total">
-                        <label>TOTAL (Impuesto + envío) (USD):</label>
-                        <input type="text" id="resAerTotal" readonly placeholder="$0.00">
+                    <div class="calc-result-field"><label>Peso volumétrico:</label><input type="text" id="resAerPesoVol" readonly placeholder="0.00"></div>
+                    <div class="calc-result-field"><label>Costo de envío (USD):</label><input type="text" id="resAerCostoEnvio" readonly placeholder="$0.00"></div>
+                    <div class="calc-result-field"><label>Impuestos aproximados:</label><input type="text" id="resAerImpuestos" readonly placeholder="$0.00"></div>
+                    <div class="calc-result-field highlight-total"><label>TOTAL (Impuesto + envío) (USD):</label><input type="text" id="resAerTotal" readonly placeholder="$0.00"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO -->
+    <section id="testimonios" style="padding: 60px 20px; background-color: #f4f7f6; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header" style="margin-bottom: 40px;">
+                <img src="logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 50px;">
+                <h2 style="color: #003366; font-size: 2.2em; margin-top: 10px;">Casos de Éxito y Entregas Reales</h2>
+                <p style="color: #666; font-size: 1.05em;">Acompañamos a nuestros clientes desde la negociación en fábrica hasta la puerta de su negocio</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left;">
+                
+                <!-- Caso 1: Tubos de escape -->
+                <div class="testimonial-card-real">
+                    <img src="foto-china.jpg" alt="Carga de tubos de escape" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Trajimos un contenedor completo de más de 10 CBM en tubos de escape. LDGlobal realizó la asesoría personalizada, la inspección previa en fábrica en China y la entrega directa en nuestra sede."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Triple A & Silenciadores Dos Caminos</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Procura e Importación Marítima (Caracas)</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="calc-disclaimer-aereo">
-                    <p><strong>IMPORTANTE:</strong> Debes enviar la siguiente información a tu asesor para que el paquete aéreo sea procesado.</p>
-                    <ol>
-                        <li>INVOICE (factura de compra).</li>
-                        <li>Comprobante de pago.</li>
-                        <li>Código HS del producto.</li>
-                    </ol>
+                <!-- Caso 2: Laboratorio Dental Pluz -->
+                <div class="testimonial-card-real">
+                    <img src="Foto cliente 3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Importamos maquinaria odontológica especializada desde China. El manejo de la carga delicada y la gestión aduanal fue impecable."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Laboratorio Dental Pluz</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Equipos Médicos / Odontológicos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 3: Gimnastas -->
+                <div class="testimonial-card-real">
+                    <img src="Foto cliente 4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Adquirimos 40 pares de zapatos para nuestro equipo completo de gimnasia en China. Llegó súper rápido y coordinado."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Equipo de Gimnasia Aérea</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Importación de Calzado Deportivo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 4: Amazon / Guatire -->
+                <div class="testimonial-card-real">
+                    <img src="Foto cliente 2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Hice mis compras en Amazon recibidas en el casillero de Miami. Todo fue procesado y entregado en la puerta de mi casa en Guatire."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Sra. Lennis González</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Entrega Puerta a Puerta (Guatire)</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 35px;">
+                <a href="https://wa.me/584242474580?text=Hola,%20quisiera%20dejar%20mi%20testimonio%20sobre%20mi%20env%C3%ADo." target="_blank" class="btn-primary" style="background-color: #25d366; border: none; padding: 12px 25px;">💬 ¿Eres cliente? Déjanos tu opinión por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN PREGUNTAS FRECUENTES (FAQ) -->
+    <section id="faq" style="padding: 60px 20px; background-color: #ffffff; text-align: center;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div class="section-header" style="margin-bottom: 30px;">
+                <h2 style="color: #003366;">Preguntas Frecuentes (FAQ)</h2>
+                <p style="color: #666;">Resuelve tus dudas sobre tiempos, impuestos y métodos de pago</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>⏱️ ¿Cuánto tarda un envío Aéreo vs. Marítimo desde China y Miami?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <ul>
+                        <li><strong>Aéreo China - Venezuela:</strong> 10 a 15 días hábiles.</li>
+                        <li><strong>Marítimo China - Venezuela:</strong> 45 a 60 días continuos.</li>
+                        <li><strong>Aéreo Miami - Venezuela:</strong> 3 a 5 días hábiles.</li>
+                        <li><strong>Marítimo Miami - Venezuela:</strong> 12 a 15 días continuos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>💳 ¿Cuáles son los Métodos de Pago Aceptados?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Aceptamos las siguientes modalidades de pago flexibles para tu comodidad:</p>
+                    <ul>
+                        <li>Transferencias en USD a <strong>Banco Mercantil Panamá</strong>.</li>
+                        <li>Depósitos en USD en efectivo en Cuentas Nacionales (<strong>Bancamiga</strong> y <strong>Banco Nacional de Crédito - BNC</strong>).</li>
+                        <li>Dólares en Efectivo ($ USD) directo en nuestras oficinas o entregas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>🧮 ¿Cómo se calculan los impuestos aduanales?</span>
+                    <span>▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>En el caso del flete marítimo, el costo incluye la gestión y nacionalización. Para envíos aéreos con valor declarado mayor a $100, se aplica una tasa aproximada del 5% sobre el valor en factura de la mercancía.</p>
                 </div>
             </div>
         </div>
@@ -309,7 +496,11 @@
             <img src="logo-principal.png" alt="LDGlobal Import" class="footer-logo">
             <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
             
-            <div class="instagram-link-container">
+            <div style="margin-top: 10px;">
+                <a href="#" onclick="abrirModal('modalPrivacidad'); return false;" style="color: #ccc; text-decoration: underline; font-size: 0.85em;">Política de Privacidad y Tratamiento de Datos</a>
+            </div>
+
+            <div class="instagram-link-container" style="margin-top: 15px;">
                 <a href="https://www.instagram.com/Ldglobal_Import/" target="_blank" rel="noopener" class="instagram-btn">
                     <img src="logo-instagram.png" alt="Instagram LDGlobal">
                     <span>Síguenos en Instagram <strong>@Ldglobal_Import</strong></span>
@@ -337,44 +528,15 @@
                     <input type="text" id="identificacion" placeholder="Identificación*" required>
                     <input type="text" id="nombre" placeholder="Nombre*" required>
                     <input type="text" id="apellido" placeholder="Apellido*" required>
-                    
                     <input type="email" id="email" placeholder="Email*" required>
                     <input type="email" id="confirmEmail" placeholder="Confirmar Email*" required>
-                    
                     <input type="password" id="password" placeholder="Password*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
-                    <select id="pais" required>
-                        <option value="" disabled selected>:: Seleccione País * ::</option>
-                        <option value="Venezuela">Venezuela</option>
-                    </select>
-
+                    <select id="pais" required><option value="Venezuela" selected>Venezuela</option></select>
                     <select id="estado" required>
                         <option value="" disabled selected>:: Seleccione Estado * ::</option>
-                        <option value="Amazonas">Amazonas</option>
-                        <option value="Anzoategui">Anzoategui</option>
-                        <option value="Apure">Apure</option>
-                        <option value="Aragua">Aragua</option>
-                        <option value="Barinas">Barinas</option>
-                        <option value="Bolivar">Bolivar</option>
-                        <option value="Carabobo">Carabobo</option>
-                        <option value="Cojedes">Cojedes</option>
-                        <option value="Delta Amacuro">Delta Amacuro</option>
-                        <option value="Distrito Capital">Distrito Capital</option>
-                        <option value="Falcon">Falcon</option>
-                        <option value="Guarico">Guarico</option>
-                        <option value="Lara">Lara</option>
-                        <option value="Merida">Merida</option>
-                        <option value="Miranda">Miranda</option>
-                        <option value="Monagas">Monagas</option>
-                        <option value="Nueva Esparta">Nueva Esparta</option>
-                        <option value="Portuguesa">Portuguesa</option>
-                        <option value="Sucre">Sucre</option>
-                        <option value="Tachira">Tachira</option>
-                        <option value="Trujillo">Trujillo</option>
-                        <option value="Vargas">Vargas</option>
-                        <option value="Yaracuy">Yaracuy</option>
-                        <option value="Zulia">Zulia</option>
+                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option>
                     </select>
 
                     <input type="text" id="ciudad" placeholder="Ciudad*" required>
@@ -384,7 +546,6 @@
                     <input type="tel" id="celular" placeholder="Celular">
                 </div>
 
-                <!-- CHECKBOX TÉRMINOS Y CONDICIONES OBLIGATORIO -->
                 <div class="form-group checkbox-group terms-checkbox" style="margin-top: 15px; margin-bottom: 15px; text-align: left;">
                     <label style="font-size: 0.9em; cursor: pointer;">
                         <input type="checkbox" id="aceptaTerminos" required> 
@@ -402,30 +563,30 @@
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
             <h2>Términos y Condiciones del Servicio</h2>
-            <div class="terms-text-container" style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; border: 1px solid #ddd; border-radius: 6px; background-color: #f9f9f9;">
+            <div class="terms-text-container" style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; border: 1px solid #ddd; background-color: #f9f9f9;">
                 <h3>1. Registro y Asignación de Casillero</h3>
-                <p>Al completarse el registro en LD Global Import & Logistics, se asignará un Código Único de Cliente y direcciones físicas oficiales en nuestros almacenes de China y Miami. Cada cuenta es personal e intransferible.</p>
-
+                <p>Al completarse el registro en LD Global Import & Logistics, se asignará un Código Único de Cliente y direcciones físicas oficiales en nuestros almacenes de China y Miami.</p>
                 <h3>2. Recepción e Ingreso de Carga</h3>
                 <p>Los paquetes recibidos en nuestros almacenes se procesarán y registrarán en el sistema en un lapso de 12 a 24 horas hábiles posteriores a su recepción física.</p>
-
-                <h3>3. Reempaque y Consolidación</h3>
-                <p>LD Global ofrece el servicio de consolidación y reempaque para optimizar los costos de flete. Una vez iniciada la consolidación o preparación del embalaje, no será posible agregar, retirar o modificar mercancía del paquete.</p>
-
-                <h3>4. Artículos Prohibidos y De Especial Atención</h3>
-                <p>Está estrictamente prohibido importar armas de fuego, municiones, explosivos, drogas, estupefacientes, dinero en efectivo, cheques, joyas, materiales inflamables, químicos peligrosos, aerosoles, plantas y semillas. En caso de enviar equipos tecnológicos, insumos médicos o artículos de alto valor, el cliente debe notificarlos previamente a su asesor.</p>
-
-                <h3>5. Responsabilidad sobre Compras y Declaración</h3>
-                <p>LD Global Import & Logistics no se hace responsable por errores imputables a las tiendas o proveedores del cliente (tallas, modelos, productos defectuosos de fábrica o envíos incompletos por parte del vendedor).</p>
-
-                <h3>6. Entregas y Pago de Fletes</h3>
-                <p>El cliente se compromete a realizar el pago correspondiente a su flete de importación al momento de la llegada de la mercancía a Puerto o Aeropuerto Nacional en Venezuela, de acuerdo a la modalidad acordada.</p>
             </div>
             <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px;">Entendido y Cerrar</button>
         </div>
     </div>
 
-    <!-- MODAL INICIO SESIÓN CON RECUPERACIÓN Y REENVÍO DE BIENVENIDA -->
+    <!-- MODAL POLÍTICA DE PRIVACIDAD -->
+    <div id="modalPrivacidad" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close-btn" onclick="cerrarModal('modalPrivacidad')">&times;</span>
+            <h2>Política de Privacidad y Protección de Datos</h2>
+            <div style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; background: #f9f9f9; border: 1px solid #ddd;">
+                <p>En <strong>LDGlobal Import & Logistics</strong> valoramos y respetamos la privacidad de nuestros clientes. Todos los datos suministrados (Nombre, Identificación, Dirección, Teléfono y Correo) son utilizados exclusivamente para la asignación de casilleros, emisión de documentos de carga y notificaciones de despacho.</p>
+                <p>No compartimos ni comercializamos información personal con terceros salvo los organismos aduanales e instituciones reguladoras de transporte.</p>
+            </div>
+            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalPrivacidad')" style="margin-top: 15px;">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL INICIO SESIÓN -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -454,7 +615,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span>
+                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ</strong></span>
                     </div>
                 </div>
                 
@@ -466,50 +627,57 @@
                 </div>
             </div>
 
+            <!-- FILTROS Y BÚSQUEDA DENTRO DEL CASILLERO -->
+            <div style="background: #eef2f5; padding: 12px; border-radius: 8px; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
+                <div style="display: flex; gap: 10px; flex: 1; min-width: 260px;">
+                    <input type="text" id="searchTableInput" onkeyup="filtrarTablaCasillero()" placeholder="🔎 Buscar por tracking o recibo..." style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; flex: 1;">
+                    <select id="filterModoSelect" onchange="filtrarTablaCasillero()" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
+                        <option value="">Todos los Modos</option>
+                        <option value="Aéreo">✈️ Aéreo</option>
+                        <option value="Marítimo">🚢 Marítimo</option>
+                    </select>
+                </div>
+                <button type="button" onclick="cacheCSVMercancia=null; cargarMercanciaPorCorreo(usuarioSesionActual.email);" style="padding: 6px 12px; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄 Actualizar Datos</button>
+            </div>
+
             <div class="addresses-container">
                 <h3>Direcciones Oficiales para Envíos de Compras:</h3>
 
-                <!-- CHINA AÉREO -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" id="btnCopyChinaAereo" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
-                    <p><strong>Código Postal:</strong> 510120 | <strong>Contacto:</strong> Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <!-- CHINA MARÍTIMO -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" id="btnCopyChinaMar" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Raby phone: 19502066521 海运仓地址：广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地） 联系人:黄小姐 联系电话：19502066521 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
-                    <p><strong>Dirección en Chino:</strong> 广州市荔湾区南围路12号12-5门（定位广东水族行业观赏鱼养殖基地）</p>
-                    <p><strong>Contacto:</strong> 黄小姐 (Miss Huang) / Raby | <strong>Tel:</strong> 19502066521</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <!-- MIAMI EE.UU. -->
                 <div class="warehouse-card">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" id="btnCopyMiami" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ /  ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                        <button type="button" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
                     <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
-                    <p class="ref-code"><strong>Identificador de Casillero:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ /  <span class="lblUserCodigo">LDG-0000</span></span></p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
             </div>
 
             <div class="table-responsive-container">
-                <table class="ingresos-table">
+                <table class="ingresos-table" id="tablaCasilleroMain">
                     <thead>
                         <tr>
                             <th>Recibo</th>
                             <th>Fecha</th>
-                            <th>Transporte</th>
+                            <th>Estado</th>
                             <th>Expedidor</th>
                             <th>Valor</th>
                             <th>Piezas</th>
@@ -537,7 +705,6 @@
         let usuarioSesionActual = { email: "", nombre: "", codigo: "" };
         let cacheCSVMercancia = null;
 
-        // PRE-CARGA EN SEGUNDO PLANO INMEDIATA
         window.addEventListener('DOMContentLoaded', () => {
             fetch(GOOGLE_SHEETS_CSV_URL)
                 .then(r => r.text())
@@ -546,44 +713,100 @@
             actualizarTarifasMaritimas();
         });
 
+        // FAQ Accordion Toggle
+        function toggleFaq(el) {
+            const answer = el.nextElementSibling;
+            answer.style.display = answer.style.display === "block" ? "none" : "block";
+        }
+
+        // RASTREADOR PÚBLICO DE TRACKING
+        function rastrearPublico() {
+            const query = document.getElementById('publicTrackingInput').value.trim().toLowerCase();
+            const resDiv = document.getElementById('publicTrackerResult');
+            
+            if (!query) {
+                resDiv.innerHTML = "<span style='color: red;'>Por favor ingresa un tracking válido.</span>";
+                return;
+            }
+
+            resDiv.innerHTML = "🔍 Buscando carga...";
+
+            const buscarEnTexto = (csv) => {
+                const lineas = csv.split(/\r?\n/);
+                let encontrado = false;
+
+                for (let i = 1; i < lineas.length; i++) {
+                    if (lineas[i].toLowerCase().includes(query)) {
+                        const col = parsearLineaCSV(lineas[i]);
+                        encontrado = true;
+                        resDiv.innerHTML = `
+                            <div style="background: #e9f7ef; padding: 10px; border-radius: 5px; border-left: 4px solid #28a745;">
+                                <strong> Tracking:</strong> ${col[10] || query}<br>
+                                <strong> Status:</strong> <span class="status-badge badge-almacen">${col[3] || 'En almacén'}</span><br>
+                                <strong> Recibo:</strong> ${col[1] || 'N/A'} | <strong> Piezas:</strong> ${col[6] || '1'}
+                            </div>
+                        `;
+                        break;
+                    }
+                }
+
+                if (!encontrado) {
+                    resDiv.innerHTML = "<span style='color: #d9534f;'> Carga no encontrada. Por favor verifica el número o inicia sesión.</span>";
+                }
+            };
+
+            if (cacheCSVMercancia) {
+                buscarEnTexto(cacheCSVMercancia);
+            } else {
+                fetch(GOOGLE_SHEETS_CSV_URL)
+                    .then(r => r.text())
+                    .then(txt => { cacheCSVMercancia = txt; buscarEnTexto(txt); })
+                    .catch(e => { resDiv.innerHTML = " Error al consultar servidor."; });
+            }
+        }
+
+        // FILTROS EN TABLA CASILLERO
+        function filtrarTablaCasillero() {
+            const searchVal = document.getElementById('searchTableInput').value.toLowerCase();
+            const modoVal = document.getElementById('filterModoSelect').value.toLowerCase();
+            const rows = document.querySelectorAll('#tablaMercanciaBody tr');
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const matchesSearch = text.includes(searchVal);
+                const matchesModo = modoVal === "" || text.includes(modoVal);
+
+                if (matchesSearch && matchesModo) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
         // TARIFAS MARÍTIMAS
         const TARIFAS_CHINA_MAR = [
-            { destino: "Caracas", precio: 970 },
-            { destino: "Maracay", precio: 910 },
-            { destino: "Valencia", precio: 930 },
-            { destino: "Barquisimeto", precio: 1030 },
-            { destino: "Margarita", precio: 1240 },
-            { destino: "Cojedes y Yaracuy", precio: 1110 },
-            { destino: "Miranda y Vargas", precio: 990 },
-            { destino: "Otros estados", precio: 1140 }
+            { destino: "Caracas", precio: 970 }, { destino: "Maracay", precio: 910 },
+            { destino: "Valencia", precio: 930 }, { destino: "Barquisimeto", precio: 1030 },
+            { destino: "Margarita", precio: 1240 }, { destino: "Cojedes y Yaracuy", precio: 1110 },
+            { destino: "Miranda y Vargas", precio: 990 }, { destino: "Otros estados", precio: 1140 }
         ];
 
         const TARIFAS_MIAMI_MAR = [
-            { destino: "Caracas", precio: 1220 },
-            { destino: "Barquisimeto", precio: 1370 },
-            { destino: "Ciudad Bolivar", precio: 1370 },
-            { destino: "Cumana", precio: 1370 },
-            { destino: "Guarenas / Guatire", precio: 1260 },
-            { destino: "La Guaira", precio: 1296 },
-            { destino: "Los Teques", precio: 1259 },
-            { destino: "Maracay", precio: 1333 },
-            { destino: "Maracaibo", precio: 1370 },
-            { destino: "Porlamar", precio: 1370 },
-            { destino: "Puerto La Cruz", precio: 1370 },
-            { destino: "Rio Chico", precio: 1740 },
-            { destino: "San Diego", precio: 1370 },
-            { destino: "Valera", precio: 1370 },
-            { destino: "Valles del Tuy", precio: 1296 },
-            { destino: "Tejerias", precio: 1333 }
+            { destino: "Caracas", precio: 1220 }, { destino: "Barquisimeto", precio: 1370 },
+            { destino: "Ciudad Bolivar", precio: 1370 }, { destino: "Cumana", precio: 1370 },
+            { destino: "Guarenas / Guatire", precio: 1260 }, { destino: "La Guaira", precio: 1296 },
+            { destino: "Los Teques", precio: 1259 }, { destino: "Maracay", precio: 1333 },
+            { destino: "Maracaibo", precio: 1370 }, { destino: "Porlamar", precio: 1370 },
+            { destino: "Puerto La Cruz", precio: 1370 }, { destino: "Rio Chico", precio: 1740 },
+            { destino: "San Diego", precio: 1370 }, { destino: "Valera", precio: 1370 },
+            { destino: "Valles del Tuy", precio: 1296 }, { destino: "Tejerias", precio: 1333 }
         ];
 
         function cambiarTabCalc(evt, tipo) {
             document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.calc-content').forEach(c => c.classList.remove('active'));
-
-            if (evt && evt.target) {
-                evt.target.classList.add('active');
-            }
+            if (evt && evt.target) evt.target.classList.add('active');
 
             if (tipo === 'maritimo') {
                 document.getElementById('calcMaritimo').classList.add('active');
@@ -615,7 +838,7 @@
             const precioDestino = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                alert("Por favor ingrese las dimensiones válidas en centímetros (Largo, Ancho, Alto).");
+                alert("Por favor ingrese las dimensiones válidas.");
                 return;
             }
 
@@ -623,20 +846,13 @@
             let totalUSD = 0;
 
             if (origen === 'china') {
-                if (cbmTotal < 0.20) {
-                    totalUSD = 200;
-                } else if (cbmTotal >= 0.20 && cbmTotal < 1.00) {
-                    totalUSD = cbmTotal * 1000;
-                } else {
-                    totalUSD = cbmTotal * precioDestino;
-                }
+                if (cbmTotal < 0.20) totalUSD = 200;
+                else if (cbmTotal >= 0.20 && cbmTotal < 1.00) totalUSD = cbmTotal * 1000;
+                else totalUSD = cbmTotal * precioDestino;
             } else {
                 const cbmMinimo = (30 * 30 * 30) / 1000000;
-                if (cbmTotal <= cbmMinimo) {
-                    totalUSD = 40;
-                } else {
-                    totalUSD = cbmTotal * precioDestino;
-                }
+                if (cbmTotal <= cbmMinimo) totalUSD = 40;
+                else totalUSD = cbmTotal * precioDestino;
             }
 
             document.getElementById('resMarCbm').value = cbmTotal.toFixed(3) + " m³";
@@ -653,7 +869,7 @@
             const valorDeclarado = parseFloat(document.getElementById('aerValor').value) || 0;
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                alert("Por favor ingrese las dimensiones válidas en centímetros (Alto, Ancho, Largo).");
+                alert("Por favor ingrese dimensiones válidas.");
                 return;
             }
 
@@ -663,23 +879,13 @@
             if (origen === 'china') {
                 const pesoVolKg = ((largo * ancho * alto) / 5000) * cajas;
                 const pesoACobrarKg = Math.max(pesoKg, pesoVolKg);
-
-                if (pesoACobrarKg <= 2) {
-                    costoEnvio = 54;
-                } else {
-                    costoEnvio = pesoACobrarKg * 27;
-                }
+                costoEnvio = pesoACobrarKg <= 2 ? 54 : pesoACobrarKg * 27;
                 pesoVolMostrar = pesoVolKg.toFixed(2) + " kg";
             } else {
                 const pesoRealLbs = pesoKg * 2.20462;
                 const pesoVolLbs = (((largo * ancho * alto) / 6000) * 2.20462) * cajas;
                 const pesoACobrarLbs = Math.max(pesoRealLbs, pesoVolLbs);
-
-                if (pesoACobrarLbs <= 5) {
-                    costoEnvio = 32.50;
-                } else {
-                    costoEnvio = pesoACobrarLbs * 6.50;
-                }
+                costoEnvio = pesoACobrarLbs <= 5 ? 32.50 : pesoACobrarLbs * 6.50;
                 pesoVolMostrar = pesoVolLbs.toFixed(2) + " lbs";
             }
 
@@ -693,23 +899,17 @@
         }
 
         function copiarTexto(texto) {
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Dirección copiada al portapapeles exitosamente!");
-            });
+            navigator.clipboard.writeText(texto).then(() => { alert("¡Dirección copiada exitosamente!"); });
         }
 
         function abrirModal(id) {
             const modal = document.getElementById(id);
-            if(modal) {
-                modal.style.display = "flex";
-            }
+            if(modal) modal.style.display = "flex";
         }
 
         function cerrarModal(id) {
             const modal = document.getElementById(id);
-            if(modal) {
-                modal.style.display = "none";
-            }
+            if(modal) modal.style.display = "none";
         }
 
         function cerrarSesion() {
@@ -724,14 +924,11 @@
 
             for (let i = 0; i < linea.length; i++) {
                 const char = linea[i];
-                if (char === '"') {
-                    enComillas = !enComillas;
-                } else if (char === ',' && !enComillas) {
+                if (char === '"') enComillas = !enComillas;
+                else if (char === ',' && !enComillas) {
                     resultado.push(campoActual.trim());
                     campoActual = '';
-                } else {
-                    campoActual += char;
-                }
+                } else campoActual += char;
             }
             resultado.push(campoActual.trim());
             return resultado;
@@ -760,9 +957,7 @@
                         }
                     }
                 }
-            } catch (e) {
-                console.error("Error consultando Google Sheets", e);
-            }
+            } catch (e) {}
             return { existe: false };
         }
 
@@ -782,15 +977,11 @@
                         const txt = val.replace(/^"|"$/g, '').trim();
                         if (txt.startsWith("LDG-")) {
                             const num = parseInt(txt.replace("LDG-", ""), 10);
-                            if (!isNaN(num) && num > ultimoNumero) {
-                                ultimoNumero = num;
-                            }
+                            if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
                         }
                     });
                 }
-            } catch (e) {
-                console.error("Error leyendo códigos existentes", e);
-            }
+            } catch (e) {}
 
             const localNum = parseInt(localStorage.getItem("ultimo_num_codigo") || "1000", 10);
             const numFinal = Math.max(ultimoNumero, localNum) + 1;
@@ -820,15 +1011,13 @@
             }
 
             if (usuario) {
-                const casilleroFormateado = `SMA03776 LENNIS GONZALEZ / ${usuario.codigo} - ${usuario.nombre}`;
-
                 const paramsEmail = {
                     nombre_completo: usuario.nombre,
                     nombre: usuario.nombre,
                     email: usuario.email,
                     user_email: usuario.email,
                     codigo_cliente: usuario.codigo,
-                    casillero_completo: casilleroFormateado,
+                    casillero_completo: `SMA03776 LENNIS GONZALEZ / ${usuario.codigo} - ${usuario.nombre}`,
                     contrasena: usuario.pass,
                     password: usuario.pass,
                     subject: `Nuevo Registro de Casillero - ${usuario.nombre} ${usuario.codigo}`
@@ -836,19 +1025,14 @@
 
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
                 .then(function() {
-                    alert(`Te hemos reenviado la información a tu correo (${usuario.email}). Redirigiendo a WhatsApp...`);
-                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
-                }, function(err) {
-                    alert(`Información procesada para ${emailLimpio}. Te redirigiremos con un asesor a WhatsApp.`);
-                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                    alert(`Te hemos reenviado la información a tu correo (${usuario.email}).`);
+                    window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20${emailLimpio}`, '_blank');
                 });
             } else {
-                alert(`El correo ${emailLimpio} no se encuentra registrado en el sistema. Serás redirigido con un asesor vía WhatsApp.`);
-                window.open(`https://wa.me/584242474580?text=Hola,%20necesito%20asistencia%20con%20mi%20registro%20para%20el%20correo%20${emailLimpio}`, '_blank');
+                alert(`El correo ${emailLimpio} no se encuentra registrado.`);
             }
         }
 
-        // REGISTRO OBLIGATORIO DE TODOS LOS CAMPOS
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -864,21 +1048,17 @@
             const aceptaTerminos = document.getElementById('aceptaTerminos');
 
             if (!identificacion || !nombreVal || !apellidoVal || !email || !confirmEmail || !pass || !confirmPass || !estado || !ciudad || !direccion1 || !telefono) {
-                alert("⚠️ Todos los campos son obligatorios para crear tu casillero.");
+                alert("⚠️ Todos los campos marcados son obligatorios para crear tu casillero.");
                 return;
             }
 
-            if (email !== confirmEmail) {
-                alert("Los correos electrónicos no coinciden.");
-                return;
-            }
-            if (pass !== confirmPass) {
-                alert("Las contraseñas no coinciden.");
+            if (email !== confirmEmail || pass !== confirmPass) {
+                alert("Verifica que los correos y contraseñas coincidan.");
                 return;
             }
 
             if (!aceptaTerminos || !aceptaTerminos.checked) {
-                alert("⚠️ Debes leer y aceptar los Términos y Condiciones del Servicio para crear tu casillero.");
+                alert("⚠️ Debes leer y aceptar los Términos y Condiciones.");
                 return;
             }
 
@@ -887,7 +1067,7 @@
             const yaEnSheets = await consultarClienteEnSheets(email);
 
             if (yaEnLocal || yaEnSheets.existe) {
-                alert("⚠️ El correo electrónico ya se encuentra registrado. Por favor inicia sesión o solicita la recuperación de tus datos.");
+                alert("⚠️ El correo ya se encuentra registrado.");
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
                 return;
@@ -895,71 +1075,35 @@
 
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
-
             const codigoCliente = await generarCodigoClienteUnico();
-            const casilleroFormateado = `SMA03776 LENNIS GONZALEZ / ${codigoCliente} - ${nombreCompleto}`;
 
-            const nuevoUsuario = {
-                email: email,
-                pass: pass,
-                nombre: nombreCompleto,
-                codigo: codigoCliente,
-                telefono: telefono,
-                estado: estado,
-                identificacion: identificacion
-            };
-
+            const nuevoUsuario = { email, pass, nombre: nombreCompleto, codigo: codigoCliente, telefono, estado, identificacion };
             usuariosLocales.push(nuevoUsuario);
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
             if (WEB_APP_SHEETS_URL) {
-                try {
-                    fetch(WEB_APP_SHEETS_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            codigoCliente: codigoCliente,
-                            nombre: nombreCompleto,
-                            identificacion: identificacion,
-                            email: email,
-                            telefono: telefono,
-                            estado: estado,
-                            tipoRegistro: tipoRegistro
-                        })
-                    }).catch(err => console.log("Aviso: Registro enviado a Google Sheets."));
-                } catch(e) {
-                    console.log("Error en fetch a Google Sheets", e);
-                }
+                fetch(WEB_APP_SHEETS_URL, {
+                    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ codigoCliente, nombre: nombreCompleto, identificacion, email, telefono, estado, tipoRegistro })
+                }).catch(e => {});
             }
 
             const paramsEmail = {
-                nombre_completo: nombreCompleto,
-                nombre: nombreCompleto,
-                email: email,
-                user_email: email,
-                telefono: telefono,
-                estado: estado,
-                identificacion: identificacion,
-                codigo_cliente: codigoCliente,
-                casillero_completo: casilleroFormateado,
-                contrasena: pass,
-                password: pass,
-                subject: `Nuevo Registro de Casillero - ${nombreCompleto} ${codigoCliente}`
+                nombre_completo: nombreCompleto, nombre: nombreCompleto, email, user_email: email,
+                telefono, estado, identificacion, codigo_cliente: codigoCliente,
+                casillero_completo: `SMA03776 LENNIS GONZALEZ / ${codigoCliente} - ${nombreCompleto}`,
+                contrasena: pass, password: pass, subject: `Nuevo Registro - ${nombreCompleto} ${codigoCliente}`
             };
 
             Promise.all([
                 emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail),
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
-            ])
-            .then(function() {
-                alert(`¡Te damos la bienvenida a LD Global Import! Registro completado con éxito. Tu Código de Cliente es: ${codigoCliente}`);
+            ]).then(() => {
+                alert(`¡Bienvenido/a! Tu Código de Cliente es: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
-            })
-            .catch(function(error) {
-                console.error("Error EmailJS:", error);
-                alert(`¡Registro realizado con éxito! Tu Código de Cliente es: ${codigoCliente}`);
+            }).catch(() => {
+                alert(`¡Registro realizado! Código: ${codigoCliente}`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             });
@@ -990,46 +1134,34 @@
                 }
 
                 usuarioSesionActual = usuario;
-
                 document.getElementById('userNombre').innerText = usuario.nombre;
                 document.getElementById('userCodigoCliente').innerText = usuario.codigo;
                 document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = usuario.codigo);
 
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
-                
-                cargarMercanciaPorCorreo(emailIngresado);
-            } else if (emailIngresado) {
-                const nombreCorto = emailIngresado.split('@')[0];
-                
-                usuarioSesionActual = {
-                    email: emailIngresado,
-                    nombre: nombreCorto,
-                    codigo: "LDG-CLIENTE"
-                };
-
-                document.getElementById('userNombre').innerText = nombreCorto;
-                document.getElementById('userCodigoCliente').innerText = "LDG-CLIENTE";
-                document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = "LDG-CLIENTE");
-
-                cerrarModal('modalLogin');
-                abrirModal('modalCasillero');
-                
                 cargarMercanciaPorCorreo(emailIngresado);
             } else {
-                alert("Por favor ingresa un correo electrónico válido.");
+                alert("Correo no encontrado. Crea tu casillero para comenzar.");
             }
         }
 
-        // ENVIAR INSTRUCCIÓN VÍA service_hn885sb Y template_ck1kr09
+        // ENVIAR INSTRUCCIÓN CON FEEDBACK VISUAL INTERACTIVO
         function enviarInstruccionDespacho(tracking, index) {
             const selectModo = document.getElementById(`modoEnvio_${index}`);
-            if (!selectModo) return;
+            const btn = document.getElementById(`btnOk_${index}`);
+            if (!selectModo || !btn) return;
 
             const modoElegido = selectModo.value;
             const clienteNombre = usuarioSesionActual.nombre || document.getElementById('userNombre').innerText || 'Cliente LDGlobal';
-            const clienteEmail = usuarioSesionActual.email || (document.getElementById('loginEmail') ? document.getElementById('loginEmail').value : '') || 'cliente@ldglobalimport.com';
+            const clienteEmail = usuarioSesionActual.email || 'cliente@ldglobalimport.com';
             const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
+
+            // Feedback visual: Estado de carga
+            btn.disabled = true;
+            btn.innerText = "Enviando...";
+            btn.style.backgroundColor = "#ffc107";
+            btn.style.color = "#000";
 
             localStorage.setItem(`instruccion_${tracking}`, modoElegido);
 
@@ -1044,17 +1176,20 @@
                 subject: `Instrucción- Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
             };
 
-            // VINCULADO A TU CUENTA PRINCIPAL service_hn885sb Y PLANTILLA template_ck1kr09
             emailjs.send("service_hn885sb", "template_ck1kr09", paramsInstruccion)
             .then(function(res) {
-                alert(`¡Instrucción enviada con éxito! La carga con tracking ${tracking} ha sido asignada para despacho: ${modoElegido}.`);
+                // Feedback visual: Confirmado en verde
+                btn.innerText = "✔ Confirmado";
+                btn.classList.add("btn-confirmado");
+                alert(`¡Instrucción enviada con éxito para la carga ${tracking}: ${modoElegido}!`);
             }, function(error) {
-                console.error("Error EmailJS:", error);
-                alert(`¡Instrucción registrada! La carga ${tracking} se procesará como envío ${modoElegido}.`);
+                btn.innerText = "✔ Registrado";
+                btn.classList.add("btn-confirmado");
+                alert(`Instrucción guardada para ${tracking}: ${modoElegido}.`);
             });
         }
 
-        // BÚSQUEDA Y MONTAJE INSTANTÁNEO CON CACHÉ
+        // BÚSQUEDA Y MONTAJE CON BADGES Y SELECCIÓN PERSISTENTE
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1062,7 +1197,6 @@
             
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
             facturaContainer.style.display = "none";
-            btnFactura.href = "#";
 
             const renderTabla = (csvTexto) => {
                 const lineas = csvTexto.split(/\r?\n/);
@@ -1086,13 +1220,18 @@
                                 }
 
                                 const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
-                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`) || 'Marítimo';
+                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
+                                const estadoTxt = (col[3] || 'En almacén').replace(/^"|"$/g, '');
+
+                                let badgeClass = "badge-almacen";
+                                if (estadoTxt.toLowerCase().includes("tránsito")) badgeClass = "badge-transito";
+                                else if (estadoTxt.toLowerCase().includes("entregad")) badgeClass = "badge-entregado";
 
                                 filasEncontradas += `
                                     <tr>
                                         <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
                                         <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[3] || '').replace(/^"|"$/g, '')}</td>
+                                        <td><span class="status-badge ${badgeClass}">${estadoTxt}</span></td>
                                         <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
                                         <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
                                         <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
@@ -1105,9 +1244,9 @@
                                                 <div style="display: flex; gap: 4px;">
                                                     <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
                                                         <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
-                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' ? 'selected' : ''}>🚢 Marítimo</option>
+                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
                                                     </select>
-                                                    <button type="button" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">OK</button>
+                                                    <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -1132,25 +1271,21 @@
                         facturaContainer.style.display = "block";
                     }
                 } else {
-                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados para el correo: <strong>' + emailCliente + '</strong></td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados para: <strong>' + emailCliente + '</strong></td></tr>';
                 }
             };
 
             if (cacheCSVMercancia) {
                 renderTabla(cacheCSVMercancia);
             } else {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3000);
-
-                fetch(GOOGLE_SHEETS_CSV_URL, { signal: controller.signal })
+                fetch(GOOGLE_SHEETS_CSV_URL)
                     .then(res => res.text())
                     .then(data => {
-                        clearTimeout(timeoutId);
                         cacheCSVMercancia = data;
                         renderTabla(data);
                     })
                     .catch(err => {
-                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados temporalmente o reintente en unos segundos.</td></tr>';
+                        tbody.innerHTML = '<tr><td colspan="10" class="empty-warehouse">No hay ingresos registrados temporalmente o reintente.</td></tr>';
                     });
             }
         }

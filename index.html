@@ -17,20 +17,21 @@
             emailjs.init("87_5sQy2cvxwP6eWv");
         })();
     </script>
+
     <!-- OneSignal Web Push SDK -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "d7541d92-aca4-4ce1-a780-43c87f7b6acc",
-      safari_web_id: "https://ldglobalimport.com",
-      notifyButton: {
-        enable: true,
-      },
-    });
-  });
-</script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "d7541d92-aca4-4ce1-a780-43c87f7b6acc",
+          notifyButton: {
+            enable: true,
+          },
+        });
+      });
+    </script>
+
     <style>
         .status-badge {
             padding: 4px 8px;
@@ -980,7 +981,6 @@
             });
         }
 
-        // DICCIONARIOS DE TARIFAS
         const TARIFAS_CHINA_MAR = [
             { destino: "Caracas", cbmUSD: 1198 },
             { destino: "Valencia", cbmUSD: 1117.50 },
@@ -1061,7 +1061,6 @@
             calcularAereo();
         }
 
-        // CÁLCULO MARÍTIMO
         function calcularMaritimo() {
             const origen = document.getElementById('marOrigen').value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
@@ -1102,7 +1101,6 @@
             document.getElementById('resMarTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
         }
 
-        // CÁLCULO AÉREO
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const peso = parseFloat(document.getElementById('aerPeso').value) || 0;
@@ -1160,6 +1158,11 @@
         }
 
         function cerrarSesion() {
+            if (window.OneSignalDeferred) {
+                OneSignalDeferred.push(function(OneSignal) {
+                    OneSignal.logout();
+                });
+            }
             cerrarModal('modalCasillero');
             alert("Has cerrado sesión correctamente.");
         }
@@ -1328,6 +1331,12 @@
             usuariosLocales.push(nuevoUsuario);
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
+            if (window.OneSignalDeferred) {
+                OneSignalDeferred.push(function(OneSignal) {
+                    OneSignal.login(email);
+                });
+            }
+
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
@@ -1389,6 +1398,12 @@
                 if (usuario.pass && usuario.pass !== "No disponible (recuperar vía soporte)" && usuario.pass !== passIngresado) {
                     alert("Contraseña incorrecta.");
                     return;
+                }
+
+                if (window.OneSignalDeferred) {
+                    OneSignalDeferred.push(function(OneSignal) {
+                        OneSignal.login(emailIngresado);
+                    });
                 }
 
                 usuarioSesionActual = usuario;

@@ -1,0 +1,21 @@
+{
+  "short_name": "LDGlobal",
+  "name": "LDGlobal Import & Logistics",
+  "icons": [
+    {
+      "src": "logo-secundario.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo-secundario.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#003366",
+  "theme_color": "#003366",
+  "display": "standalone",
+  "orientation": "portrait"
+}

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=17">
+    <link rel="stylesheet" href="styles.css?v=18">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -237,32 +237,25 @@
             margin-top: 20px;
             line-height: 1.6;
         }
-        .calc-info-card-blue strong { color: #002244; }
 
-        .prohibited-red-box {
-            background: #fff5f5;
-            border: 1px solid #feb2b2;
-            color: #c53030;
-            padding: 20px;
+        .calc-warning-yellow-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 18px;
             border-radius: 8px;
             font-size: 0.88em;
             margin-top: 20px;
             line-height: 1.6;
+            text-align: left;
         }
-        .prohibited-red-box h4 {
-            color: #9b2c2c;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-        }
-        .prohibited-red-box ul {
-            margin: 0;
+        .calc-warning-yellow-box ul {
+            margin: 10px 0 0 0;
             padding-left: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 6px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 4px;
         }
-        .prohibited-red-box li { color: #c53030; font-weight: 500; }
 
         .extra-services-grid {
             display: grid;
@@ -274,18 +267,34 @@
             background: #fdfdfd;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
-            padding: 20px;
+            padding: 22px;
             text-align: left;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         .extra-service-card h4 {
             color: #003366;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.1em;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        .extra-service-card p {
+            text-align: justify;
+            text-justify: inter-word;
+            line-height: 1.55;
+            color: #444;
+            font-size: 0.92em;
+            margin: 0;
+        }
+
+        .service-img-top {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -388,58 +397,65 @@
         </div>
         
         <div class="services-grid">
-            <div class="card">
-                <h3>✈️ Envíos Aéreos</h3>
-                <p>Realizamos envíos semanales desde Miami y China a Venezuela (tiempo de entrega de 3 a 5 días desde Miami). <em>Para otros países consultar.</em></p>
+            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
+                <img src="./foto-cliente-4.jpg" alt="Envíos Aéreos" class="service-img-top">
+                <div style="padding: 0 20px;">
+                    <h3>✈️ Envíos Aéreos</h3>
+                    <p style="text-align: justify;">Realizamos envíos semanales desde Miami a Venezuela (tiempo de entrega de <strong>5 a 7 días hábiles</strong>) y desde China a Venezuela (de <strong>30 a 45 días hábiles</strong>). <em>Para otros países consultar.</em></p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🚢 Envíos Marítimos</h3>
-                <p>Realizamos todo el proceso logístico y operativo de carga "Puerta a Puerta" garantizando atención personalizada de 2 a 3 semanas desde Miami y consolidación desde China. <em>Para otros países consultar.</em></p>
+            
+            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
+                <img src="./foto-china.jpg" alt="Envíos Marítimos" class="service-img-top">
+                <div style="padding: 0 20px;">
+                    <h3>🚢 Envíos Marítimos</h3>
+                    <p style="text-align: justify;">Realizamos todo el proceso logístico y operativo de carga "Puerta a Puerta" con atención personalizada de <strong>2 a 3 semanas</strong> desde Miami y de <strong>60 a 70 días</strong> desde China. <em>Para otros países consultar.</em></p>
+                </div>
             </div>
-            <div class="card">
-                <h3>🚛 Servicio Pickup</h3>
-                <p>Recogemos su carga en la comodidad del hogar u oficina en Miami para hacer posible un servicio personalizado con excelente calidad de atención.</p>
+            
+            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
+                <img src="./entregas-caracas.jpg" alt="Servicio Pickup" class="service-img-top">
+                <div style="padding: 0 20px;">
+                    <h3>🚛 Servicio Pickup</h3>
+                    <p style="text-align: justify;">Recogemos su carga en la comodidad del hogar u oficina en Miami para hacer posible un servicio personalizado con excelente calidad de atención.</p>
+                </div>
             </div>
         </div>
 
-        <!-- Servicios Adicionales -->
+        <!-- Soluciones Logísticas Integrales (Justificadas) -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Soluciones Logísticas Integrales</h3>
             <div class="extra-services-grid">
                 <div class="extra-service-card">
                     <h4>🔍 Agente de Procura Internacional</h4>
-                    <p>Localizamos y negociamos con fabricantes certificados. Validamos la calidad en origen para que tu inversión sea segura y rentable.</p>
+                    <p>Localizamos y negociamos directamente con fabricantes certificados en China y Estados Unidos. Validamos la calidad en origen para asegurar que tu inversión sea 100% segura y rentable.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>📊 Análisis de Costos y Rentabilidad</h4>
-                    <p>No solo importamos; asesoramos. Realizamos estudios de rentabilidad para que conozcas tu margen de ganancia real antes de realizar cualquier pago.</p>
+                    <p>No solo importamos; asesoramos. Realizamos estudios analíticos de rentabilidad para que conozcas con exactitud tu margen de ganancia real antes de realizar cualquier pago en el exterior.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Inspección técnica detallada en fábrica antes del embalaje y pago final de la mercancía.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
-                    <p>Gestión completa de fletes (Aéreo/Marítimo) y trámites aduanales hasta entregar la mercancía en la puerta de tu empresa en Venezuela.</p>
+                    <p>Gestión completa de fletes (Aéreo y Marítimo) junto a todos los trámites aduanales. Nos encargamos de todo el proceso hasta entregar la mercancía en la puerta de tu empresa o domicilio en Venezuela.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Más Servicios -->
+        <!-- Más Servicios (Sin Agente de Compras) -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Más Servicios</h3>
-            <div class="extra-services-grid">
+            <div class="extra-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
                 <div class="extra-service-card">
                     <h4>📦 Reempaque Gratis</h4>
-                    <p>Consolidamos todas tus compras a través de tu casillero en Miami y China. Realizamos reempaques de calidad con un servicio óptimo de protección de tu mercancía.</p>
-                </div>
-                <div class="extra-service-card">
-                    <h4>👔 Agentes de Compra</h4>
-                    <p>Ofrecemos nuestros servicios como Agentes de Compra, adquiriendo los productos que necesitas y asegurando la mejor alternativa y precios.</p>
+                    <p>Consolidamos todas tus compras a través de tu casillero en Miami y China. Realizamos reempaques de calidad con un servicio óptimo de protección para optimizar el volumen de tu mercancía.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>💻 Tu Casillero</h4>
-                    <p>Facilitamos tu proceso de compra a través de un Casillero Internacional. ¡Crea tu casillero totalmente gratis!</p>
+                    <p>Facilitamos tu proceso de compra a través de un Casillero Internacional propio. Registra tus envíos de manera ágil y segura sin costo adicional.</p>
                 </div>
             </div>
         </div>
@@ -449,7 +465,7 @@
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
-            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día</p>
+            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitido por el BCV</p>
             
             <div class="import2ven-calc-box">
                 
@@ -523,7 +539,8 @@
                     <div class="calc-info-card-blue">
                         <p style="margin: 0 0 8px 0;">📦 <strong>Financiamiento 100%:</strong> Realiza el pago de tu envío cuando llegue a <strong>Puerto Nacional (Venezuela)</strong>.</p>
                         <p style="margin: 0 0 8px 0;">📌 <strong>Nota importante:</strong> El valor del envío reflejado <strong>incluye los impuestos por nacionalización</strong>.</p>
-                        <p style="margin: 0; color: #b91c1c;">⚠️ <strong>Si su paquete contiene equipos, insumos médicos o productos de alto valor, debe consultar previamente con su asesor.</strong></p>
+                        <p style="margin: 0 0 8px 0; color: #b91c1c;">⚠️ <strong>Si su paquete contiene equipos, insumos médicos o productos de alto valor, debe consultar previamente con su asesor.</strong></p>
+                        <p style="margin: 0; font-size: 0.85em; color: #555;"><em>* Los montos en Bolívares se calculan a la Tasa Oficial Euro emitida por el Banco Central de Venezuela (BCV) y pueden variar según los cambios diarios de esta tasa.</em></p>
                     </div>
                 </div>
 
@@ -587,36 +604,42 @@
                         </div>
                     </div>
 
-                    <!-- ARTÍCULOS PROHIBIDOS POR AÉREO -->
-                    <div class="prohibited-red-box">
-                        <h4>⚠️ Artículos que no se pueden enviar por Aéreo:</h4>
+                    <!-- RECUADRO AMARILLO AÉREO CON ARTÍCULOS PROHIBIDOS Y FACTURA LEGAL -->
+                    <div class="calc-warning-yellow-box">
+                        <strong>⚠️ REQUISITOS OBLIGATORIOS Y ARTÍCULOS PROHIBIDOS (AÉREO):</strong><br>
+                        1. Para todo envío AÉREO es <strong>estrictamente indispensable adjuntar la Factura Comercial o Factura Legal de Compra</strong>.<br>
+                        2. Facturas declaradas con un valor superior a <strong>$100 USD pagan un 5% adicional</strong> sobre el valor declarado por concepto de aduana.<br><br>
+                        <strong>🚫 Artículos que no se pueden enviar por vía Aérea:</strong>
                         <ul>
-                            <li>Componentes eléctricos, equipos médicos</li>
-                            <li>Cremas corporales o faciales</li>
-                            <li>UPS</li>
-                            <li>Teléfonos, tablets, computadores</li>
-                            <li>Equipos o implementos de seguridad (ej: cinturones)</li>
-                            <li>Juguetes</li>
-                            <li>Productos líquidos o en crema</li>
-                            <li>Químicos</li>
-                            <li>Alimentos</li>
-                            <li>Máscaras antigás</li>
-                            <li>Balines de acero o goma</li>
-                            <li>Bastones policiacos o defensivos</li>
-                            <li>Chalecos antibalas o de protección personal</li>
-                            <li>Pistolas, rifles y municiones (de cualquier tipo)</li>
-                            <li>Productos pirata (copias no originales)</li>
-                            <li>Aerosoles de defensa personal (gas pimienta)</li>
-                            <li>Cuchillos de cualquier clase</li>
-                            <li>Equipamiento deportivo/policial de defensa</li>
-                            <li>Armas electrónicas (ej: electroshock)</li>
-                            <li>Ayuda humanitaria</li>
-                            <li>Maquillaje</li>
-                            <li>Drones</li>
-                            <li>Productos inflamables</li>
-                            <li>Réplicas de armas</li>
-                            <li>Cableado o productos de fibra óptica</li>
+                            <li>• Componentes eléctricos, equipos médicos</li>
+                            <li>• Cremas corporales o faciales</li>
+                            <li>• UPS</li>
+                            <li>• Teléfonos, tablets, computadores</li>
+                            <li>• Equipos/implementos de seguridad</li>
+                            <li>• Juguetes</li>
+                            <li>• Productos líquidos o en crema</li>
+                            <li>• Químicos</li>
+                            <li>• Alimentos</li>
+                            <li>• Máscaras antigás</li>
+                            <li>• Balines de acero o goma</li>
+                            <li>• Bastones policiacos o defensivos</li>
+                            <li>• Chalecos antibalas/protección</li>
+                            <li>• Pistolas, rifles y municiones</li>
+                            <li>• Productos pirata (copias no originales)</li>
+                            <li>• Aerosoles (gas pimienta)</li>
+                            <li>• Cuchillos de cualquier clase</li>
+                            <li>• Equipamiento deportivo/policial</li>
+                            <li>• Armas electrónicas (electroshock)</li>
+                            <li>• Ayuda humanitaria</li>
+                            <li>• Maquillaje</li>
+                            <li>• Drones</li>
+                            <li>• Productos inflamables</li>
+                            <li>• Réplicas de armas</li>
+                            <li>• Cableado o fibra óptica</li>
                         </ul>
+                        <div style="margin-top: 12px; font-style: italic; font-size: 0.9em; border-top: 1px dashed #d6a704; pt: 8px;">
+                            * Los montos en Bolívares se calculan a la Tasa Oficial Euro emitida por el Banco Central de Venezuela (BCV) y pueden variar según los cambios diarios de esta tasa.
+                        </div>
                     </div>
                 </div>
 
@@ -761,10 +784,10 @@
                 </div>
                 <div class="faq-answer">
                     <ul>
-                        <li><strong>Aéreo China - Venezuela:</strong> 10 a 15 días hábiles.</li>
-                        <li><strong>Marítimo China - Venezuela:</strong> 45 a 60 días continuos.</li>
-                        <li><strong>Aéreo Miami - Venezuela:</strong> 3 a 5 días hábiles.</li>
-                        <li><strong>Marítimo Miami - Venezuela:</strong> 12 a 15 días continuos.</li>
+                        <li><strong>Aéreo Miami - Venezuela:</strong> 5 a 7 días hábiles.</li>
+                        <li><strong>Aéreo China - Venezuela:</strong> 30 a 45 días hábiles.</li>
+                        <li><strong>Marítimo Miami - Venezuela:</strong> 2 a 3 semanas.</li>
+                        <li><strong>Marítimo China - Venezuela:</strong> 60 a 70 días continuos.</li>
                     </ul>
                 </div>
             </div>
@@ -793,7 +816,7 @@
                     <span>▼</span>
                 </div>
                 <div class="faq-answer">
-                    <p><strong>IMPORTANTE:</strong> Para toda carga procesada por vía aérea es <strong>estrictamente indispensable contar con la factura comercial o invoice</strong> del producto enviado, comprobante de pago y código HS si aplica.</p>
+                    <p><strong>IMPORTANTE:</strong> Para toda carga procesada por vía aérea es <strong>estrictamente indispensable contar con la factura comercial o Factura Legal de Compra</strong> del producto enviado. Las facturas declaradas por un valor mayor a <strong>$100 USD están sujetas a un 5% de impuesto aduanal</strong> sobre el valor declarado.</p>
                 </div>
             </div>
         </div>

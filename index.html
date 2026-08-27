@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=21">
+    <link rel="stylesheet" href="styles.css?v=22">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -322,7 +322,6 @@
             padding-bottom: 5px;
         }
 
-        /* REGLAS RESPONSIVAS PARA MÓVILES */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column !important;
@@ -478,7 +477,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
@@ -1586,6 +1585,9 @@
             if (window.OneSignalDeferred) {
                 OneSignalDeferred.push(function(OneSignal) {
                     OneSignal.login(email);
+                    if (OneSignal.User && OneSignal.User.PushSubscription) {
+                        OneSignal.User.PushSubscription.optIn();
+                    }
                 });
             }
 
@@ -1655,6 +1657,9 @@
                 if (window.OneSignalDeferred) {
                     OneSignalDeferred.push(function(OneSignal) {
                         OneSignal.login(emailIngresado);
+                        if (OneSignal.User && OneSignal.User.PushSubscription) {
+                            OneSignal.User.PushSubscription.optIn();
+                        }
                     });
                 }
 

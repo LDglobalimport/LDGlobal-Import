@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=19">
+    <link rel="stylesheet" href="styles.css?v=21">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -303,7 +303,6 @@
             gap: 5px;
         }
 
-        /* ESTILOS DESGLOSE DE CÁLCULO */
         .desglose-box {
             background: #ffffff;
             border: 1px solid #d0e2ff;
@@ -321,6 +320,31 @@
             gap: 6px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
+        }
+
+        /* REGLAS RESPONSIVAS PARA MÓVILES */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 10px !important;
+            }
+            .header-auth-container {
+                align-items: center !important;
+                width: 100% !important;
+                margin-top: 10px !important;
+            }
+            .auth-buttons {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .btn-install-pwa {
+                width: 100% !important;
+                justify-content: center !important;
+                padding: 10px !important;
+                font-size: 0.95em !important;
+            }
         }
     </style>
 </head>
@@ -381,7 +405,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN QUIÉNES SOMOS (MÁS GRANDE) -->
+    <!-- SECCIÓN QUIÉNES SOMOS -->
     <section id="quienes-somos" class="about-section" style="padding: 70px 20px;">
         <div class="about-container" style="max-width: 1100px;">
             <div class="section-header">
@@ -416,7 +440,7 @@
         </div>
     </section>
 
-    <!-- Servicios (SIN FOTOS SUPERIORES) -->
+    <!-- Servicios -->
     <section id="servicios" class="services">
         <div class="section-header">
             <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
@@ -454,7 +478,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
@@ -610,12 +634,10 @@
 
                     <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO AÉREO</button>
 
-                    <!-- AVISO DE PREPAGO PARA CHINA -->
                     <div id="boxAvisoPrepagoChina" style="display: none; background: #ffe3e3; border: 1px solid #f5c6cb; color: #721c24; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: bold; font-size: 0.9em;">
                         ✈️ IMPORTANTE: Este envío AÉREO debe ser PREPAGADO para que salga de China. El pago se realiza antes de que la mercancía sea despachada.
                     </div>
 
-                    <!-- RESULTADO Y DESGLOSE COMPLETO EN BOLÍVARES -->
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
                             <span>Peso Volumétrico Calculado:</span>
@@ -626,7 +648,6 @@
                             <strong id="resAerTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
 
-                        <!-- DESGLOSE DETALLADO -->
                         <div class="desglose-box">
                             <div class="desglose-title">📊 Desglose del cálculo</div>
                             <div class="calc-res-row"><span>Peso volumétrico:</span><span id="dgPesoVol">0.00</span></div>
@@ -641,7 +662,6 @@
                         </div>
                     </div>
 
-                    <!-- RECUADRO AMARILLO AÉREO -->
                     <div class="calc-warning-yellow-box">
                         <strong>⚠️ REQUISITOS OBLIGATORIOS Y ARTÍCULOS PROHIBIDOS (AÉREO):</strong><br>
                         1. Para todo envío AÉREO es <strong>estrictamente indispensable adjuntar la Factura Comercial o Factura Legal de Compra</strong>.<br>
@@ -696,7 +716,6 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left;">
                 
-                <!-- Caso 1 -->
                 <div class="testimonial-card-real">
                     <img src="./foto-china.jpg" alt="Carga de tubos de escape" class="testimonial-img">
                     <div class="testimonial-body">
@@ -713,7 +732,6 @@
                     </div>
                 </div>
 
-                <!-- Caso 2 -->
                 <div class="testimonial-card-real">
                     <img src="./Foto-cliente-3.jpg" alt="Entrega Laboratorio Dental" class="testimonial-img">
                     <div class="testimonial-body">
@@ -730,7 +748,6 @@
                     </div>
                 </div>
 
-                <!-- Caso 3 -->
                 <div class="testimonial-card-real">
                     <img src="./foto-cliente-4.jpg" alt="Entrega de calzado deportivo" class="testimonial-img">
                     <div class="testimonial-body">
@@ -747,7 +764,6 @@
                     </div>
                 </div>
 
-                <!-- CASO 4 -->
                 <div class="testimonial-card-real">
                     <img src="./entregas-caracas.jpg" alt="Flota de entregas LDGlobal" class="testimonial-img">
                     <div class="testimonial-body">
@@ -764,7 +780,6 @@
                     </div>
                 </div>
 
-                <!-- Caso 5 -->
                 <div class="testimonial-card-real">
                     <img src="./Foto-cliente-2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
                     <div class="testimonial-body">
@@ -781,7 +796,6 @@
                     </div>
                 </div>
 
-                <!-- Caso 6 -->
                 <div class="testimonial-card-real">
                     <img src="./Foto-Cliente1.jpg" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
                     <div class="testimonial-body">

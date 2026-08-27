@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=18">
+    <link rel="stylesheet" href="styles.css?v=19">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -289,12 +289,38 @@
             margin: 0;
         }
 
-        .service-img-top {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 15px;
+        .btn-install-pwa {
+            background: #28a745;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.82em;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ESTILOS DESGLOSE DE CÁLCULO */
+        .desglose-box {
+            background: #ffffff;
+            border: 1px solid #d0e2ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.88em;
+        }
+        .desglose-title {
+            font-weight: bold;
+            color: #003366;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
         }
     </style>
 </head>
@@ -318,7 +344,8 @@
         </nav>
         
         <div class="header-auth-container">
-            <div class="auth-buttons">
+            <div class="auth-buttons" style="display: flex; gap: 6px;">
+                <button type="button" id="btnInstallApp" class="btn-install-pwa" onclick="instalarAppPWA()">📲 Instalar App</button>
                 <button type="button" onclick="abrirModal('modalLogin')" class="btn-login">Iniciar Sesión</button>
                 <button type="button" onclick="abrirModal('modalRegister')" class="btn-register">Crea tu casillero</button>
             </div>
@@ -354,42 +381,42 @@
         </div>
     </section>
 
-    <!-- SECCIÓN QUIÉNES SOMOS -->
-    <section id="quienes-somos" class="about-section">
-        <div class="about-container">
+    <!-- SECCIÓN QUIÉNES SOMOS (MÁS GRANDE) -->
+    <section id="quienes-somos" class="about-section" style="padding: 70px 20px;">
+        <div class="about-container" style="max-width: 1100px;">
             <div class="section-header">
-                <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
-                <h2>¿Quiénes Somos?</h2>
+                <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo" style="max-width: 65px;">
+                <h2 style="font-size: 2.6em; color: #003366;">¿Quiénes Somos?</h2>
             </div>
             
-            <p class="about-subtitle" style="font-size: 1.3em; font-weight: bold; color: #003366;">“Somos el puente estratégico que simplifica tu crecimiento global”</p>
+            <p class="about-subtitle" style="font-size: 1.5em; font-weight: bold; color: #003366; margin-bottom: 25px;">“Somos el puente estratégico que simplifica tu crecimiento global”</p>
             
-            <div class="about-text-content">
+            <div class="about-text-content" style="font-size: 1.12em; line-height: 1.7; text-align: justify;">
                 <p>En <strong>LD Global</strong> asumimos el control absoluto de tu cadena de suministro para transformar la complejidad logística internacional en una ventaja competitiva real para tu empresa en Venezuela.</p>
                 <p>Conectamos tu negocio con los principales mercados del mundo mediante tres pilares innegociables: <strong>precisión quirúrgica, transparencia financiera y seguridad integral.</strong></p>
             </div>
 
             <!-- Galería de fotos reales -->
-            <div class="about-gallery">
+            <div class="about-gallery" style="margin-top: 30px;">
                 <div class="about-card">
-                    <img src="./foto-reunion.jpg" alt="Asesoría personalizada LDGlobal">
-                    <div class="card-caption">Asesoría personalizada y acompañamiento en compra con clientes</div>
+                    <img src="./foto-reunion.jpg" alt="Asesoría personalizada LDGlobal" style="height: 280px; object-fit: cover;">
+                    <div class="card-caption" style="font-size: 1em;">Asesoría personalizada y acompañamiento en compra con clientes</div>
                 </div>
                 <div class="about-card">
-                    <img src="./almacen-1.jpg" alt="Atención y monitoreo constante">
-                    <div class="card-caption">Atención y monitoreo constante de tus cargas internacionales</div>
+                    <img src="./almacen-1.jpg" alt="Atención y monitoreo constante" style="height: 280px; object-fit: cover;">
+                    <div class="card-caption" style="font-size: 1em;">Atención y monitoreo constante de tus cargas internacionales</div>
                 </div>
             </div>
 
             <!-- Misión y Visión -->
-            <div class="mision-vision-container">
-                <h3>Nuestra Misión & Visión</h3>
+            <div class="mision-vision-container" style="margin-top: 40px;">
+                <h3 style="font-size: 1.8em;">Nuestra Misión & Visión</h3>
                 <img src="./mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
             </div>
         </div>
     </section>
 
-    <!-- Servicios -->
+    <!-- Servicios (SIN FOTOS SUPERIORES) -->
     <section id="servicios" class="services">
         <div class="section-header">
             <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
@@ -397,32 +424,23 @@
         </div>
         
         <div class="services-grid">
-            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
-                <img src="./foto-cliente-4.jpg" alt="Envíos Aéreos" class="service-img-top">
-                <div style="padding: 0 20px;">
-                    <h3>✈️ Envíos Aéreos</h3>
-                    <p style="text-align: justify;">Realizamos envíos semanales desde Miami a Venezuela (tiempo de entrega de <strong>5 a 7 días hábiles</strong>) y desde China a Venezuela (de <strong>30 a 45 días hábiles</strong>). <em>Para otros países consultar.</em></p>
-                </div>
+            <div class="card" style="padding: 25px;">
+                <h3>✈️ Envíos Aéreos</h3>
+                <p style="text-align: justify; margin-top: 10px;">Realizamos envíos semanales desde Miami a Venezuela (tiempo de entrega de <strong>5 a 7 días hábiles</strong>) y desde China a Venezuela (de <strong>30 a 45 días hábiles</strong>). <em>Para otros países consultar.</em></p>
             </div>
             
-            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
-                <img src="./foto-china.jpg" alt="Envíos Marítimos" class="service-img-top">
-                <div style="padding: 0 20px;">
-                    <h3>🚢 Envíos Marítimos</h3>
-                    <p style="text-align: justify;">Realizamos todo el proceso logístico y operativo de carga "Puerta a Puerta" con atención personalizada de <strong>2 a 3 semanas</strong> desde Miami y de <strong>60 a 70 días</strong> desde China. <em>Para otros países consultar.</em></p>
-                </div>
+            <div class="card" style="padding: 25px;">
+                <h3>🚢 Envíos Marítimos</h3>
+                <p style="text-align: justify; margin-top: 10px;">Realizamos todo el proceso logístico y operativo de carga "Puerta a Puerta" con atención personalizada de <strong>2 a 3 semanas</strong> desde Miami y de <strong>60 a 70 días</strong> desde China. <em>Para otros países consultar.</em></p>
             </div>
             
-            <div class="card" style="padding: 0 0 20px 0; overflow: hidden;">
-                <img src="./entregas-caracas.jpg" alt="Servicio Pickup" class="service-img-top">
-                <div style="padding: 0 20px;">
-                    <h3>🚛 Servicio Pickup</h3>
-                    <p style="text-align: justify;">Recogemos su carga en la comodidad del hogar u oficina en Miami para hacer posible un servicio personalizado con excelente calidad de atención.</p>
-                </div>
+            <div class="card" style="padding: 25px;">
+                <h3>🚛 Servicio Pickup</h3>
+                <p style="text-align: justify; margin-top: 10px;">Recogemos su carga en la comodidad del hogar u oficina en Miami para hacer posible un servicio personalizado con excelente calidad de atención.</p>
             </div>
         </div>
 
-        <!-- Soluciones Logísticas Integrales (Justificadas) -->
+        <!-- Soluciones Logísticas Integrales -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Soluciones Logísticas Integrales</h3>
             <div class="extra-services-grid">
@@ -445,7 +463,7 @@
             </div>
         </div>
 
-        <!-- Más Servicios (Sin Agente de Compras) -->
+        <!-- Más Servicios -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Más Servicios</h3>
             <div class="extra-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
@@ -465,7 +483,7 @@
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
-            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitido por el BCV</p>
+            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitida por el BCV</p>
             
             <div class="import2ven-calc-box">
                 
@@ -535,7 +553,6 @@
                         </div>
                     </div>
 
-                    <!-- RECUADRO INFORMATIVO MARÍTIMO -->
                     <div class="calc-info-card-blue">
                         <p style="margin: 0 0 8px 0;">📦 <strong>Financiamiento 100%:</strong> Realiza el pago de tu envío cuando llegue a <strong>Puerto Nacional (Venezuela)</strong>.</p>
                         <p style="margin: 0 0 8px 0;">📌 <strong>Nota importante:</strong> El valor del envío reflejado <strong>incluye los impuestos por nacionalización</strong>.</p>
@@ -544,7 +561,7 @@
                     </div>
                 </div>
 
-                <!-- CALCULADORA AÉREA EN BOLÍVARES -->
+                <!-- CALCULADORA AÉREA EN BOLÍVARES CON DESGLOSE Y PREPAGO -->
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
@@ -593,6 +610,12 @@
 
                     <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO AÉREO</button>
 
+                    <!-- AVISO DE PREPAGO PARA CHINA -->
+                    <div id="boxAvisoPrepagoChina" style="display: none; background: #ffe3e3; border: 1px solid #f5c6cb; color: #721c24; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: bold; font-size: 0.9em;">
+                        ✈️ IMPORTANTE: Este envío AÉREO debe ser PREPAGADO para que salga de China. El pago se realiza antes de que la mercancía sea despachada.
+                    </div>
+
+                    <!-- RESULTADO Y DESGLOSE COMPLETO EN BOLÍVARES -->
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
                             <span>Peso Volumétrico Calculado:</span>
@@ -602,13 +625,27 @@
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
                             <strong id="resAerTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
+
+                        <!-- DESGLOSE DETALLADO -->
+                        <div class="desglose-box">
+                            <div class="desglose-title">📊 Desglose del cálculo</div>
+                            <div class="calc-res-row"><span>Peso volumétrico:</span><span id="dgPesoVol">0.00</span></div>
+                            <div class="calc-res-row"><span>Peso a cobrar:</span><span id="dgPesoCobrar">0.00</span></div>
+                            <div class="calc-res-row"><span>Costo por caja:</span><span id="dgCostoCajaBs">0.00 Bs.</span></div>
+                            <div class="calc-res-row"><span>Cantidad de cajas:</span><span id="dgCajas">1</span></div>
+                            <div class="calc-res-row"><span>Costo de envío (Flete):</span><span id="dgFleteBs">0.00 Bs.</span></div>
+                            <div class="calc-res-row"><span>Impuestos:</span><span id="dgImpuestosBs">0.00 Bs.</span></div>
+                            <div class="calc-res-row" id="rowNotaImpuestoChina" style="color: #b91c1c; font-size: 0.82em; font-style: italic; display: none;">
+                                <span>Aplica impuesto del 42% por valor declarado $\ge$ $100 USD</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- RECUADRO AMARILLO AÉREO CON ARTÍCULOS PROHIBIDOS Y FACTURA LEGAL -->
+                    <!-- RECUADRO AMARILLO AÉREO -->
                     <div class="calc-warning-yellow-box">
                         <strong>⚠️ REQUISITOS OBLIGATORIOS Y ARTÍCULOS PROHIBIDOS (AÉREO):</strong><br>
                         1. Para todo envío AÉREO es <strong>estrictamente indispensable adjuntar la Factura Comercial o Factura Legal de Compra</strong>.<br>
-                        2. Facturas declaradas con un valor superior a <strong>$100 USD pagan un 5% adicional</strong> sobre el valor declarado por concepto de aduana.<br><br>
+                        <span id="lblNotaImpuestoAereoRules">2. Para envíos desde <strong>China - Venezuela</strong>, facturas declaradas con un valor $\ge$ <strong>$100 USD pagan un 42% adicional</strong> sobre el valor declarado por concepto de aduana.</span><br><br>
                         <strong>🚫 Artículos que no se pueden enviar por vía Aérea:</strong>
                         <ul>
                             <li>• Componentes eléctricos, equipos médicos</li>
@@ -710,7 +747,7 @@
                     </div>
                 </div>
 
-                <!-- CASO 4: FLOTA LDGLOBAL -->
+                <!-- CASO 4 -->
                 <div class="testimonial-card-real">
                     <img src="./entregas-caracas.jpg" alt="Flota de entregas LDGlobal" class="testimonial-img">
                     <div class="testimonial-body">
@@ -816,7 +853,7 @@
                     <span>▼</span>
                 </div>
                 <div class="faq-answer">
-                    <p><strong>IMPORTANTE:</strong> Para toda carga procesada por vía aérea es <strong>estrictamente indispensable contar con la factura comercial o Factura Legal de Compra</strong> del producto enviado. Las facturas declaradas por un valor mayor a <strong>$100 USD están sujetas a un 5% de impuesto aduanal</strong> sobre el valor declarado.</p>
+                    <p><strong>IMPORTANTE:</strong> Para todo envío procesado por vía aérea es <strong>estrictamente indispensable contar con la Factura Comercial o Factura Legal de Compra</strong>. Específicamente para envíos <strong>Aéreos China - Venezuela</strong>, facturas declaradas con un valor igual o mayor a <strong>$100 USD pagan un 42% adicional</strong> de impuesto aduanal sobre el valor declarado.</p>
                 </div>
             </div>
         </div>
@@ -1049,13 +1086,35 @@
         </div>
     </div>
 
-    <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS & NUEVA CALCULADORA EXACTA -->
+    <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS & CALCULADORA -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "" };
         let cacheCSVMercancia = null;
+        let deferredPromptPWA = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPromptPWA = e;
+            const btn = document.getElementById('btnInstallApp');
+            if (btn) btn.style.display = 'inline-flex';
+        });
+
+        function instalarAppPWA() {
+            if (deferredPromptPWA) {
+                deferredPromptPWA.prompt();
+                deferredPromptPWA.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('El usuario aceptó la instalación de la App');
+                    }
+                    deferredPromptPWA = null;
+                });
+            } else {
+                alert("Para instalar la App en tu dispositivo:\n- Android: Toca el menú (⋮) y selecciona 'Instalar aplicación'.\n- iPhone: Toca 'Compartir' (↑) y selecciona 'Agregar a inicio'.");
+            }
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             fetch(GOOGLE_SHEETS_CSV_URL)
@@ -1190,14 +1249,21 @@
             const origen = document.getElementById('aerOrigen').value;
             const lblPeso = document.getElementById('lblAerPesoInput');
             const lblMin = document.getElementById('lblMinAereo');
+            const avisoPrepago = document.getElementById('boxAvisoPrepagoChina');
+            const rowNotaChina = document.getElementById('rowNotaImpuestoChina');
 
             if (origen === 'miami') {
                 lblPeso.innerText = "Peso Real en Libras (lbs) *";
                 lblMin.innerText = "Miami: Mínimo 5 lbs (Peso volumétrico L×A×A/166)";
+                avisoPrepago.style.display = "none";
+                rowNotaChina.style.display = "none";
             } else {
                 lblPeso.innerText = "Peso Real en Kilogramos (kg) *";
                 lblMin.innerText = "China: Peso volumétrico L×A×A/5000";
+                avisoPrepago.style.display = "block";
+                rowNotaChina.style.display = "flex";
             }
+            calcularAereo();
         }
 
         function recalcularTodo() {
@@ -1258,33 +1324,61 @@
             if (peso <= 0 && (largo <= 0 || ancho <= 0 || alto <= 0)) {
                 document.getElementById('resAerPesoVol').innerText = "0.00";
                 document.getElementById('resAerTotalBs').innerText = "0.00 Bs.";
+                
+                document.getElementById('dgPesoVol').innerText = "0.00";
+                document.getElementById('dgPesoCobrar').innerText = "0.00";
+                document.getElementById('dgCostoCajaBs').innerText = "0.00 Bs.";
+                document.getElementById('dgCajas').innerText = cajas;
+                document.getElementById('dgFleteBs').innerText = "0.00 Bs.";
+                document.getElementById('dgImpuestosBs').innerText = "0.00 Bs.";
                 return;
             }
 
             let fleteUSD = 0;
-            let pesoVolStr = "";
+            let costoCajaUSD = 0;
+            let pesoVol = 0;
+            let pesoCobrar = 0;
+            let unidadStr = "";
 
             if (origen === 'miami') {
-                const pesoVolLbs = ((largo * ancho * alto) / 166) * cajas;
-                const pesoACobrarLbs = Math.max(peso, pesoVolLbs);
+                pesoVol = ((largo * ancho * alto) / 166) * cajas;
+                pesoCobrar = Math.max(peso, pesoVol);
+                unidadStr = " lbs";
                 
-                fleteUSD = pesoACobrarLbs * 8.00;
+                fleteUSD = pesoCobrar * 8.00;
                 if (fleteUSD < 40.00) fleteUSD = 40.00;
-                pesoVolStr = pesoVolLbs.toFixed(2) + " lbs";
+                costoCajaUSD = fleteUSD / cajas;
             } else {
-                const pesoVolKg = ((largo * ancho * alto) / 5000) * cajas;
-                const pesoACobrarKg = Math.max(peso, pesoVolKg);
+                pesoVol = ((largo * ancho * alto) / 5000) * cajas;
+                pesoCobrar = Math.max(peso, pesoVol);
+                unidadStr = " kg";
 
-                fleteUSD = pesoACobrarKg * 36.00;
-                pesoVolStr = pesoVolKg.toFixed(2) + " kg";
+                fleteUSD = pesoCobrar * 36.00;
+                costoCajaUSD = fleteUSD / cajas;
             }
 
-            const impuestosUSD = valorUSD > 100 ? (valorUSD * 0.05) : 0;
-            const subtotalUSD = fleteUSD + impuestosUSD;
-            const totalBs = subtotalUSD * tasaEuro;
+            let impuestosUSD = 0;
+            if (origen === 'china' && valorUSD >= 100) {
+                impuestosUSD = valorUSD * 0.42;
+            }
 
-            document.getElementById('resAerPesoVol').innerText = pesoVolStr;
+            const totalUSD = fleteUSD + impuestosUSD;
+
+            const fleteBs = fleteUSD * tasaEuro;
+            const costoCajaBs = costoCajaUSD * tasaEuro;
+            const impuestosBs = impuestosUSD * tasaEuro;
+            const totalBs = totalUSD * tasaEuro;
+
+            document.getElementById('resAerPesoVol').innerText = pesoVol.toFixed(2) + unidadStr;
             document.getElementById('resAerTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+
+            // Llenar Desglose
+            document.getElementById('dgPesoVol').innerText = pesoVol.toFixed(2) + unidadStr;
+            document.getElementById('dgPesoCobrar').innerText = pesoCobrar.toFixed(2) + unidadStr;
+            document.getElementById('dgCostoCajaBs').innerText = costoCajaBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+            document.getElementById('dgCajas').innerText = cajas;
+            document.getElementById('dgFleteBs').innerText = fleteBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+            document.getElementById('dgImpuestosBs').innerText = impuestosBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
         }
 
         function copiarTexto(texto) {

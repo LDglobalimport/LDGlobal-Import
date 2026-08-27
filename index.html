@@ -226,15 +226,67 @@
             padding-top: 8px;
             border-top: 1px solid #0056b3;
         }
-        .calc-warning-box {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 0.85em;
+
+        /* ESTILOS NUEVOS DETALLES */
+        .calc-info-card-blue {
+            background: #eaf3ff;
+            border: 1px solid #b6d4fe;
+            color: #003366;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 0.9em;
             margin-top: 20px;
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+        .calc-info-card-blue strong { color: #002244; }
+
+        .prohibited-red-box {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            color: #c53030;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.88em;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+        .prohibited-red-box h4 {
+            color: #9b2c2c;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+        .prohibited-red-box ul {
+            margin: 0;
+            padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 6px;
+        }
+        .prohibited-red-box li { color: #c53030; font-weight: 500; }
+
+        .extra-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .extra-service-card {
+            background: #fdfdfd;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .extra-service-card h4 {
+            color: #003366;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
     </style>
 </head>
@@ -299,14 +351,14 @@
         <div class="about-container">
             <div class="section-header">
                 <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
-                <h2>Quiénes Somos</h2>
+                <h2>¿Quiénes Somos?</h2>
             </div>
             
-            <p class="about-subtitle">Más que logística, somos tu departamento de compras internacionales.</p>
+            <p class="about-subtitle" style="font-size: 1.3em; font-weight: bold; color: #003366;">“Somos el puente estratégico que simplifica tu crecimiento global”</p>
             
             <div class="about-text-content">
-                <p>En <strong>LD Global</strong> no solo movemos mercancía; impulsamos la rentabilidad de tu inversión. Como tu <strong>Agente de Procura Internacional</strong>, nos encargamos de localizar, negociar y adquirir tus suministros en el extranjero bajo los más altos estándares de seguridad y transparencia.</p>
-                <p>Complementamos nuestra gestión con un análisis financiero de plusvalía, evaluando los costos reales y el margen de ganancia antes de cada operación. Desde el primer contacto con el proveedor hasta la entrega en la puerta de tu negocio en Venezuela. <strong>Somos el puente seguro hacia tu expansión global.</strong></p>
+                <p>En <strong>LD Global</strong> asumimos el control absoluto de tu cadena de suministro para transformar la complejidad logística internacional en una ventaja competitiva real para tu empresa en Venezuela.</p>
+                <p>Conectamos tu negocio con los principales mercados del mundo mediante tres pilares innegociables: <strong>precisión quirúrgica, transparencia financiera y seguridad integral.</strong></p>
             </div>
 
             <!-- Galería de fotos reales -->
@@ -316,15 +368,15 @@
                     <div class="card-caption">Asesoría personalizada y acompañamiento en compra con clientes</div>
                 </div>
                 <div class="about-card">
-                    <img src="./oficina.jpg" alt="Gestión de procura LDGlobal">
+                    <img src="./almacen-1.jpg" alt="Atención y monitoreo constante">
                     <div class="card-caption">Atención y monitoreo constante de tus cargas internacionales</div>
                 </div>
             </div>
 
-            <!-- Misión y Visión -->
+            <!-- Misión y Visión (Actualizada) -->
             <div class="mision-vision-container">
                 <h3>Nuestra Misión & Visión</h3>
-                <img src="./foto-mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
+                <img src="./Mision-Visión.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
             </div>
         </div>
     </section>
@@ -335,18 +387,61 @@
             <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
             <h2>Nuestros Servicios</h2>
         </div>
+        
         <div class="services-grid">
             <div class="card">
-                <h3>🚢 Flete Marítimo</h3>
-                <p>Consolidación de carga y contenedores completos para optimizar tus costos.</p>
+                <h3>✈️ Envíos Aéreos</h3>
+                <p>Realizamos envíos semanales desde Miami y China a Venezuela (tiempo de entrega de 3 a 5 días desde Miami). <em>Para otros países consultar.</em></p>
             </div>
             <div class="card">
-                <h3>✈️ Flete Aéreo</h3>
-                <p>Envíos express para cuando necesitas tu inventario con máxima urgencia.</p>
+                <h3>🚢 Envíos Marítimos</h3>
+                <p>Realizamos todo el proceso logístico y operativo de carga "Puerta a Puerta" garantizando atención personalizada de 2 a 3 semanas desde Miami y consolidación desde China. <em>Para otros países consultar.</em></p>
             </div>
             <div class="card">
-                <h3>📑 Gestión Aduanal y Procura</h3>
-                <p>Nos encargamos de la nacionalización, negociación e inspección con proveedores en China.</p>
+                <h3>🚛 Servicio Pickup</h3>
+                <p>Recogemos su carga en la comodidad del hogar u oficina en Miami para hacer posible un servicio personalizado con excelente calidad de atención.</p>
+            </div>
+        </div>
+
+        <!-- Servicios Adicionales -->
+        <div style="max-width: 1100px; margin: 40px auto 0 auto;">
+            <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Soluciones Logísticas Integrales</h3>
+            <div class="extra-services-grid">
+                <div class="extra-service-card">
+                    <h4>🔍 Agente de Procura Internacional</h4>
+                    <p>Localizamos y negociamos con fabricantes certificados. Validamos la calidad en origen para que tu inversión sea segura y rentable.</p>
+                </div>
+                <div class="extra-service-card">
+                    <h4>📊 Análisis de Costos y Rentabilidad</h4>
+                    <p>No solo importamos; asesoramos. Realizamos estudios de rentabilidad para que conozcas tu margen de ganancia real antes de realizar cualquier pago.</p>
+                </div>
+                <div class="extra-service-card">
+                    <h4>📋 Control de Calidad</h4>
+                    <p>Inspección técnica detallada en fábrica antes del embalaje y pago final de la mercancía.</p>
+                </div>
+                <div class="extra-service-card">
+                    <h4>🚢 Logística Integral Puerta a Puerta</h4>
+                    <p>Gestión completa de fletes (Aéreo/Marítimo) y trámites aduanales hasta entregar la mercancía en la puerta de tu empresa en Venezuela.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Más Servicios (Reempaque / Casillero) -->
+        <div style="max-width: 1100px; margin: 40px auto 0 auto;">
+            <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Más Servicios</h3>
+            <div class="extra-services-grid">
+                <div class="extra-service-card">
+                    <h4>📦 Reempaque Gratis</h4>
+                    <p>Consolidamos todas tus compras a través de tu casillero en Miami y China. Realizamos reempaques de calidad con un servicio óptimo de protección de tu mercancía.</p>
+                </div>
+                <div class="extra-service-card">
+                    <h4>👔 Agentes de Compra</h4>
+                    <p>Ofrecemos nuestros servicios como Agentes de Compra, adquiriendo los productos que necesitas y asegurando la mejor alternativa y precios.</p>
+                </div>
+                <div class="extra-service-card">
+                    <h4>💻 Tu Casillero</h4>
+                    <p>Facilitamos tu proceso de compra a través de un Casillero Internacional. ¡Crea tu casillero totalmente gratis!</p>
+                </div>
             </div>
         </div>
     </section>
@@ -425,9 +520,11 @@
                         </div>
                     </div>
 
-                    <div class="calc-warning-box">
-                        <strong>⚠️ FINANCIAMIENTO 100%:</strong> Realiza el pago de tu envío marítimo cuando llegue a Puerto Nacional (Venezuela).<br>
-                        <em>Los cálculos son realizados a la tasa oficial del Euro publicada por el Banco Central de Venezuela y pueden variar según el cambio oficial de esta tasa al momento de la liquidación.</em>
+                    <!-- RECUADRO INFORMATIVO DE MARÍTIMO (ACTUALIZADO) -->
+                    <div class="calc-info-card-blue">
+                        <p style="margin: 0 0 8px 0;">📦 <strong>Financiamiento 100%:</strong> Realiza el pago de tu envío cuando llegue a <strong>Puerto Nacional (Venezuela)</strong>.</p>
+                        <p style="margin: 0 0 8px 0;">📌 <strong>Nota importante:</strong> El valor del envío reflejado <strong>incluye los impuestos por nacionalización</strong>.</p>
+                        <p style="margin: 0; color: #b91c1c;">⚠️ <strong>Si su paquete contiene equipos, insumos médicos o productos de alto valor, debe consultar previamente con su asesor.</strong></p>
                     </div>
                 </div>
 
@@ -491,11 +588,36 @@
                         </div>
                     </div>
 
-                    <div class="calc-warning-box">
-                        <strong>⚠️ REQUISITOS OBLIGATORIOS Y ARTÍCULOS PROHIBIDOS (AÉREO):</strong><br>
-                        1. Para todo envío AÉREO es <strong>estrictamente indispensable adjuntar la Factura Comercial (Invoice)</strong>.<br>
-                        2. <strong>Artículos prohibidos por vía Aérea:</strong> Componentes eléctricos, equipos médicos, cremas corporales o faciales, teléfonos/tablets/laptops, implementos de seguridad, juguetes bélicos, líquidos, aerosoles, gas pimienta, armas electrónicas o de aire, chalecos y cuchillos.<br>
-                        <em>Los montos en Bolívares se calculan a la Tasa Oficial Euro emitida por el Banco Central de Venezuela (BCV) y pueden variar según los cambios diarios de esta tasa.</em>
+                    <!-- ARTÍCULOS PROHIBIDOS POR AÉREO (LETRAS EN ROJO) -->
+                    <div class="prohibited-red-box">
+                        <h4>⚠️ Artículos que no se pueden enviar por Aéreo:</h4>
+                        <ul>
+                            <li>Componentes eléctricos, equipos médicos</li>
+                            <li>Cremas corporales o faciales</li>
+                            <li>UPS</li>
+                            <li>Teléfonos, tablets, computadores</li>
+                            <li>Equipos o implementos de seguridad (ej: cinturones)</li>
+                            <li>Juguetes</li>
+                            <li>Productos líquidos o en crema</li>
+                            <li>Químicos</li>
+                            <li>Alimentos</li>
+                            <li>Máscaras antigás</li>
+                            <li>Balines de acero o goma</li>
+                            <li>Bastones policiacos o defensivos</li>
+                            <li>Chalecos antibalas o de protección personal</li>
+                            <li>Pistolas, rifles y municiones (de cualquier tipo)</li>
+                            <li>Productos pirata (copias no originales)</li>
+                            <li>Aerosoles de defensa personal (gas pimienta)</li>
+                            <li>Cuchillos de cualquier clase</li>
+                            <li>Equipamiento deportivo/policial de defensa</li>
+                            <li>Armas electrónicas (ej: electroshock)</li>
+                            <li>Ayuda humanitaria</li>
+                            <li>Maquillaje</li>
+                            <li>Drones</li>
+                            <li>Productos inflamables</li>
+                            <li>Réplicas de armas</li>
+                            <li>Cableado o productos de fibra óptica</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -566,7 +688,24 @@
                     </div>
                 </div>
 
-                <!-- Caso 4: Amazon / Guatire -->
+                <!-- CASO 4: ENTREGAS A NIVELES NACIONAL CON FLOTA LDGLOBAL (NUEVO) -->
+                <div class="testimonial-card-real">
+                    <img src="./entregas-caracas.jpg" alt="Flota de entregas LDGlobal" class="testimonial-img">
+                    <div class="testimonial-body">
+                        <div>
+                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
+                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
+                                "Despachos Puerta a Puerta y logística distribuida en todo el territorio nacional a través de nuestro equipo de transporte directo."
+                            </p>
+                        </div>
+                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
+                            <strong style="color: #222; font-size: 0.95em;">Flota de Entregas LDGlobal</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Cobertura y Entregas a Nivel Nacional</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caso 5: Amazon / Guatire -->
                 <div class="testimonial-card-real">
                     <img src="./Foto-cliente-2.jpg" alt="Entrega compra Amazon Guatire" class="testimonial-img">
                     <div class="testimonial-body">
@@ -583,7 +722,7 @@
                     </div>
                 </div>
 
-                <!-- Caso 5: Shein y Amazon -->
+                <!-- Caso 6: Shein y Amazon -->
                 <div class="testimonial-card-real">
                     <img src="./Foto-Cliente1.jpg" alt="Entrega Compras Shein y Amazon" class="testimonial-img">
                     <div class="testimonial-body">
@@ -596,23 +735,6 @@
                         <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
                             <strong style="color: #222; font-size: 0.95em;">Cliente Frecuente</strong><br>
                             <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Consolidación Shein & Amazon</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Caso 6: Consultorio Odontológico Orto Muelitas -->
-                <div class="testimonial-card-real">
-                    <img src="./Cliente-5.jpg" alt="Consultorio Odontológico Orto Muelitas" class="testimonial-img">
-                    <div class="testimonial-body">
-                        <div>
-                            <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
-                            <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
-                                "Trajimos con LDGlobal todo el mobiliario especializado para nuestro consultorio, incluyendo silla odontológica y herramientas de trabajo. La logística fue impecable y todo llegó en perfecto estado."
-                            </p>
-                        </div>
-                        <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
-                            <strong style="color: #222; font-size: 0.95em;">Consultorio Odontológico Orto Muelitas</strong><br>
-                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Mobiliario y Equipamiento Médico</span>
                         </div>
                     </div>
                 </div>

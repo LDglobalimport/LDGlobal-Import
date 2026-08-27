@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=15">
+    <link rel="stylesheet" href="styles.css?v=16">
     
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -189,7 +189,7 @@
         .calc-results-import2ven {
             background: #f0f7ff;
             border-radius: 8px;
-            padding: 20px;
+            padding: 18px;
             margin-top: 20px;
             border: 1px solid #b8daff;
         }
@@ -198,16 +198,17 @@
             justify-content: space-between;
             padding: 6px 0;
             border-bottom: 1px dashed #d0e2ff;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
+        /* Ajuste de letras más pequeñas para el Total */
         .calc-res-row.highlight-total {
             border-bottom: none;
-            font-size: 1.2em;
+            font-size: 0.95em; /* Tamaño reducido según requerimiento */
             font-weight: bold;
             color: #003366;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px solid #0056b3;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #0056b3;
         }
         .calc-warning-box {
             background: #fff3cd;
@@ -334,7 +335,7 @@
         </div>
     </section>
 
-    <!-- CALCULADORA DE ENVÍOS ESTILO IMPORT2VEN EN BOLÍVARES A TASA EURO BCV -->
+    <!-- CALCULADORA DE ENVÍOS EN BOLÍVARES A TASA EURO BCV -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
@@ -353,11 +354,11 @@
                     <button type="button" class="calc-tab" onclick="cambiarTabCalc(event, 'aereo')">✈️ Envío Aéreo</button>
                 </div>
 
-                <!-- CALCULADORA MARÍTIMA ESTILO IMPORT2VEN -->
+                <!-- CALCULADORA MARÍTIMA EN BOLÍVARES -->
                 <div id="calcMaritimo" class="calc-content active">
                     
                     <div class="calc-header-tag" id="tagMaritimoInfo">
-                        📦 <strong>Carga Mínima Marítima:</strong> <span id="lblMinMaritimo">Miami: 30×30×30 cm ($53.50)</span>
+                        📦 <strong>Carga Mínima Marítima:</strong> <span id="lblMinMaritimo">Miami: Carga Mínima una caja de 30×30×30 cm</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -395,16 +396,12 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()" style="width: 100%; font-size: 1.1em; padding: 12px;">CALCULAR ENVÍO MARÍTIMO</button>
+                    <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO MARÍTIMO</button>
 
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
                             <span>Volumen CBM (m³):</span>
                             <strong id="resMarCbm">0.000 m³</strong>
-                        </div>
-                        <div class="calc-res-row">
-                            <span>Subtotal Estimado (USD):</span>
-                            <strong id="resMarSubUSD">$0.00</strong>
                         </div>
                         <div class="calc-res-row highlight-total">
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
@@ -418,19 +415,19 @@
                     </div>
                 </div>
 
-                <!-- CALCULADORA AÉREA ESTILO IMPORT2VEN -->
+                <!-- CALCULADORA AÉREA EN BOLÍVARES -->
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
-                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00/lb (Mínimo 5 lbs = $40.00) | China: $36.00/kg</span>
+                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: Mínimo 5 lbs (Peso volumétrico L×A×A/166) | China: Peso volumétrico L×A×A/5000</span>
                     </div>
 
                     <div class="calc-grid-form">
                         <div>
                             <label>Origen de la Carga *</label>
                             <select id="aerOrigen" onchange="cambiarOrigenAereo()">
-                                <option value="miami" selected>Miami (EE.UU.) 🇺🇸 ($8.00 / lb)</option>
-                                <option value="china">China 🇨🇳 ($36.00 / kg)</option>
+                                <option value="miami" selected>Miami (EE.UU.) 🇺🇸</option>
+                                <option value="china">China 🇨🇳</option>
                             </select>
                         </div>
 
@@ -465,20 +462,12 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1.1em; padding: 12px;">CALCULAR ENVÍO AÉREO</button>
+                    <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO AÉREO</button>
 
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
                             <span>Peso Volumétrico Calculado:</span>
                             <strong id="resAerPesoVol">0.00</strong>
-                        </div>
-                        <div class="calc-res-row">
-                            <span>Flete Base (USD):</span>
-                            <strong id="resAerFleteUSD">$0.00</strong>
-                        </div>
-                        <div class="calc-res-row">
-                            <span>Impuestos Aduanales Aéreos (USD):</span>
-                            <strong id="resAerImpUSD">$0.00</strong>
                         </div>
                         <div class="calc-res-row highlight-total">
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
@@ -976,7 +965,7 @@
             });
         }
 
-        // DICCIONARIOS DE TARIFAS EXACTAS MARÍTIMAS
+        // DICCIONARIOS DE TARIFAS
         const TARIFAS_CHINA_MAR = [
             { destino: "Caracas", cbmUSD: 1198 },
             { destino: "Valencia", cbmUSD: 1117.50 },
@@ -1020,19 +1009,19 @@
             select.innerHTML = '';
 
             if (origen === 'miami') {
-                lblMin.innerHTML = "Miami: Carga Mínima una caja de 30×30×30 cm ($53.50)";
+                lblMin.innerHTML = "Miami: Carga Mínima una caja de 30×30×30 cm";
                 TARIFAS_MIAMI_MAR.forEach(item => {
                     const opt = document.createElement('option');
                     opt.value = item.cbmUSD;
-                    opt.textContent = `${item.destino} ($${item.cbmUSD} / m³)`;
+                    opt.textContent = `${item.destino}`;
                     select.appendChild(opt);
                 });
             } else {
-                lblMin.innerHTML = "China: Envío mínimo 0.20 CBM (Caja de 30×22×30 cm) = $266.60 ($1330/CBM)";
+                lblMin.innerHTML = "China: Envío mínimo 0.20 CBM (Caja de 30×22×30 cm)";
                 TARIFAS_CHINA_MAR.forEach(item => {
                     const opt = document.createElement('option');
                     opt.value = item.cbmUSD;
-                    opt.textContent = `${item.destino} ($${item.cbmUSD} / m³)`;
+                    opt.textContent = `${item.destino}`;
                     select.appendChild(opt);
                 });
             }
@@ -1045,10 +1034,10 @@
 
             if (origen === 'miami') {
                 lblPeso.innerText = "Peso Real en Libras (lbs) *";
-                lblMin.innerText = "Miami: $8.00 / lb (Mínimo de envío $40.00 | Peso volumétrico L×A×A/166)";
+                lblMin.innerText = "Miami: Mínimo 5 lbs (Peso volumétrico L×A×A/166)";
             } else {
                 lblPeso.innerText = "Peso Real en Kilogramos (kg) *";
-                lblMin.innerText = "China: $36.00 / kg (Peso volumétrico L×A×A/5000)";
+                lblMin.innerText = "China: Peso volumétrico L×A×A/5000";
             }
         }
 
@@ -1069,7 +1058,6 @@
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
                 document.getElementById('resMarCbm').innerText = "0.000 m³";
-                document.getElementById('resMarSubUSD').innerText = "$0.00";
                 document.getElementById('resMarTotalBs').innerText = "0.00 Bs.";
                 return;
             }
@@ -1079,14 +1067,13 @@
             let subtotalUSD = 0;
 
             if (origen === 'miami') {
-                const cbmMinimo = (30 * 30 * 30) / 1000000; // 0.027 m3
+                const cbmMinimo = (30 * 30 * 30) / 1000000;
                 if (cbmTotal <= cbmMinimo) {
                     subtotalUSD = 53.50;
                 } else {
                     subtotalUSD = cbmTotal * precioCbmUSD;
                 }
             } else {
-                // China Marítimo
                 if (cbmTotal <= 0.20) {
                     subtotalUSD = 266.60;
                 } else {
@@ -1097,7 +1084,6 @@
             const totalBs = subtotalUSD * tasaEuro;
 
             document.getElementById('resMarCbm').innerText = cbmTotal.toFixed(3) + " m³";
-            document.getElementById('resMarSubUSD').innerText = "$" + subtotalUSD.toFixed(2) + " USD";
             document.getElementById('resMarTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
         }
 
@@ -1114,8 +1100,6 @@
 
             if (peso <= 0 && (largo <= 0 || ancho <= 0 || alto <= 0)) {
                 document.getElementById('resAerPesoVol').innerText = "0.00";
-                document.getElementById('resAerFleteUSD').innerText = "$0.00";
-                document.getElementById('resAerImpUSD').innerText = "$0.00";
                 document.getElementById('resAerTotalBs').innerText = "0.00 Bs.";
                 return;
             }
@@ -1124,7 +1108,6 @@
             let pesoVolStr = "";
 
             if (origen === 'miami') {
-                // Miami Aéreo ($8.00 lb | Volumétrico L×A×A / 166 | Mínimo 5 lbs = $40)
                 const pesoVolLbs = ((largo * ancho * alto) / 166) * cajas;
                 const pesoACobrarLbs = Math.max(peso, pesoVolLbs);
                 
@@ -1132,7 +1115,6 @@
                 if (fleteUSD < 40.00) fleteUSD = 40.00;
                 pesoVolStr = pesoVolLbs.toFixed(2) + " lbs";
             } else {
-                // China Aéreo ($36.00 kg | Volumétrico L×A×A / 5000)
                 const pesoVolKg = ((largo * ancho * alto) / 5000) * cajas;
                 const pesoACobrarKg = Math.max(peso, pesoVolKg);
 
@@ -1145,8 +1127,6 @@
             const totalBs = subtotalUSD * tasaEuro;
 
             document.getElementById('resAerPesoVol').innerText = pesoVolStr;
-            document.getElementById('resAerFleteUSD').innerText = "$" + fleteUSD.toFixed(2) + " USD";
-            document.getElementById('resAerImpUSD').innerText = "$" + impuestosUSD.toFixed(2) + " USD";
             document.getElementById('resAerTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
         }
 
@@ -1285,7 +1265,6 @@
             }
         }
 
-        // REGISTRO Y PARÁMETROS PARA PLANTILLAS
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();

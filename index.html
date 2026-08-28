@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=28">
+    <link rel="stylesheet" href="styles.css?v=29">
     
-    <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         (function(){
@@ -18,7 +16,6 @@
         })();
     </script>
 
-    <!-- OneSignal Web Push SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -418,7 +415,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header class="navbar">
         <div class="logo">
             <img src="./logo-principal.png" alt="LDGlobal Import Logo" class="nav-logo">
@@ -449,7 +445,6 @@
         </div>
     </header>
 
-    <!-- Modal Resultados Rastreo Público -->
     <div id="modalRastreoResultado" class="modal">
         <div class="modal-content" style="max-width: 450px;">
             <span class="close-btn" onclick="cerrarModal('modalRastreoResultado')">&times;</span>
@@ -459,7 +454,6 @@
         </div>
     </div>
 
-    <!-- Hero -->
     <section id="inicio" class="hero-puerto">
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
@@ -473,7 +467,6 @@
         </div>
     </section>
 
-    <!-- SECCIÓN QUIÉNES SOMOS -->
     <section id="quienes-somos" class="about-section" style="padding: 70px 20px;">
         <div class="about-container" style="max-width: 1100px;">
             <div class="section-header">
@@ -488,7 +481,6 @@
                 <p>Conectamos tu negocio con los principales mercados del mundo mediante tres pilares innegociables: <strong>precisión quirúrgica, transparencia financiera y seguridad integral.</strong></p>
             </div>
 
-            <!-- Galería de fotos reales -->
             <div class="about-gallery" style="margin-top: 30px;">
                 <div class="about-card">
                     <img src="./foto-reunion.jpg" alt="Asesoría personalizada LDGlobal" style="height: 280px; object-fit: cover;">
@@ -500,7 +492,6 @@
                 </div>
             </div>
 
-            <!-- Misión y Visión -->
             <div class="mision-vision-container" style="margin-top: 40px;">
                 <h3 style="font-size: 1.8em;">Nuestra Misión & Visión</h3>
                 <img src="./mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
@@ -508,7 +499,6 @@
         </div>
     </section>
 
-    <!-- Servicios -->
     <section id="servicios" class="services">
         <div class="section-header">
             <img src="./logo-secundario.png" alt="LDGlobal Emblema" class="section-secondary-logo">
@@ -532,7 +522,6 @@
             </div>
         </div>
 
-        <!-- Soluciones Logísticas Integrales -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Soluciones Logísticas Integrales</h3>
             <div class="extra-services-grid">
@@ -555,7 +544,6 @@
             </div>
         </div>
 
-        <!-- Más Servicios -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Más Servicios</h3>
             <div class="extra-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
@@ -571,7 +559,6 @@
         </div>
     </section>
 
-    <!-- CALCULADORA DE ENVÍOS EN BOLÍVARES A TASA EURO BCV -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
@@ -590,7 +577,6 @@
                     <button type="button" class="calc-tab" onclick="cambiarTabCalc(event, 'aereo')">✈️ Envío Aéreo</button>
                 </div>
 
-                <!-- CALCULADORA MARÍTIMA EN BOLÍVARES -->
                 <div id="calcMaritimo" class="calc-content active">
                     
                     <div class="calc-header-tag" id="tagMaritimoInfo">
@@ -653,7 +639,6 @@
                     </div>
                 </div>
 
-                <!-- CALCULADORA AÉREA EN BOLÍVARES CON DESGLOSE Y PREPAGO -->
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
@@ -772,7 +757,6 @@
         </div>
     </section>
 
-    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO -->
     <section id="testimonios" style="padding: 60px 20px; background-color: #f4f7f6; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto;">
             
@@ -833,17 +817,17 @@
                 </div>
 
                 <div class="testimonial-card-real">
-                    <img src="./entregas-caracas.jpg" alt="Flota de entregas LDGlobal" class="testimonial-img">
+                    <img src="./Cliente-5.jpg" alt="Entrega garantizada LDGlobal Import" class="testimonial-img">
                     <div class="testimonial-body">
                         <div>
                             <div style="color: #ffc107; font-size: 1.1em; margin-bottom: 8px;">⭐⭐⭐⭐⭐</div>
                             <p style="color: #444; font-size: 0.9em; line-height: 1.5; font-style: italic;">
-                                "Despachos Puerta a Puerta y logística distribuida en todo el territorio nacional a través de nuestro equipo de transporte directo."
+                                "Servicio integral de traslado y entrega personalizada para cargas corporales e industriales con monitoreo en todo momento."
                             </p>
                         </div>
                         <div style="margin-top: 15px; border-top: 1px solid #eee; pt: 10px;">
-                            <strong style="color: #222; font-size: 0.95em;">Flota de Entregas LDGlobal</strong><br>
-                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Cobertura y Entregas a Nivel Nacional</span>
+                            <strong style="color: #222; font-size: 0.95em;">Cliente Satisfecho LDGlobal</strong><br>
+                            <span style="font-size: 0.8em; color: #28a745; font-weight: bold;">✔ Logística y Entrega Directa</span>
                         </div>
                     </div>
                 </div>
@@ -888,7 +872,6 @@
         </div>
     </section>
 
-    <!-- SECCIÓN PREGUNTAS FRECUENTES (FAQ) -->
     <section id="faq" style="padding: 60px 20px; background-color: #ffffff; text-align: center;">
         <div style="max-width: 900px; margin: 0 auto;">
             <div class="section-header" style="margin-bottom: 30px;">
@@ -941,7 +924,6 @@
         </div>
     </section>
 
-    <!-- Cotización -->
     <section id="contacto" class="contact">
         <h2>Cotiza tu Envío</h2>
         <form class="quote-form" onsubmit="event.preventDefault(); window.open('https://wa.me/584242474580?text=Hola,%20deseo%20solicitar%20una%20cotizaci%C3%B3n%20para%20un%20env%C3%ADo.', '_blank');">
@@ -958,12 +940,10 @@
         </form>
     </section>
 
-    <!-- WhatsApp Flotante Oficial -->
     <a href="https://wa.me/584242474580" class="whatsapp-btn" target="_blank" rel="noopener" title="Chat por WhatsApp">
         <img src="./logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
-    <!-- Footer Actualizado con Oficinas y Teléfono +58 4242474580 -->
     <footer>
         <div class="footer-content" style="max-width: 1200px; margin: 0 auto;">
             <img src="./logo-principal.png" alt="LDGlobal Import" class="footer-logo">
@@ -1005,7 +985,6 @@
         </div>
     </footer>
 
-    <!-- MODAL REGISTRO DE CASILLERO -->
     <div id="modalRegister" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
@@ -1038,8 +1017,7 @@
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
                     <select id="pais" required>
-                        <!-- Llenado dinámico -->
-                    </select>
+                        </select>
 
                     <select id="estado" required>
                         <option value="" disabled selected>:: Seleccione Estado / Región * ::</option>
@@ -1065,7 +1043,6 @@
         </div>
     </div>
 
-    <!-- MODAL SELECCIÓN DE ALMACÉN TRAS INICIO DE SESIÓN -->
     <div id="modalSeleccionAlmacenLogin" class="modal">
         <div class="modal-content" style="max-width: 420px; text-align: center;">
             <h3 style="color: #003366; margin-bottom: 10px;">📦 Selecciona tu Casillero</h3>
@@ -1083,7 +1060,6 @@
         </div>
     </div>
 
-    <!-- MODAL TÉRMINOS Y CONDICIONES -->
     <div id="modalTerminos" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
@@ -1098,7 +1074,6 @@
         </div>
     </div>
 
-    <!-- MODAL POLÍTICA DE PRIVACIDAD -->
     <div id="modalPrivacidad" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalPrivacidad')">&times;</span>
@@ -1110,7 +1085,6 @@
         </div>
     </div>
 
-    <!-- MODAL INICIO SESIÓN -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -1128,7 +1102,6 @@
         </div>
     </div>
 
-    <!-- MODAL CASILLERO DEL CLIENTE -->
     <div id="modalCasillero" class="modal">
         <div class="modal-content modal-extra-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
@@ -1155,7 +1128,6 @@
                 <div style="display: flex; gap: 10px; flex: 1; min-width: 280px; align-items: center;">
                     <input type="text" id="searchTableInput" onkeyup="filtrarTablaCasillero()" placeholder="🔎 Buscar por tracking o recibo..." style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; flex: 1;">
                     
-                    <!-- SELECTOR DE VER ALMACÉN O TODOS LOS PAQUETES -->
                     <select id="selectVerAlmacenVista" onchange="cambiarVistaAlmacenCliente(this.value)" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #0056b3; font-weight: bold; background: #fff; color: #003366;">
                         <option value="Miami">🇺🇸 Casillero Miami</option>
                         <option value="China">🇨🇳 Casillero China</option>
@@ -1171,11 +1143,9 @@
                 <button type="button" onclick="cacheCSVMercancia=null; cargarMercanciaPorCorreo(usuarioSesionActual.email);" style="padding: 6px 12px; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄 Actualizar Datos</button>
             </div>
 
-            <!-- DIRECCIONES MOSTRADAS SEGÚN VISTA SELECCIONADA -->
             <div class="addresses-container">
                 <h3>Dirección Oficial para Envíos de Compras:</h3>
 
-                <!-- Dirección Miami -->
                 <div class="warehouse-card" id="cardDirMiami" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
@@ -1185,7 +1155,6 @@
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag"><span id="lblNombreMiamiUser">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <!-- Direcciones China (Aéreo y Marítimo) -->
                 <div class="warehouse-card" id="cardDirChinaAereo" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
@@ -1231,7 +1200,6 @@
         </div>
     </div>
 
-    <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS & CALCULADORA -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
@@ -2101,7 +2069,6 @@
         }
     </script>
 
-    <!-- REGISTRO DE SERVICE WORKER PARA APP MÓVIL (PWA) -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

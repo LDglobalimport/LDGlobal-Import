@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
+    <title>LD Global Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=31">
+    <link rel="stylesheet" href="styles.css?v=32">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -368,7 +368,6 @@
             margin: 0 0 6px 0;
         }
 
-        /* Estilo Botones Selección de Almacén en Login */
         .btn-select-warehouse {
             width: 100%;
             padding: 14px;
@@ -389,6 +388,26 @@
         .btn-select-warehouse:hover {
             background: #0056b3;
             color: #ffffff;
+        }
+
+        /* REGLA ESPECIAL PARA OCULTAR SECCIONES PÚBLICAS DENTRO DE LA APP INSTALADA */
+        @media (display-mode: standalone) {
+            .hero-puerto,
+            .about-section,
+            .services,
+            .calculator-section,
+            #testimonios,
+            #faq,
+            .contact,
+            footer {
+                display: none !important;
+            }
+            body {
+                background-color: #f4f7f6;
+            }
+            .btn-install-pwa {
+                display: none !important;
+            }
         }
 
         @media (max-width: 768px) {
@@ -985,7 +1004,7 @@
                     <p style="margin-top: 4px;">• 12-5# No.12 nanwei road, liwan district, guangzhou, China (Contacto: Miss Huang / Tel: +58 4242474580)</p>
                 </div>
                 <div class="office-col">
-                    <h4>🇻🇪 CARACAS (Oficinas)</h4>
+                    <h4>整 CARACAS (Oficinas)</h4>
                     <p><strong>Despacho:</strong> Av. Francisco de Miranda con calle República Dominicana, Edif. Bazar Bolívar, Urb. La California.</p>
                     <p><strong>Administrativa:</strong> Av. Andrés Bello con calle real, Urb. Andrés Bello, Edif. Sucre PB.</p>
                     <p><strong>Teléfono:</strong> +58 4242474580</p>
@@ -1139,7 +1158,7 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <!-- LABEL DE CASILLERO DINÁMICO SEGÚN ALMACÉN -->
+                        <!-- ETIQUETA DE CASILLERO ADAPTADA DINÁMICAMENTE SEGÚN ALMACÉN -->
                         <span>Casillero: <strong id="userCasillero">LDG-0000</strong></span>
                     </div>
                 </div>
@@ -1271,6 +1290,18 @@
             actualizarTarifasMaritimas();
             cambiarOrigenAereo();
             actualizarPaisesSegunAlmacen();
+
+            // DETECCION Y APERTURA DIRECTA DE LOGIN/CASILLERO SI SE ABRE DESDE LA APP
+            const esModoApp = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            if (esModoApp) {
+                const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+                if (usuariosLocales.length > 0) {
+                    usuarioSesionActual = usuariosLocales[0];
+                    confirmarAlmacenLogin(usuarioSesionActual.almacen || 'Miami');
+                } else {
+                    abrirModal('modalLogin');
+                }
+            }
         });
 
         function actualizarPaisesSegunAlmacen() {
@@ -1712,7 +1743,6 @@
             }
         }
 
-        // REGISTRO CON COMPARTICIÓN DE CÓDIGO LDG-XXXX ENTRE MIAMI Y CHINA
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1746,7 +1776,6 @@
 
             const estadoRegistro = await consultarClienteEnSheets(email);
 
-            // Validar existencia por Almacén específico
             if (almacenReg === 'Miami' && estadoRegistro.existeMiami) {
                 alert("⚠️ Este correo ya posee un Casillero registrado en Miami. Puedes registrarte en el Almacén de China si aún no lo has hecho.");
                 return;
@@ -1759,7 +1788,6 @@
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
             
-            // Reutiliza código LDG si ya existe en el otro almacén, de lo contrario genera uno nuevo
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
@@ -1866,7 +1894,6 @@
 
                 cerrarModal('modalLogin');
 
-                // Si tiene más de un casillero registrado abre el modal selector, de lo contrario abre directo
                 if (cuentasEncontradasLogin.length > 1) {
                     abrirModal('modalSeleccionAlmacenLogin');
                 } else {
@@ -1887,7 +1914,6 @@
             document.getElementById('userNombre').innerText = baseUser.nombre || baseUser.email.split('@')[0];
             document.getElementById('userCodigoCliente').innerText = baseUser.codigo || 'LDG-0000';
             
-            // ACTUALIZACIÓN DINÁMICA DE LA ETIQUETA "CASILLERO:" SEGÚN ALMACÉN
             const lblCasillero = document.getElementById('userCasillero');
             const clienteNom = baseUser.nombre || baseUser.email.split('@')[0];
             const clienteCod = baseUser.codigo || 'LDG-0000';
@@ -1912,7 +1938,6 @@
         function cambiarVistaAlmacenCliente(nuevoAlmacen) {
             usuarioSesionActual.almacenVista = nuevoAlmacen;
             
-            // ACTUALIZAR ETIQUETA AL CAMBIAR VISTA DESDE EL SELECTOR
             const lblCasillero = document.getElementById('userCasillero');
             const clienteNom = usuarioSesionActual.nombre || usuarioSesionActual.email.split('@')[0];
             const clienteCod = usuarioSesionActual.codigo || 'LDG-0000';
@@ -1991,7 +2016,6 @@
             });
         }
 
-        // CARGA Y FILTRADO SEGÚN SELECCIÓN MIAMI / CHINA / TODOS
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -2025,7 +2049,6 @@
                                 const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
                                 const estLower = estadoOriginal.toLowerCase();
 
-                                // FILTRADO SEGÚN ELECCIÓN DEL CLIENTE (MIAMI / CHINA / TODOS)
                                 let incluirFila = false;
                                 if (vistaActual === 'Todos') {
                                     incluirFila = true;
@@ -2043,10 +2066,8 @@
                                     const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                     const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
-                                    // NORMALIZACIÓN VISUAL DEL ESTADO (Remueve la palabra "china" para el cliente)
                                     let estadoMostrarVisual = estadoOriginal.replace(/china/gi, '').trim();
 
-                                    // MAPEO DE COLORES DE ETIQUETAS SEGÚN EL SHEET
                                     let badgeClass = "badge-generico";
                                     if (estLower.includes("almacen") && estLower.includes("china")) {
                                         badgeClass = "badge-almacen-china";

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LD Global Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=33">
+    <link rel="stylesheet" href="styles.css?v=34">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -565,7 +565,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
@@ -1253,9 +1253,9 @@
 
     <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS & CALCULADORA -->
     <script>
-        // URL CSV ACTUALIZADA Y LIMPIA DESDE GOOGLE SHEETS
+        // URL CSV Y WEB APP ESCRITURA SCRIPT ACTUALIZADAS
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
-        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
         let cacheCSVMercancia = null;
@@ -1648,6 +1648,10 @@
                             const recibo = col[1] ? col[1].replace(/^"|"$/g, '') : '';
                             if (recibo.startsWith("LDG-")) resultado.codigoExistente = recibo;
                             resultado.expedidor = col[4] ? col[4].replace(/^"|"$/g, '') : '';
+                            
+                            const estadoFila = (col[3] || '').toLowerCase();
+                            if (estadoFila.includes('china')) resultado.existeChina = true;
+                            else resultado.existeMiami = true;
                         }
                     }
                 }
@@ -1814,6 +1818,7 @@
                 });
             }
 
+            // ENVÍO DE DATOS AUTOMÁTICO A GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },

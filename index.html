@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=23">
+    <link rel="stylesheet" href="styles.css?v=24">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -29,7 +29,7 @@
             enable: true,
           },
         });
-        // Solicita el permiso directamente al cargar la página
+        // Solicita permiso automáticamente al cargar
         try {
             OneSignal.Notifications.requestPermission();
         } catch(e){}
@@ -1589,8 +1589,11 @@
             if (window.OneSignalDeferred) {
                 OneSignalDeferred.push(function(OneSignal) {
                     OneSignal.login(email);
-                    if (OneSignal.User && OneSignal.User.PushSubscription) {
-                        OneSignal.User.PushSubscription.optIn();
+                    if (OneSignal.User) {
+                        OneSignal.User.addTag("email", email);
+                        if (OneSignal.User.PushSubscription) {
+                            OneSignal.User.PushSubscription.optIn();
+                        }
                     }
                 });
             }
@@ -1661,8 +1664,11 @@
                 if (window.OneSignalDeferred) {
                     OneSignalDeferred.push(function(OneSignal) {
                         OneSignal.login(emailIngresado);
-                        if (OneSignal.User && OneSignal.User.PushSubscription) {
-                            OneSignal.User.PushSubscription.optIn();
+                        if (OneSignal.User) {
+                            OneSignal.User.addTag("email", emailIngresado);
+                            if (OneSignal.User.PushSubscription) {
+                                OneSignal.User.PushSubscription.optIn();
+                            }
                         }
                     });
                 }

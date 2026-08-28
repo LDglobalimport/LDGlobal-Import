@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=25">
+    <link rel="stylesheet" href="styles.css?v=26">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -18,7 +18,7 @@
         })();
     </script>
 
-    <!-- OneSignal Web Push SDK Integrado con Service Worker & Prompts -->
+    <!-- OneSignal Web Push SDK con Campana a la Izquierda -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -29,6 +29,7 @@
           serviceWorkerPath: "OneSignalSDKWorker.js",
           notifyButton: {
             enable: true,
+            position: 'bottom-left', // Ubica la campana en la esquina inferior izquierda
           },
           slidedown: {
             prompts: [
@@ -492,7 +493,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>

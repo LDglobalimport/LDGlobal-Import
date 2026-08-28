@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LDGlobal Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=26">
+    <link rel="stylesheet" href="styles.css?v=27">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -18,7 +18,7 @@
         })();
     </script>
 
-    <!-- OneSignal Web Push SDK con Campana a la Izquierda -->
+    <!-- OneSignal Web Push SDK -->
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -29,7 +29,7 @@
           serviceWorkerPath: "OneSignalSDKWorker.js",
           notifyButton: {
             enable: true,
-            position: 'bottom-left', // Ubica la campana en la esquina inferior izquierda
+            position: 'bottom-left',
           },
           slidedown: {
             prompts: [
@@ -49,16 +49,22 @@
     </script>
 
     <style>
+        /* ETIQUETAS Y ESTADOS PERSONALIZADOS (PUNTO 4) */
         .status-badge {
             padding: 4px 8px;
             border-radius: 12px;
             font-size: 0.8em;
             font-weight: bold;
             display: inline-block;
+            color: #ffffff !important;
         }
-        .badge-almacen { background-color: #ffeba2; color: #856404; }
-        .badge-transito { background-color: #cce5ff; color: #004085; }
-        .badge-entregado { background-color: #d4edda; color: #155724; }
+        .badge-almacen-china { background-color: #ff9800 !important; color: #ffffff !important; }
+        .badge-almacen-miami { background-color: #fbc02d !important; color: #000000 !important; }
+        .badge-transito-china { background-color: #0d47a1 !important; color: #ffffff !important; }
+        .badge-transito-miami { background-color: #0288d1 !important; color: #ffffff !important; }
+        .badge-aduana { background-color: #9c27b0 !important; color: #ffffff !important; }
+        .badge-entregado { background-color: #2e7d32 !important; color: #ffffff !important; }
+        .badge-generico { background-color: #757575 !important; color: #ffffff !important; }
         
         .faq-item {
             background: #fff;
@@ -336,6 +342,31 @@
             gap: 6px;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
+        }
+
+        /* DISEÑO DE FOOTER CON DIRECCIONES (PUNTO 5) */
+        .footer-grid-offices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            text-align: left;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+        }
+        .office-col h4 {
+            color: #ffc107;
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+        }
+        .office-col p {
+            font-size: 0.83em;
+            color: #e0e0e0;
+            line-height: 1.45;
+            margin: 0 0 6px 0;
         }
 
         @media (max-width: 768px) {
@@ -910,12 +941,35 @@
         <img src="./logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
-    <!-- Footer -->
+    <!-- Footer Actualizado con Oficinas (Punto 5) -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-content" style="max-width: 1200px; margin: 0 auto;">
             <img src="./logo-principal.png" alt="LDGlobal Import" class="footer-logo">
             <p>&copy; 2026 LDGlobal Import & Logistics. Todos los derechos reservados.</p>
             
+            <div class="footer-grid-offices">
+                <div class="office-col">
+                    <h4>🇺🇸 MIAMI (Sede Principal)</h4>
+                    <p>7824 NW 71 ST ST, Miami FL 33166.</p>
+                    <p><strong>Teléfono:</strong> +1 (305) 4912803</p>
+                </div>
+                <div class="office-col">
+                    <h4>📦 ORLANDO (Agente Receptor)</h4>
+                    <p>6958 Integra Cove Boulevard, Orlando FL 32821.</p>
+                </div>
+                <div class="office-col">
+                    <h4>🇨🇳 CHINA (Agente Receptor)</h4>
+                    <p>• 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 (Contacto: Raby / Tel: 19502066521)</p>
+                    <p style="margin-top: 4px;">• 12-5# No.12 nanwei road, liwan district, guangzhou, China (Contacto: Miss Huang / Tel: 19502066521)</p>
+                </div>
+                <div class="office-col">
+                    <h4>🇻🇪 CARACAS (Oficinas)</h4>
+                    <p><strong>Despacho:</strong> Av. Francisco de Miranda con calle República Dominicana, Edif. Bazar Bolívar, Urb. La California.</p>
+                    <p><strong>Administrativa:</strong> Av. Andrés Bello con calle real, Urb. Andrés Bello, Edif. Sucre PB.</p>
+                    <p><strong>Teléfono:</strong> +58 4242474580</p>
+                </div>
+            </div>
+
             <div style="margin-top: 10px;">
                 <a href="#" onclick="abrirModal('modalPrivacidad'); return false;" style="color: #ccc; text-decoration: underline; font-size: 0.85em;">Política de Privacidad y Tratamiento de Datos</a>
             </div>
@@ -929,7 +983,7 @@
         </div>
     </footer>
 
-    <!-- MODAL REGISTRO DE CASILLERO -->
+    <!-- MODAL REGISTRO DE CASILLERO CON ELECCIÓN DE ALMACÉN Y PAÍS (PUNTO 1 Y 3) -->
     <div id="modalRegister" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
@@ -944,6 +998,14 @@
                     </div>
                 </div>
 
+                <div style="background: #eef4f8; padding: 12px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #0056b3;">
+                    <label style="font-weight: bold; color: #003366; display: block; margin-bottom: 6px;">Selecciona tu Almacén Principal de Registro *</label>
+                    <select id="almacenSeleccionado" onchange="actualizarPaisesSegunAlmacen()" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #0056b3; font-weight: bold; color: #003366;">
+                        <option value="Miami" selected>🇺🇸 Casillero Miami (EE.UU.)</option>
+                        <option value="China">🇨🇳 Casillero China</option>
+                    </select>
+                </div>
+
                 <div class="form-grid">
                     <input type="text" id="identificacion" placeholder="Identificación*" required>
                     <input type="text" id="nombre" placeholder="Nombre*" required>
@@ -953,10 +1015,13 @@
                     <input type="password" id="password" placeholder="Password*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
-                    <select id="pais" required><option value="Venezuela" selected>Venezuela</option></select>
+                    <select id="pais" required>
+                        <!-- Se llena dinámicamente mediante JS -->
+                    </select>
+
                     <select id="estado" required>
-                        <option value="" disabled selected>:: Seleccione Estado * ::</option>
-                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option>
+                        <option value="" disabled selected>:: Seleccione Estado / Región * ::</option>
+                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option><option value="Internacional">Otro Estado / Región Internacional</option>
                     </select>
 
                     <input type="text" id="ciudad" placeholder="Ciudad*" required>
@@ -985,7 +1050,7 @@
             <h2>Términos y Condiciones del Servicio</h2>
             <div class="terms-text-container" style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; border: 1px solid #ddd; background-color: #f9f9f9;">
                 <h3>1. Registro y Asignación de Casillero</h3>
-                <p>Al completarse el registro en LD Global Import & Logistics, se asignará un Código Único de Cliente y direcciones físicas oficiales en nuestros almacenes de China y Miami.</p>
+                <p>Al completarse el registro en LD Global Import & Logistics, se asignará un Código Único de Cliente y direcciones físicas oficiales en nuestros almacenes de China o Miami.</p>
                 <h3>2. Recepción e Ingreso de Carga</h3>
                 <p>Los paquetes recibidos en nuestros almacenes se procesarán y registrarán en el sistema en un lapso de 12 a 24 horas hábiles posteriores a su recepción física.</p>
             </div>
@@ -1023,7 +1088,7 @@
         </div>
     </div>
 
-    <!-- MODAL CASILLERO DEL CLIENTE -->
+    <!-- MODAL CASILLERO DEL CLIENTE (FILTRADO DE DIRECCIONES SEGÚN ALMACÉN - PUNTO 2) -->
     <div id="modalCasillero" class="modal">
         <div class="modal-content modal-extra-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
@@ -1034,7 +1099,8 @@
                     <div class="user-badge-info">
                         <span>Titular: <strong><span id="userNombre">Cliente</span></strong></span> | 
                         <span>Código Cliente: <strong id="userCodigoCliente">LDG-0000</strong></span> | 
-                        <span>Casillero General: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span>
+                        <span>Casillero: <strong id="userCasillero">SMA03776 LENNIS GONZALEZ / </strong></span> |
+                        <span>Almacén Registrado: <strong id="userAlmacenBadges" style="color: #0056b3; font-weight: bold;">Miami</strong></span>
                     </div>
                 </div>
                 
@@ -1058,33 +1124,36 @@
                 <button type="button" onclick="cacheCSVMercancia=null; cargarMercanciaPorCorreo(usuarioSesionActual.email);" style="padding: 6px 12px; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄 Actualizar Datos</button>
             </div>
 
+            <!-- DIRECCIONES DINÁMICAS MOSTRADAS SEGÚN REGISTRO MIAMI O CHINA -->
             <div class="addresses-container">
-                <h3>Direcciones Oficiales para Envíos de Compras:</h3>
+                <h3>Dirección Oficial para Envíos de Compras:</h3>
 
-                <div class="warehouse-card">
+                <!-- Tarjeta Dirección Miami -->
+                <div class="warehouse-card" id="cardDirMiami" style="display: none;">
+                    <div class="card-title-flex">
+                        <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
+                        <button type="button" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 phone 1+ (305) 4912803 / ' + (usuarioSesionActual.nombre || '') + ' - ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
+                    </div>
+                    <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166 phone 1+ (305) 4912803</p>
+                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag"><span id="lblNombreMiamiUser">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
+                </div>
+
+                <!-- Tarjetas Direcciones China (Aéreo y Marítimo) -->
+                <div class="warehouse-card" id="cardDirChinaAereo" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
                         <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
-                    <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province.</p>
+                    <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: 19502066521</p>
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <div class="warehouse-card">
+                <div class="warehouse-card" id="cardDirChinaMaritimo" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🚢 CHINA (MARÍTIMO)</h4>
                         <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
-                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
-                </div>
-
-                <div class="warehouse-card">
-                    <div class="card-title-flex">
-                        <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
-                        <button type="button" onclick="copiarTexto('7824 NW 71 St Miami, Fl 33166 / Ref: SMA03776 LENNIS GONZALEZ / ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
-                    </div>
-                    <p><strong>Dirección:</strong> 7824 NW 71 St Miami, Fl 33166</p>
+                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang 19502066521</p>
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
             </div>
@@ -1120,7 +1189,7 @@
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzxhPQHYhJNrmPR61m-jKieeRKSXFwXtCqPufGfzR2GNdTEfjvLrSzSDEacuKflc2yY/exec";
 
-        let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "" };
+        let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacen: "Miami" };
         let cacheCSVMercancia = null;
         let deferredPromptPWA = null;
 
@@ -1152,7 +1221,33 @@
                 .catch(e => {});
             actualizarTarifasMaritimas();
             cambiarOrigenAereo();
+            actualizarPaisesSegunAlmacen();
         });
+
+        // ACTUAILIZACIÓN DINÁMICA DE PAÍSES SEGÚN ALMACÉN (PUNTO 1)
+        function actualizarPaisesSegunAlmacen() {
+            const almacen = document.getElementById('almacenSeleccionado').value;
+            const selectPais = document.getElementById('pais');
+            selectPais.innerHTML = '';
+
+            if (almacen === 'Miami') {
+                const opciones = ["Venezuela", "Panamá", "Colombia", "Chile", "EEUU"];
+                opciones.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p;
+                    opt.innerText = p;
+                    selectPais.appendChild(opt);
+                });
+            } else {
+                const opciones = ["Venezuela", "EEUU"];
+                opciones.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p;
+                    opt.innerText = p;
+                    selectPais.appendChild(opt);
+                });
+            }
+        }
 
         function toggleFaq(el) {
             const answer = el.nextElementSibling;
@@ -1178,7 +1273,7 @@
                         resDiv.innerHTML = `
                             <div style="background: #e9f7ef; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;">
                                 <strong> Tracking:</strong> ${col[10] || query}<br>
-                                <strong> Estado:</strong> <span class="status-badge badge-almacen">${col[3] || 'En almacén'}</span><br>
+                                <strong> Estado:</strong> ${col[3] || 'En almacén'}<br>
                                 <strong> Recibo:</strong> ${col[1] || 'N/A'}<br>
                                 <strong> Piezas:</strong> ${col[6] || '1'} | <strong> Peso:</strong> ${col[7] || 'N/A'}
                             </div>
@@ -1485,25 +1580,30 @@
                     const res = await fetch(GOOGLE_SHEETS_CSV_URL);
                     cacheCSVMercancia = await res.text();
                 }
-                const lineas = cacheCSVMercancia.split(/\r?\n/);
-
-                for (let i = 1; i < lineas.length; i++) {
-                    if (!lineas[i].trim()) continue;
-                    const col = parsearLineaCSV(lineas[i]);
-                    col.forEach(val => {
-                        const txt = val.replace(/^"|"$/g, '').trim();
-                        if (txt.startsWith("LDG-")) {
-                            const num = parseInt(txt.replace("LDG-", ""), 10);
-                            if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
-                        }
-                    });
+                if (cacheCSVMercancia) {
+                    const lineas = cacheCSVMercancia.split(/\r?\n/);
+                    for (let i = 1; i < lineas.length; i++) {
+                        if (!lineas[i].trim()) continue;
+                        const col = parsearLineaCSV(lineas[i]);
+                        col.forEach(val => {
+                            const txt = val.replace(/^"|"$/g, '').trim();
+                            if (txt.startsWith("LDG-")) {
+                                const num = parseInt(txt.replace("LDG-", ""), 10);
+                                if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
+                            }
+                        });
+                    }
                 }
             } catch (e) {}
 
             const localNum = parseInt(localStorage.getItem("ultimo_num_codigo") || "1000", 10);
-            const numFinal = Math.max(ultimoNumero, localNum) + 1;
-            localStorage.setItem("ultimo_num_codigo", numFinal.toString());
+            let numFinal = Math.max(ultimoNumero, localNum) + 1;
+            
+            if (isNaN(numFinal) || numFinal <= 1000) {
+                numFinal = Math.floor(1000 + Math.random() * 9000);
+            }
 
+            localStorage.setItem("ultimo_num_codigo", numFinal.toString());
             return "LDG-" + numFinal;
         }
 
@@ -1522,7 +1622,8 @@
                         email: emailLimpio,
                         nombre: datosSheets.expedidor || emailLimpio.split('@')[0],
                         codigo: datosSheets.recibo || "LDG-CLIENTE",
-                        pass: "No disponible (recuperar vía soporte)"
+                        pass: "No disponible (recuperar vía soporte)",
+                        almacen: "Miami"
                     };
                 }
             }
@@ -1534,10 +1635,11 @@
                     email: usuario.email,
                     user_email: usuario.email,
                     codigo_cliente: usuario.codigo,
+                    almacen_registro: usuario.almacen || "Miami",
                     casillero_completo: `SMA03776 LENNIS GONZALEZ / ${usuario.codigo} - ${usuario.nombre}`,
                     contrasena: usuario.pass,
                     password: usuario.pass,
-                    subject: `Nuevo Registro de Casillero - ${usuario.nombre} ${usuario.codigo}`
+                    subject: `Registro de Casillero [${usuario.almacen || "Miami"}] - ${usuario.nombre} (${usuario.codigo})`
                 };
 
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
@@ -1550,6 +1652,7 @@
             }
         }
 
+        // REGISTRO DE CASILLERO CON NOTIFICACIÓN DE ALMACÉN EN AMBOS EMAILJS (PUNTO 1 Y 3)
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1558,13 +1661,15 @@
             const confirmEmail = document.getElementById('confirmEmail').value.toLowerCase().trim();
             const pass = document.getElementById('password').value;
             const confirmPass = document.getElementById('confirmPassword').value;
+            const paisVal = document.getElementById('pais').value;
             const estado = document.getElementById('estado').value;
             const ciudad = document.getElementById('ciudad').value.trim();
             const direccion1 = document.getElementById('direccion1').value.trim();
             const telefono = document.getElementById('telefono').value.trim();
+            const almacenReg = document.getElementById('almacenSeleccionado').value;
             const aceptaTerminos = document.getElementById('aceptaTerminos');
 
-            if (!identificacion || !nombreVal || !apellidoVal || !email || !confirmEmail || !pass || !confirmPass || !estado || !ciudad || !direccion1 || !telefono) {
+            if (!identificacion || !nombreVal || !apellidoVal || !email || !confirmEmail || !pass || !confirmPass || !paisVal || !estado || !ciudad || !direccion1 || !telefono) {
                 alert("⚠️ Todos los campos marcados son obligatorios para crear tu casillero.");
                 return;
             }
@@ -1594,7 +1699,12 @@
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
             const codigoCliente = await generarCodigoClienteUnico();
 
-            const nuevoUsuario = { email, pass, nombre: nombreCompleto, codigo: codigoCliente, telefono, estado, ciudad, direccion1, identificacion };
+            const nuevoUsuario = { 
+                email, pass, nombre: nombreCompleto, codigo: codigoCliente, 
+                telefono, pais: paisVal, estado, ciudad, direccion1, identificacion, 
+                almacen: almacenReg 
+            };
+            
             usuariosLocales.push(nuevoUsuario);
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
@@ -1603,6 +1713,7 @@
                     OneSignal.login(email);
                     if (OneSignal.User) {
                         OneSignal.User.addTag("email", email);
+                        OneSignal.User.addTag("almacen", almacenReg);
                         if (OneSignal.User.PushSubscription) {
                             OneSignal.User.PushSubscription.optIn();
                         }
@@ -1613,10 +1724,11 @@
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ codigoCliente, nombre: nombreCompleto, identificacion, email, telefono, estado, tipoRegistro })
+                    body: JSON.stringify({ codigoCliente, nombre: nombreCompleto, identificacion, email, telefono, pais: paisVal, estado, tipoRegistro, almacen: almacenReg })
                 }).catch(e => {});
             }
 
+            // PARÁMETROS EMAIL CON INDICADOR CLARO DEL ALMACÉN (PUNTO 3)
             const paramsEmail = {
                 nombre_completo: nombreCompleto,
                 nombre: nombreCompleto,
@@ -1625,24 +1737,26 @@
                 email: email,
                 user_email: email,
                 telefono: telefono,
+                pais: paisVal,
                 estado: estado,
                 ciudad: ciudad,
                 direccion1: direccion1,
                 contrasena: pass,
                 password: pass,
-                casillero_completo: `SMA03776 LENNIS GONZALEZ / ${codigoCliente} - ${nombreCompleto}`,
-                subject: `Nuevo Registro de Casillero - ${nombreCompleto}`
+                almacen_registro: almacenReg,
+                casillero_completo: `Almacén ${almacenReg} - SMA03776 LENNIS GONZALEZ / ${codigoCliente} - ${nombreCompleto}`,
+                subject: `Nuevo Registro de Casillero [Almacén ${almacenReg}] - ${nombreCompleto}`
             };
 
             Promise.all([
                 emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail),
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
             ]).then(() => {
-                alert(`¡Bienvenido/a! Tu Código de Cliente es: ${codigoCliente}`);
+                alert(`¡Bienvenido/a! Tu Código de Cliente es: ${codigoCliente} (Almacén ${almacenReg})`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             }).catch(() => {
-                alert(`¡Registro realizado! Código: ${codigoCliente}`);
+                alert(`¡Registro realizado! Código: ${codigoCliente} (Almacén ${almacenReg})`);
                 cerrarModal('modalRegister');
                 abrirModal('modalLogin');
             });
@@ -1662,7 +1776,8 @@
                         email: emailIngresado,
                         nombre: datosSheets.expedidor || emailIngresado.split('@')[0],
                         codigo: datosSheets.recibo || "LDG-CLIENTE",
-                        direccion1: "Consultar en soporte"
+                        direccion1: "Consultar en soporte",
+                        almacen: "Miami"
                     };
                 }
             }
@@ -1678,6 +1793,7 @@
                         OneSignal.login(emailIngresado);
                         if (OneSignal.User) {
                             OneSignal.User.addTag("email", emailIngresado);
+                            if (usuario.almacen) OneSignal.User.addTag("almacen", usuario.almacen);
                             if (OneSignal.User.PushSubscription) {
                                 OneSignal.User.PushSubscription.optIn();
                             }
@@ -1688,7 +1804,24 @@
                 usuarioSesionActual = usuario;
                 document.getElementById('userNombre').innerText = usuario.nombre;
                 document.getElementById('userCodigoCliente').innerText = usuario.codigo;
+                document.getElementById('userAlmacenBadges').innerText = usuario.almacen || "Miami";
+                document.getElementById('lblNombreMiamiUser').innerText = usuario.nombre;
                 document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = usuario.codigo);
+
+                // MOSTRAR U OCULTAR DIRECCIONES SEGÚN REGISTRO MIAMI O CHINA (PUNTO 2)
+                const cardMiami = document.getElementById('cardDirMiami');
+                const cardChinaAereo = document.getElementById('cardDirChinaAereo');
+                const cardChinaMar = document.getElementById('cardDirChinaMaritimo');
+
+                if ((usuario.almacen || 'Miami') === 'Miami') {
+                    cardMiami.style.display = 'block';
+                    cardChinaAereo.style.display = 'none';
+                    cardChinaMar.style.display = 'none';
+                } else {
+                    cardMiami.style.display = 'none';
+                    cardChinaAereo.style.display = 'block';
+                    cardChinaMar.style.display = 'block';
+                }
 
                 cerrarModal('modalLogin');
                 abrirModal('modalCasillero');
@@ -1698,6 +1831,7 @@
             }
         }
 
+        // INSTRUCCIÓN DE DESPACHO CON REGISTRO EXPLÍCITO DE ALMACÉN ORIGEN (PUNTO 3)
         function enviarInstruccionDespacho(tracking, index) {
             const selectModo = document.getElementById(`modoEnvio_${index}`);
             const btn = document.getElementById(`btnOk_${index}`);
@@ -1708,6 +1842,7 @@
             const clienteEmail = usuarioSesionActual.email || 'cliente@ldglobalimport.com';
             const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
             const clienteDireccion = usuarioSesionActual.direccion1 || 'Dirección registrada en casillero';
+            const almacenOrigen = usuarioSesionActual.almacen || 'Miami';
 
             btn.disabled = true;
             btn.innerText = "Enviando...";
@@ -1716,6 +1851,7 @@
 
             localStorage.setItem(`instruccion_${tracking}`, modoElegido);
 
+            // CORREO E INSTRUCCIÓN DE DESPACHO INDICANDO ORIGEN MIAMI O CHINA (PUNTO 3)
             const paramsInstruccion = {
                 nombre: clienteNombre,
                 nombre_completo: clienteNombre,
@@ -1724,22 +1860,24 @@
                 codigo_cliente: clienteCodigo,
                 tracking: tracking,
                 modo_envio: modoElegido,
+                almacen_origen: almacenOrigen,
                 direccion1: clienteDireccion,
-                subject: `Instrucción- Despacho [${modoElegido}] - ${clienteNombre} (${tracking})`
+                subject: `Instrucción Despacho [Almacén ${almacenOrigen.toUpperCase()}] - ${modoElegido} - ${clienteNombre} (${tracking})`
             };
 
             emailjs.send("service_hn885sb", "template_ck1kr09", paramsInstruccion)
             .then(function(res) {
                 btn.innerText = "✔ Confirmado";
                 btn.classList.add("btn-confirmado");
-                alert(`¡Instrucción enviada con éxito para la carga ${tracking}: ${modoElegido}!`);
+                alert(`¡Instrucción enviada con éxito desde Almacén ${almacenOrigen} para ${tracking}: ${modoElegido}!`);
             }, function(error) {
                 btn.innerText = "✔ Registrado";
                 btn.classList.add("btn-confirmado");
-                alert(`Instrucción guardada para ${tracking}: ${modoElegido}.`);
+                alert(`Instrucción guardada desde Almacén ${almacenOrigen} para ${tracking}: ${modoElegido}.`);
             });
         }
 
+        // CARGA Y COLORACIÓN DE ETIQUETAS SEGÚN EL ESTADO DE GOOGLE SHEETS (PUNTO 4)
         function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1771,11 +1909,25 @@
 
                                 const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                 const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
-                                const estadoTxt = (col[3] || 'En almacén').replace(/^"|"$/g, '');
+                                const estadoTxt = (col[3] || 'Almacen - Miami').replace(/^"|"$/g, '').trim();
 
-                                let badgeClass = "badge-almacen";
-                                if (estadoTxt.toLowerCase().includes("tránsito")) badgeClass = "badge-transito";
-                                else if (estadoTxt.toLowerCase().includes("entregad")) badgeClass = "badge-entregado";
+                                // MAPEO DE COLORES DE ETIQUETAS SEGÚN PUNTO 4
+                                let badgeClass = "badge-generico";
+                                const estLower = estadoTxt.toLowerCase();
+
+                                if (estLower.includes("almacen") && estLower.includes("china")) {
+                                    badgeClass = "badge-almacen-china";
+                                } else if (estLower.includes("almacen") && estLower.includes("miami")) {
+                                    badgeClass = "badge-almacen-miami";
+                                } else if (estLower.includes("transito") && estLower.includes("china")) {
+                                    badgeClass = "badge-transito-china";
+                                } else if (estLower.includes("transito") && estLower.includes("miami")) {
+                                    badgeClass = "badge-transito-miami";
+                                } else if (estLower.includes("aduana")) {
+                                    badgeClass = "badge-aduana";
+                                } else if (estLower.includes("entregad")) {
+                                    badgeClass = "badge-entregado";
+                                }
 
                                 filasEncontradas += `
                                     <tr>

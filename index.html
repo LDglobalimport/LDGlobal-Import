@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LD Global Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=36">
+    <link rel="stylesheet" href="styles.css?v=37">
     
     <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
     <link rel="manifest" href="manifest.json">
@@ -247,6 +247,13 @@
             margin-top: 8px;
             padding-top: 8px;
             border-top: 1px solid #0056b3;
+        }
+        .calc-res-row.highlight-usd {
+            border-bottom: none;
+            font-size: 0.95em;
+            font-weight: bold;
+            color: #28a745;
+            padding-top: 4px;
         }
 
         .calc-info-card-blue {
@@ -590,11 +597,11 @@
         </div>
     </section>
 
-    <!-- CALCULADORA DE ENVÍOS EN BOLÍVARES A TASA EURO BCV -->
+    <!-- CALCULADORA DE ENVÍOS EN BOLÍVARES Y DÓLARES -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
-            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitida por el BCV</p>
+            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitida por el BCV y su equivalente en Dólares ($ USD)</p>
             
             <div class="import2ven-calc-box">
                 
@@ -609,7 +616,7 @@
                     <button type="button" class="calc-tab" onclick="cambiarTabCalc(event, 'aereo')">✈️ Envío Aéreo</button>
                 </div>
 
-                <!-- CALCULADORA MARÍTIMA EN BOLÍVARES -->
+                <!-- CALCULADORA MARÍTIMA EN BOLÍVARES Y DÓLARES -->
                 <div id="calcMaritimo" class="calc-content active">
                     
                     <div class="calc-header-tag" id="tagMaritimoInfo">
@@ -662,6 +669,11 @@
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
                             <strong id="resMarTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
+                        <!-- NUEVO CAMPO: TOTAL EN DÓLARES EN MARÍTIMO -->
+                        <div class="calc-res-row highlight-usd">
+                            <span>TOTAL ESTIMADO EN DÓLARES ($ USD):</span>
+                            <strong id="resMarTotalUSD" style="color: #28a745;">$ 0.00 USD</strong>
+                        </div>
                     </div>
 
                     <div class="calc-info-card-blue">
@@ -672,7 +684,7 @@
                     </div>
                 </div>
 
-                <!-- CALCULADORA AÉREA EN BOLÍVARES CON DESGLOSE Y PREPAGO -->
+                <!-- CALCULADORA AÉREA EN BOLÍVARES Y DÓLARES CON DESGLOSE -->
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
@@ -734,6 +746,11 @@
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
                             <strong id="resAerTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
+                        <!-- NUEVO CAMPO: TOTAL EN DÓLARES EN AÉREO -->
+                        <div class="calc-res-row highlight-usd">
+                            <span>TOTAL ESTIMADO EN DÓLARES ($ USD):</span>
+                            <strong id="resAerTotalUSD" style="color: #28a745;">$ 0.00 USD</strong>
+                        </div>
 
                         <div class="desglose-box">
                             <div class="desglose-title">📊 Desglose del cálculo</div>
@@ -791,7 +808,7 @@
         </div>
     </section>
 
-    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO (NUEVO CASO DE ÉXITO FOTO-ENTREGAS.JPG AGREGADO) -->
+    <!-- SECCIÓN TESTIMONIOS Y CASOS DE ÉXITO -->
     <section id="testimonios" style="padding: 60px 20px; background-color: #f4f7f6; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto;">
             
@@ -803,7 +820,6 @@
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; text-align: left;">
                 
-                <!-- NUEVO CASO DE ÉXITO: FOTO-ENTREGAS.JPG -->
                 <div class="testimonial-card-real">
                     <img src="./foto-entregas.jpg" alt="Flota de Camiones de Entregas Nacionales LDGlobal" class="testimonial-img">
                     <div class="testimonial-body">
@@ -1103,7 +1119,7 @@
         </div>
     </div>
 
-    <!-- MODAL TÉRMINOS Y CONDICIONES (COMPLETAMENTE REVISADO Y AMPLIADO) -->
+    <!-- MODAL TÉRMINOS Y CONDICIONES -->
     <div id="modalTerminos" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
@@ -1144,7 +1160,7 @@
                 <p>Los fletes aéreos y marítimos se calcularán con base en las tarifas vigentes por peso real o peso volumétrico (lo que resulte mayor). El pago de los servicios deberá realizarse antes de la entrega final según las condiciones acordadas para cada vía (Prepago en China Aéreo o Pago al arribo en Puerto/Aduana Nacional en Marítimo).</p>
 
                 <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px;">7. Mercancía Prohibida y Restringida</h3>
-                <p>Queda estrictamente prohibido el envío de sustancias ilícitas, armas, municiones, materiales inflamables, explosivos, químicos peligrosos o productos regulados sin los permisos aduanales correspondientes. LD Global se reserva el derecho de rechazar o poner a disposición de las autoridades cualquier carga que incumpla las leyes nacionales e internacionales.</p>
+                <p>Queda strictly prohibido el envío de sustancias ilícitas, armas, municiones, materiales inflamables, explosivos, químicos peligrosos o productos regulados sin los permisos aduanales correspondientes. LD Global se reserva el derecho de rechazar o poner a disposición de las autoridades cualquier carga que incumpla las leyes nacionales e internacionales.</p>
             </div>
             
             <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px;">Entendido y Acepto</button>
@@ -1509,6 +1525,7 @@
             calcularAereo();
         }
 
+        // CÁLCULO MARÍTIMO EN BOLÍVARES Y DÓLARES
         function calcularMaritimo() {
             const origen = document.getElementById('marOrigen').value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
@@ -1521,6 +1538,7 @@
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
                 document.getElementById('resMarCbm').innerText = "0.000 m³";
                 document.getElementById('resMarTotalBs').innerText = "0.00 Bs.";
+                document.getElementById('resMarTotalUSD').innerText = "$ 0.00 USD";
                 return;
             }
 
@@ -1547,8 +1565,10 @@
 
             document.getElementById('resMarCbm').innerText = cbmTotal.toFixed(3) + " m³";
             document.getElementById('resMarTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+            document.getElementById('resMarTotalUSD').innerText = "$ " + subtotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " USD";
         }
 
+        // CÁLCULO AÉREO EN BOLÍVARES Y DÓLARES
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const peso = parseFloat(document.getElementById('aerPeso').value) || 0;
@@ -1562,6 +1582,7 @@
             if (peso <= 0 && (largo <= 0 || ancho <= 0 || alto <= 0)) {
                 document.getElementById('resAerPesoVol').innerText = "0.00";
                 document.getElementById('resAerTotalBs').innerText = "0.00 Bs.";
+                document.getElementById('resAerTotalUSD').innerText = "$ 0.00 USD";
                 
                 document.getElementById('dgPesoVol').innerText = "0.00";
                 document.getElementById('dgPesoCobrar').innerText = "0.00";
@@ -1609,8 +1630,9 @@
 
             document.getElementById('resAerPesoVol').innerText = pesoVol.toFixed(2) + unidadStr;
             document.getElementById('resAerTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
+            document.getElementById('resAerTotalUSD').innerText = "$ " + totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " USD";
 
-            // Llenar Desglose
+            // Desglose
             document.getElementById('dgPesoVol').innerText = pesoVol.toFixed(2) + unidadStr;
             document.getElementById('dgPesoCobrar').innerText = pesoCobrar.toFixed(2) + unidadStr;
             document.getElementById('dgCostoCajaBs').innerText = costoCajaBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";

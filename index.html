@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LD Global Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=37">
+    <link rel="stylesheet" href="styles.css?v=39">
     
-    <!-- ENLACE AL MANIFEST PARA LA APP MÓVIL -->
+    <!-- MANIFEST PWA -->
     <link rel="manifest" href="manifest.json">
 
     <!-- EmailJS -->
@@ -27,10 +27,7 @@
           appId: "d7541d92-aca4-4ce1-a780-43c87f7b6acc",
           serviceWorkerParam: { scope: "/" },
           serviceWorkerPath: "OneSignalSDKWorker.js",
-          notifyButton: {
-            enable: true,
-            position: 'bottom-left',
-          },
+          notifyButton: { enable: true, position: 'bottom-left' },
           slidedown: {
             prompts: [
               {
@@ -49,15 +46,7 @@
     </script>
 
     <style>
-        /* ETIQUETAS Y ESTADOS PERSONALIZADOS */
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: bold;
-            display: inline-block;
-            color: #ffffff !important;
-        }
+        .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8em; font-weight: bold; display: inline-block; color: #ffffff !important; }
         .badge-almacen-china { background-color: #ff9800 !important; color: #ffffff !important; }
         .badge-almacen-miami { background-color: #fbc02d !important; color: #000000 !important; }
         .badge-transito-china { background-color: #0d47a1 !important; color: #ffffff !important; }
@@ -66,379 +55,67 @@
         .badge-entregado { background-color: #2e7d32 !important; color: #ffffff !important; }
         .badge-generico { background-color: #757575 !important; color: #ffffff !important; }
         
-        .faq-item {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            overflow: hidden;
-            text-align: left;
-        }
-        .faq-question {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            font-weight: bold;
-            color: #003366;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .faq-answer {
-            padding: 15px 20px;
-            display: none;
-            color: #555;
-            font-size: 0.95em;
-            line-height: 1.5;
-            border-top: 1px solid #eee;
-        }
+        .faq-item { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; text-align: left; }
+        .faq-question { background: #f8f9fa; padding: 15px 20px; font-weight: bold; color: #003366; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-answer { padding: 15px 20px; display: none; color: #555; font-size: 0.95em; line-height: 1.5; border-top: 1px solid #eee; }
 
-        .header-auth-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 6px;
-        }
-        .header-tracker-box {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4px 8px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            max-width: 260px;
-        }
-        .header-tracker-input {
-            padding: 4px 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.78em;
-            width: 140px;
-        }
-        .header-tracker-btn {
-            padding: 4px 8px;
-            font-size: 0.78em;
-            background: #0056b3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+        .header-auth-container { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .header-tracker-box { background: rgba(255, 255, 255, 0.95); padding: 4px 8px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); display: flex; gap: 4px; align-items: center; max-width: 260px; }
+        .header-tracker-input { padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 0.78em; width: 140px; }
+        .header-tracker-btn { padding: 4px 8px; font-size: 0.78em; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer; }
 
-        .btn-confirmado {
-            background-color: #28a745 !important;
-            color: white !important;
-            cursor: default !important;
-        }
+        .btn-confirmado { background-color: #28a745 !important; color: white !important; cursor: default !important; }
 
-        .testimonial-card-real {
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            border-top: 4px solid #0056b3;
-        }
-        .testimonial-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-        }
-        .testimonial-body {
-            padding: 20px;
-            text-align: left;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .testimonial-card-real { background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; border-top: 4px solid #0056b3; }
+        .testimonial-img { width: 100%; height: 250px; object-fit: cover; display: block; }
+        .testimonial-body { padding: 20px; text-align: left; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
 
-        .section-header-centered {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-bottom: 40px;
-        }
+        .section-header-centered { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 40px; }
 
-        .import2ven-calc-box {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            border: 1px solid #e3e8ec;
-            text-align: left;
-            max-width: 850px;
-            margin: 0 auto;
-        }
-        .calc-header-tag {
-            background: #eef4f8;
-            border-left: 4px solid #0056b3;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-            color: #003366;
-        }
-        .bcv-interactive-rate {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #f8f9fa;
-            border: 1px solid #ced4da;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 0.9em;
-            font-weight: bold;
-            color: #333;
-        }
-        .bcv-interactive-rate input {
-            width: 120px;
-            padding: 5px;
-            border: 1px solid #0056b3;
-            border-radius: 4px;
-            font-weight: bold;
-            color: #0056b3;
-        }
-        .calc-grid-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .calc-grid-form label {
-            font-size: 0.85em;
-            font-weight: bold;
-            color: #444;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .calc-grid-form input, .calc-grid-form select {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 0.9em;
-        }
-        .calc-results-import2ven {
-            background: #f0f7ff;
-            border-radius: 8px;
-            padding: 18px;
-            margin-top: 20px;
-            border: 1px solid #b8daff;
-        }
-        .calc-res-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px dashed #d0e2ff;
-            font-size: 0.9em;
-        }
-        .calc-res-row.highlight-total {
-            border-bottom: none;
-            font-size: 0.95em;
-            font-weight: bold;
-            color: #003366;
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid #0056b3;
-        }
-        .calc-res-row.highlight-usd {
-            border-bottom: none;
-            font-size: 0.95em;
-            font-weight: bold;
-            color: #28a745;
-            padding-top: 4px;
-        }
+        .import2ven-calc-box { background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border: 1px solid #e3e8ec; text-align: left; max-width: 850px; margin: 0 auto; }
+        .calc-header-tag { background: #eef4f8; border-left: 4px solid #0056b3; padding: 10px 15px; border-radius: 4px; margin-bottom: 20px; font-size: 0.9em; color: #003366; }
+        .bcv-interactive-rate { display: flex; align-items: center; gap: 10px; background: #f8f9fa; border: 1px solid #ced4da; padding: 10px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9em; font-weight: bold; color: #333; }
+        .bcv-interactive-rate input { width: 120px; padding: 5px; border: 1px solid #0056b3; border-radius: 4px; font-weight: bold; color: #0056b3; }
+        .calc-grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .calc-grid-form label { font-size: 0.85em; font-weight: bold; color: #444; display: block; margin-bottom: 5px; }
+        .calc-grid-form input, .calc-grid-form select { width: 100%; padding: 9px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9em; }
+        .calc-results-import2ven { background: #f0f7ff; border-radius: 8px; padding: 18px; margin-top: 20px; border: 1px solid #b8daff; }
+        .calc-res-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #d0e2ff; font-size: 0.9em; }
+        .calc-res-row.highlight-total { border-bottom: none; font-size: 0.95em; font-weight: bold; color: #003366; margin-top: 8px; padding-top: 8px; border-top: 1px solid #0056b3; }
+        .calc-res-row.highlight-usd { border-bottom: none; font-size: 0.95em; font-weight: bold; color: #28a745; padding-top: 4px; }
 
-        .calc-info-card-blue {
-            background: #eaf3ff;
-            border: 1px solid #b6d4fe;
-            color: #003366;
-            padding: 18px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            margin-top: 20px;
-            line-height: 1.6;
-        }
+        .calc-info-card-blue { background: #eaf3ff; border: 1px solid #b6d4fe; color: #003366; padding: 18px; border-radius: 8px; font-size: 0.9em; margin-top: 20px; line-height: 1.6; }
+        .calc-warning-yellow-box { background: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 18px; border-radius: 8px; font-size: 0.88em; margin-top: 20px; line-height: 1.6; text-align: left; }
+        .calc-warning-yellow-box ul { margin: 10px 0 0 0; padding-left: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px; }
 
-        .calc-warning-yellow-box {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 18px;
-            border-radius: 8px;
-            font-size: 0.88em;
-            margin-top: 20px;
-            line-height: 1.6;
-            text-align: left;
-        }
-        .calc-warning-yellow-box ul {
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 4px;
-        }
+        .extra-services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 30px; }
+        .extra-service-card { background: #fdfdfd; border: 1px solid #e2e8f0; border-radius: 10px; padding: 22px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .extra-service-card h4 { color: #003366; margin-top: 0; margin-bottom: 12px; font-size: 1.1em; display: flex; align-items: center; gap: 8px; }
+        .extra-service-card p { text-align: justify; text-justify: inter-word; line-height: 1.55; color: #444; font-size: 0.92em; margin: 0; }
 
-        .extra-services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .extra-service-card {
-            background: #fdfdfd;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 22px;
-            text-align: left;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .extra-service-card h4 {
-            color: #003366;
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .extra-service-card p {
-            text-align: justify;
-            text-justify: inter-word;
-            line-height: 1.55;
-            color: #444;
-            font-size: 0.92em;
-            margin: 0;
-        }
+        .btn-install-pwa { background: #28a745; color: white; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 0.82em; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
 
-        .btn-install-pwa {
-            background: #28a745;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.82em;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .desglose-box { background: #ffffff; border: 1px solid #d0e2ff; border-radius: 8px; padding: 15px; margin-top: 15px; font-size: 0.88em; }
+        .desglose-title { font-weight: bold; color: #003366; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
 
-        .desglose-box {
-            background: #ffffff;
-            border: 1px solid #d0e2ff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.88em;
-        }
-        .desglose-title {
-            font-weight: bold;
-            color: #003366;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
+        .footer-grid-offices { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: left; margin-top: 25px; margin-bottom: 25px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px; }
+        .office-col h4 { color: #ffc107; margin-top: 0; margin-bottom: 8px; font-size: 0.95em; text-transform: uppercase; }
+        .office-col p { font-size: 0.83em; color: #e0e0e0; line-height: 1.45; margin: 0 0 6px 0; }
 
-        .footer-grid-offices {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            text-align: left;
-            margin-top: 25px;
-            margin-bottom: 25px;
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 20px;
-        }
-        .office-col h4 {
-            color: #ffc107;
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            text-transform: uppercase;
-        }
-        .office-col p {
-            font-size: 0.83em;
-            color: #e0e0e0;
-            line-height: 1.45;
-            margin: 0 0 6px 0;
-        }
+        .btn-select-warehouse { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: 2px solid #0056b3; background: #ffffff; color: #0056b3; font-weight: bold; font-size: 1em; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-select-warehouse:hover { background: #0056b3; color: #ffffff; }
 
-        .btn-select-warehouse {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            border: 2px solid #0056b3;
-            background: #ffffff;
-            color: #0056b3;
-            font-weight: bold;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-select-warehouse:hover {
-            background: #0056b3;
-            color: #ffffff;
-        }
-
-        /* REGLA ESPECIAL PARA OCULTAR SECCIONES PÚBLICAS DENTRO DE LA APP INSTALADA */
         @media (display-mode: standalone) {
-            .hero-puerto,
-            .about-section,
-            .services,
-            .calculator-section,
-            #testimonios,
-            #faq,
-            .contact,
-            footer {
-                display: none !important;
-            }
-            body {
-                background-color: #f4f7f6;
-            }
-            .btn-install-pwa {
-                display: none !important;
-            }
+            .hero-puerto, .about-section, .services, .calculator-section, #testimonios, #faq, .contact, footer { display: none !important; }
+            body { background-color: #f4f7f6; }
+            .btn-install-pwa { display: none !important; }
         }
 
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column !important;
-                align-items: center !important;
-                padding: 10px !important;
-            }
-            .header-auth-container {
-                align-items: center !important;
-                width: 100% !important;
-                margin-top: 10px !important;
-            }
-            .auth-buttons {
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                width: 100% !important;
-            }
-            .btn-install-pwa {
-                width: 100% !important;
-                justify-content: center !important;
-                padding: 10px !important;
-                font-size: 0.95em !important;
-            }
+            .navbar { flex-direction: column !important; align-items: center !important; padding: 10px !important; }
+            .header-auth-container { align-items: center !important; width: 100% !important; margin-top: 10px !important; }
+            .auth-buttons { flex-wrap: wrap !important; justify-content: center !important; width: 100% !important; }
+            .btn-install-pwa { width: 100% !important; justify-content: center !important; padding: 10px !important; font-size: 0.95em !important; }
         }
     </style>
 </head>
@@ -514,7 +191,6 @@
                 <p>Conectamos tu negocio con los principales mercados del mundo mediante tres pilares innegociables: <strong>precisión quirúrgica, transparencia financiera y seguridad integral.</strong></p>
             </div>
 
-            <!-- Galería de fotos reales -->
             <div class="about-gallery" style="margin-top: 30px;">
                 <div class="about-card">
                     <img src="./foto-reunion.jpg" alt="Asesoría personalizada LDGlobal" style="height: 280px; object-fit: cover;">
@@ -526,7 +202,6 @@
                 </div>
             </div>
 
-            <!-- Misión y Visión -->
             <div class="mision-vision-container" style="margin-top: 40px;">
                 <h3 style="font-size: 1.8em;">Nuestra Misión & Visión</h3>
                 <img src="./mision-vision.jpg" alt="Misión y Visión LDGlobal Import & Logistics" class="img-mision-vision">
@@ -558,7 +233,6 @@
             </div>
         </div>
 
-        <!-- Soluciones Logísticas Integrales -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Soluciones Logísticas Integrales</h3>
             <div class="extra-services-grid">
@@ -581,7 +255,6 @@
             </div>
         </div>
 
-        <!-- Más Servicios -->
         <div style="max-width: 1100px; margin: 40px auto 0 auto;">
             <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">Más Servicios</h3>
             <div class="extra-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
@@ -597,18 +270,18 @@
         </div>
     </section>
 
-    <!-- CALCULADORA DE ENVÍOS EN BOLÍVARES Y DÓLARES -->
+    <!-- CALCULADORA DE ENVÍOS AUTOMÁTICA BCV -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
             <h2>Calculadora de Envíos</h2>
-            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) según la tasa oficial del día emitida por el BCV y su equivalente en Dólares ($ USD)</p>
+            <p class="calc-subtitle">Calcula el costo aproximado de tu envío en Bolívares (Bs.) y Dólares ($ USD) según la tasa oficial del día del BCV</p>
             
             <div class="import2ven-calc-box">
                 
                 <div class="bcv-interactive-rate">
                     <span>🇪🇺 Tasa Oficial Euro BCV del Día:</span>
-                    <input type="number" id="inputTasaEuroBCV" value="916.02" step="any" onchange="recalcularTodo()">
-                    <span style="font-size: 0.8em; color: #666; font-weight: normal;">(Bs./EUR - Cambia diariamente según el Banco Central de Venezuela)</span>
+                    <input type="number" id="inputTasaEuroBCV" value="922.69" step="any" onchange="recalcularTodo()">
+                    <span id="lblEstadoTasaBCV" style="font-size: 0.8em; color: #28a745; font-weight: normal;">(Cargando tasa del BCV en tiempo real...)</span>
                 </div>
 
                 <div class="calc-tabs">
@@ -616,11 +289,11 @@
                     <button type="button" class="calc-tab" onclick="cambiarTabCalc(event, 'aereo')">✈️ Envío Aéreo</button>
                 </div>
 
-                <!-- CALCULADORA MARÍTIMA EN BOLÍVARES Y DÓLARES -->
+                <!-- CALCULADORA MARÍTIMA -->
                 <div id="calcMaritimo" class="calc-content active">
                     
                     <div class="calc-header-tag" id="tagMaritimoInfo">
-                        📦 <strong>Carga Mínima Marítima:</strong> <span id="lblMinMaritimo">Miami: Carga Mínima una caja de 30×30×30 cm</span>
+                        📦 <strong>Carga Mínima Marítima:</strong> <span id="lblMinMaritimo">Miami: Carga Mínima 15×10×15 pulgadas ($55.00 USD)</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -633,28 +306,28 @@
                         </div>
 
                         <div>
-                            <label>Ciudad de Destino en Venezuela *</label>
-                            <select id="marDestinoTarifa"></select>
+                            <label>Ciudad / Destino *</label>
+                            <select id="marDestinoTarifa" onchange="calcularMaritimo()"></select>
                         </div>
 
                         <div>
-                            <label>Largo (cm) *</label>
-                            <input type="number" id="marLargo" placeholder="0" min="0" step="any">
+                            <label id="lblMarLargo">Largo (pulgadas) *</label>
+                            <input type="number" id="marLargo" placeholder="0" min="0" step="any" oninput="calcularMaritimo()">
                         </div>
 
                         <div>
-                            <label>Ancho (cm) *</label>
-                            <input type="number" id="marAncho" placeholder="0" min="0" step="any">
+                            <label id="lblMarAncho">Ancho (pulgadas) *</label>
+                            <input type="number" id="marAncho" placeholder="0" min="0" step="any" oninput="calcularMaritimo()">
                         </div>
 
                         <div>
-                            <label>Alto (cm) *</label>
-                            <input type="number" id="marAlto" placeholder="0" min="0" step="any">
+                            <label id="lblMarAlto">Alto (pulgadas) *</label>
+                            <input type="number" id="marAlto" placeholder="0" min="0" step="any" oninput="calcularMaritimo()">
                         </div>
 
                         <div>
                             <label>Cantidad de Cajas *</label>
-                            <input type="number" id="marCajas" value="1" min="1">
+                            <input type="number" id="marCajas" value="1" min="1" oninput="calcularMaritimo()">
                         </div>
                     </div>
 
@@ -662,14 +335,13 @@
 
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
-                            <span>Volumen CBM (m³):</span>
-                            <strong id="resMarCbm">0.000 m³</strong>
+                            <span id="lblMarVolNombre">Volumen en Pies Cúbicos (ft³):</span>
+                            <strong id="resMarCbm">0.000 ft³</strong>
                         </div>
                         <div class="calc-res-row highlight-total">
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
                             <strong id="resMarTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
-                        <!-- NUEVO CAMPO: TOTAL EN DÓLARES EN MARÍTIMO -->
                         <div class="calc-res-row highlight-usd">
                             <span>TOTAL ESTIMADO EN DÓLARES ($ USD):</span>
                             <strong id="resMarTotalUSD" style="color: #28a745;">$ 0.00 USD</strong>
@@ -684,11 +356,11 @@
                     </div>
                 </div>
 
-                <!-- CALCULADORA AÉREA EN BOLÍVARES Y DÓLARES CON DESGLOSE -->
+                <!-- CALCULADORA AÉREA -->
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
-                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: Mínimo 5 lbs (Peso volumétrico L×A×A/166) | China: Peso volumétrico L×A×A/5000</span>
+                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00 / lb | China: $36.00 / kg</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -702,32 +374,32 @@
 
                         <div>
                             <label id="lblAerPesoInput">Peso Real en Libras (lbs) *</label>
-                            <input type="number" id="aerPeso" placeholder="0" min="0" step="any">
+                            <input type="number" id="aerPeso" placeholder="0" min="0" step="any" oninput="calcularAereo()">
                         </div>
 
                         <div>
-                            <label>Largo (cm) *</label>
-                            <input type="number" id="aerLargo" placeholder="0" min="0" step="any">
+                            <label id="lblAerLargo">Largo (pulgadas) *</label>
+                            <input type="number" id="aerLargo" placeholder="0" min="0" step="any" oninput="calcularAereo()">
                         </div>
 
                         <div>
-                            <label>Ancho (cm) *</label>
-                            <input type="number" id="aerAncho" placeholder="0" min="0" step="any">
+                            <label id="lblAerAncho">Ancho (pulgadas) *</label>
+                            <input type="number" id="aerAncho" placeholder="0" min="0" step="any" oninput="calcularAereo()">
                         </div>
 
                         <div>
-                            <label>Alto (cm) *</label>
-                            <input type="number" id="aerAlto" placeholder="0" min="0" step="any">
+                            <label id="lblAerAlto">Alto (pulgadas) *</label>
+                            <input type="number" id="aerAlto" placeholder="0" min="0" step="any" oninput="calcularAereo()">
                         </div>
 
                         <div>
                             <label>Cantidad de Cajas *</label>
-                            <input type="number" id="aerCajas" value="1" min="1">
+                            <input type="number" id="aerCajas" value="1" min="1" oninput="calcularAereo()">
                         </div>
 
                         <div>
                             <label>Valor Declarado ($ USD) *</label>
-                            <input type="number" id="aerValor" placeholder="0" min="0" step="any">
+                            <input type="number" id="aerValor" placeholder="0" min="0" step="any" oninput="calcularAereo()">
                         </div>
                     </div>
 
@@ -746,7 +418,6 @@
                             <span>TOTAL ESTIMADO EN BOLÍVARES (Bs.):</span>
                             <strong id="resAerTotalBs" style="color: #0056b3;">0.00 Bs.</strong>
                         </div>
-                        <!-- NUEVO CAMPO: TOTAL EN DÓLARES EN AÉREO -->
                         <div class="calc-res-row highlight-usd">
                             <span>TOTAL ESTIMADO EN DÓLARES ($ USD):</span>
                             <strong id="resAerTotalUSD" style="color: #28a745;">$ 0.00 USD</strong>
@@ -999,7 +670,7 @@
         <img src="./logo-whatsapp.png" alt="WhatsApp LDGlobal">
     </a>
 
-    <!-- Footer Actualizado con Oficinas -->
+    <!-- Footer -->
     <footer>
         <div class="footer-content" style="max-width: 1200px; margin: 0 auto;">
             <img src="./logo-principal.png" alt="LDGlobal Import" class="footer-logo">
@@ -1041,7 +712,7 @@
         </div>
     </footer>
 
-    <!-- MODAL REGISTRO DE CASILLERO -->
+    <!-- MODALES -->
     <div id="modalRegister" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
@@ -1073,9 +744,7 @@
                     <input type="password" id="password" placeholder="Password*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
-                    <select id="pais" required>
-                        <!-- Llenado dinámico -->
-                    </select>
+                    <select id="pais" required></select>
 
                     <select id="estado" required>
                         <option value="" disabled selected>:: Seleccione Estado / Región * ::</option>
@@ -1101,85 +770,57 @@
         </div>
     </div>
 
-    <!-- MODAL SELECCIÓN DE ALMACÉN TRAS INICIO DE SESIÓN -->
     <div id="modalSeleccionAlmacenLogin" class="modal">
         <div class="modal-content" style="max-width: 420px; text-align: center;">
             <h3 style="color: #003366; margin-bottom: 10px;">📦 Selecciona tu Casillero</h3>
             <p style="font-size: 0.9em; color: #555; margin-bottom: 20px;">Tu cuenta posee casilleros registrados en ambos almacenes. ¿A cuál deseas ingresar?</p>
             
-            <button type="button" class="btn-select-warehouse" onclick="confirmarAlmacenLogin('Miami')">
-                🇺🇸 Ingresar a Casillero Miami
-            </button>
-            <button type="button" class="btn-select-warehouse" onclick="confirmarAlmacenLogin('China')">
-                🇨🇳 Ingresar a Casillero China
-            </button>
-            <button type="button" class="btn-select-warehouse" style="border-color: #6c757d; color: #333;" onclick="confirmarAlmacenLogin('Todos')">
-                🌐 Ver Todos los Paquetes Consolidados
-            </button>
+            <button type="button" class="btn-select-warehouse" onclick="confirmarAlmacenLogin('Miami')">🇺🇸 Ingresar a Casillero Miami</button>
+            <button type="button" class="btn-select-warehouse" onclick="confirmarAlmacenLogin('China')">🇨🇳 Ingresar a Casillero China</button>
+            <button type="button" class="btn-select-warehouse" style="border-color: #6c757d; color: #333;" onclick="confirmarAlmacenLogin('Todos')">🌐 Ver Todos los Paquetes Consolidados</button>
         </div>
     </div>
 
-    <!-- MODAL TÉRMINOS Y CONDICIONES -->
     <div id="modalTerminos" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
             <h2>Términos y Condiciones del Servicio - LD Global Import & Logistics</h2>
             
             <div class="terms-text-container" style="max-height: 420px; overflow-y: auto; text-align: left; padding: 20px; font-size: 0.9em; line-height: 1.6; border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 6px;">
-                
                 <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; margin-top: 0;">1. Registro y Asignación de Casillero</h3>
                 <p>Al completarse exitosamente el registro en LD Global Import & Logistics, se le asignará al cliente un Código Único de Cliente (LDG-XXXX) y el acceso a nuestras direcciones oficiales en nuestros almacenes de Miami (EE.UU.) y Guangzhou (China).</p>
 
                 <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px;">2. Recepción, Ingreso y Registro de Carga</h3>
-                <p>Los paquetes recibidos en nuestros almacenes se procesarán y registrarán en el sistema en un lapso de 12 a 24 horas hábiles posteriores a su recepción física. La recepción física por parte del almacén no implica una validación inmediata sobre el contenido o estado funcional de los bienes recibidos.</p>
+                <p>Los paquetes recibidos en nuestros almacenes se procesarán y registrarán en el sistema en un lapso de 12 a 24 horas hábiles posteriores a su recepción física.</p>
 
-                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #fff3cd; padding: 8px; border-left: 4px solid #ffc107;">3. Exención de Responsabilidad por Compras Externas Realizadas por el Cliente</h3>
-                <p><strong>LD Global Import & Logistics opera exclusivamente como empresa de transporte, consolidación y gestión logística.</strong> En consecuencia:</p>
-                <ul>
-                    <li><strong>No nos hacemos responsables</strong> por las compras realizadas directamente por el cliente y enviadas a nuestro casillero por proveedores, tiendas web (Amazon, Shein, AliExpress, Alibaba, etc.) o fábricas externas.</li>
-                    <li>No nos responsabilizamos por productos defectuosos, incompletos, tallas o colores erróneos, estafas en origen, ni empaques mal despachados por parte del vendedor original.</li>
-                    <li>Nuestra labor no incluye la inspección técnica o control de calidad de las compras externas, a menos que el cliente contrate expresamente nuestro servicio especializado de <em>Procura e Inspección en Origen</em>.</li>
-                </ul>
+                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #fff3cd; padding: 8px; border-left: 4px solid #ffc107;">3. Exención de Responsabilidad por Compras Externas</h3>
+                <p><strong>LD Global Import & Logistics opera exclusivamente como empresa de transporte, consolidación y gestión logística.</strong> No nos hacemos responsables por compras realizadas directamente por el cliente a vendedores, tiendas web o fábricas externas.</p>
 
-                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #e8f4f8; padding: 8px; border-left: 4px solid #17a2b8;">4. Seguro de Mercancía y Cobertura</h3>
-                <p><strong>Todas las cargas enviadas a través de LD Global Import & Logistics NO VIENEN ASEGURADAS POR DEFECTO.</strong></p>
-                <ul>
-                    <li>Si el cliente requiere asegurar su carga contra pérdida total, daño en flete o eventualidades, <strong>debe solicitarlo expresamente y notificarlo por escrito</strong> a su asesor o vía correo electrónico antes del despacho.</li>
-                    <li>El costo de la póliza de seguro adicional será cotizado e informado oportunamente al cliente antes de que la mercancía salga de almacén de origen.</li>
-                </ul>
+                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #e8f4f8; padding: 8px; border-left: 4px solid #17a2b8;">4. Seguro de Mercancía</h3>
+                <p><strong>Todas las cargas enviadas NO VIENEN ASEGURADAS POR DEFECTO.</strong> Si el cliente requiere asegurar su carga, debe solicitarlo y notificarlo explícitamente antes del despacho.</p>
 
-                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #e2e3e5; padding: 8px; border-left: 4px solid #6c757d;">5. Procedimiento Obligatorio para Compras e Importaciones desde China</h3>
-                <p>Para todas las compras y despachos dirigidos a nuestros almacenes en China (Aéreo y Marítimo):</p>
-                <ul>
-                    <li><strong>El cliente está obligado a notificar a LD Global ANTES de realizar o solicitar el envío por parte de su proveedor en China.</strong></li>
-                    <li>Una vez notificado, nuestro equipo le enviará la <strong>Ficha Técnica Oficial de Identificación</strong>.</li>
-                    <li>El cliente deberá suministrar esta Ficha Técnica a su proveedor chino para que este marque e identifique la caja/carga de forma obligatoria en fábrica. Cargas recibidas en China sin la debida Ficha Técnica asignada podrán sufrir retrasos en procesamiento o extravíos en recepción por falta de identificación del titular.</li>
-                </ul>
+                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px; background: #e2e3e5; padding: 8px; border-left: 4px solid #6c757d;">5. Procedimiento Obligatorio para Compras en China</h3>
+                <p>El cliente está obligado a notificar a LD Global ANTES de realizar compras en China para enviarle la Ficha Técnica Oficial de Identificación que deberá suministrar a su proveedor.</p>
 
-                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px;">6. Facturación y Cobro por Peso / Volumen</h3>
-                <p>Los fletes aéreos y marítimos se calcularán con base en las tarifas vigentes por peso real o peso volumétrico (lo que resulte mayor). El pago de los servicios deberá realizarse antes de la entrega final según las condiciones acordadas para cada vía (Prepago en China Aéreo o Pago al arribo en Puerto/Aduana Nacional en Marítimo).</p>
-
-                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px;">7. Mercancía Prohibida y Restringida</h3>
-                <p>Queda strictly prohibido el envío de sustancias ilícitas, armas, municiones, materiales inflamables, explosivos, químicos peligrosos o productos regulados sin los permisos aduanales correspondientes. LD Global se reserva el derecho de rechazar o poner a disposición de las autoridades cualquier carga que incumpla las leyes nacionales e internacionales.</p>
+                <h3 style="color: #003366; border-bottom: 2px solid #0056b3; padding-bottom: 4px;">6. Facturación y Cobro</h3>
+                <p>Los fletes se calcularán con base en las tarifas vigentes por peso real o volumétrico según corresponda a cada ruta.</p>
             </div>
             
             <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px;">Entendido y Acepto</button>
         </div>
     </div>
 
-    <!-- MODAL POLÍTICA DE PRIVACIDAD -->
     <div id="modalPrivacidad" class="modal">
         <div class="modal-content modal-large">
             <span class="close-btn" onclick="cerrarModal('modalPrivacidad')">&times;</span>
             <h2>Política de Privacidad y Protección de Datos</h2>
             <div style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; background: #f9f9f9; border: 1px solid #ddd;">
-                <p>En <strong>LDGlobal Import & Logistics</strong> valoramos y respetamos la privacidad de nuestros clientes. Todos los datos suministrados son utilizados exclusivamente para la asignación de casilleros y notificaciones de despacho.</p>
+                <p>En LDGlobal Import & Logistics valoramos y respetamos la privacidad de nuestros clientes.</p>
             </div>
             <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalPrivacidad')" style="margin-top: 15px;">Cerrar</button>
         </div>
     </div>
 
-    <!-- MODAL INICIO SESIÓN -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
@@ -1187,17 +828,14 @@
             <form onsubmit="event.preventDefault(); procesarLogin();">
                 <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input">
                 <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input">
-                
                 <div class="forgot-pass-container">
                     <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
-
                 <button type="submit" class="btn-primary btn-block">Ingresar</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL CASILLERO DEL CLIENTE -->
     <div id="modalCasillero" class="modal">
         <div class="modal-content modal-extra-large">
             <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
@@ -1211,7 +849,6 @@
                         <span>Casillero: <strong id="userCasillero">LDG-0000</strong></span>
                     </div>
                 </div>
-                
                 <div class="header-actions">
                     <div id="btnFacturaContainer" style="display: none;">
                         <a id="btnVerFactura" href="#" target="_blank" class="btn-factura">📄 Ver Factura</a>
@@ -1223,13 +860,11 @@
             <div style="background: #eef2f5; padding: 12px; border-radius: 8px; margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;">
                 <div style="display: flex; gap: 10px; flex: 1; min-width: 280px; align-items: center;">
                     <input type="text" id="searchTableInput" onkeyup="filtrarTablaCasillero()" placeholder="🔎 Buscar por tracking o recibo..." style="padding: 6px 12px; border-radius: 4px; border: 1px solid #ccc; flex: 1;">
-                    
                     <select id="selectVerAlmacenVista" onchange="cambiarVistaAlmacenCliente(this.value)" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #0056b3; font-weight: bold; background: #fff; color: #003366;">
                         <option value="Miami">🇺🇸 Casillero Miami</option>
                         <option value="China">🇨🇳 Casillero China</option>
                         <option value="Todos">🌐 Todos los Paquetes</option>
                     </select>
-
                     <select id="filterModoSelect" onchange="filtrarTablaCasillero()" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc;">
                         <option value="">Todos los Modos</option>
                         <option value="Aéreo">✈️ Aéreo</option>
@@ -1239,11 +874,8 @@
                 <button type="button" onclick="cacheCSVMercancia=null; cargarMercanciaPorCorreo(usuarioSesionActual.email);" style="padding: 6px 12px; background: #0056b3; color: white; border: none; border-radius: 4px; cursor: pointer;">🔄 Actualizar Datos</button>
             </div>
 
-            <!-- DIRECCIONES MOSTRADAS SEGÚN VISTA SELECCIONADA -->
             <div class="addresses-container">
                 <h3>Dirección Oficial para Envíos de Compras:</h3>
-
-                <!-- Dirección Miami -->
                 <div class="warehouse-card" id="cardDirMiami" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🇺🇸 ESTADOS UNIDOS (MIAMI)</h4>
@@ -1253,7 +885,6 @@
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag"><span id="lblNombreMiamiUser">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <!-- Direcciones China (Aéreo y Marítimo) -->
                 <div class="warehouse-card" id="cardDirChinaAereo" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🇨🇳 CHINA (AÉREO)</h4>
@@ -1290,16 +921,14 @@
                         </tr>
                     </thead>
                     <tbody id="tablaMercanciaBody">
-                        <tr>
-                            <td colspan="10" class="loading-data">Cargando mercancía de almacén...</td>
-                        </tr>
+                        <tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPTS CONEXIÓN GOOGLE SHEETS & EMAILJS & CALCULADORA -->
+    <!-- SCRIPT PRINCIPAL CON API BCV EN TIEMPO REAL CON RESPALDO -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
@@ -1309,32 +938,105 @@
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPromptPWA = e;
-            const btn = document.getElementById('btnInstallApp');
-            if (btn) btn.style.display = 'inline-flex';
-        });
+        // TABLA TARIFAS MARÍTIMAS MIAMI ($/FT3)
+        const TARIFAS_MIAMI_MAR = [
+            { destino: "Caracas", ft3USD: 58.50 },
+            { destino: "Maracay - Valencia", ft3USD: 63.50 },
+            { destino: "Acarigua", ft3USD: 65.52 },
+            { destino: "Anaco", ft3USD: 65.52 },
+            { destino: "Barcelona - Pto la Cruz", ft3USD: 63.50 },
+            { destino: "Barquisimeto", ft3USD: 65.52 },
+            { destino: "Bejuma", ft3USD: 65.52 },
+            { destino: "Maracaibo - Cabimas", ft3USD: 65.52 },
+            { destino: "Cabudare", ft3USD: 65.52 },
+            { destino: "Cagua", ft3USD: 65.52 },
+            { destino: "Carora", ft3USD: 65.52 },
+            { destino: "Ciudad Bolivar - Pto Ordaz", ft3USD: 65.52 },
+            { destino: "Coro - Cumana", ft3USD: 65.52 },
+            { destino: "El tigre", ft3USD: 65.52 },
+            { destino: "Guanta", ft3USD: 63.50 },
+            { destino: "Guarenas - Guatire", ft3USD: 61.00 },
+            { destino: "La Guaira", ft3USD: 62.00 },
+            { destino: "Lecheria", ft3USD: 63.50 },
+            { destino: "Los Teques", ft3USD: 61.00 },
+            { destino: "Maturin", ft3USD: 65.52 },
+            { destino: "Margarita", ft3USD: 65.52 },
+            { destino: "Pto Piritu", ft3USD: 63.50 },
+            { destino: "Pto fijo", ft3USD: 65.52 },
+            { destino: "Rio Chico", ft3USD: 66.30 },
+            { destino: "San Carlos", ft3USD: 65.52 },
+            { destino: "San Cristobal", ft3USD: 65.52 },
+            { destino: "San Diego", ft3USD: 65.52 },
+            { destino: "San Felipe", ft3USD: 65.52 },
+            { destino: "San Juan de los Morros", ft3USD: 65.52 },
+            { destino: "Tejerias", ft3USD: 63.50 },
+            { destino: "Turmero", ft3USD: 63.50 },
+            { destino: "Valle de la pascua", ft3USD: 65.52 },
+            { destino: "Charallave", ft3USD: 62.00 },
+            { destino: "Otro País (Internacional)", ft3USD: 45.00 }
+        ];
 
-        function instalarAppPWA() {
-            if (deferredPromptPWA) {
-                deferredPromptPWA.prompt();
-                deferredPromptPWA.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('El usuario aceptó la instalación de la App');
+        // TABLA TARIFAS MARÍTIMAS CHINA ($/CBM)
+        const TARIFAS_CHINA_MAR = [
+            { destino: "Caracas", cbmUSD: 1198.00 },
+            { destino: "Valencia", cbmUSD: 1118.00 },
+            { destino: "Maracay - Pto Cabello", cbmUSD: 1144.00 },
+            { destino: "Margarita", cbmUSD: 1463.00 },
+            { destino: "Barquisimeto", cbmUSD: 1223.50 },
+            { destino: "Otros Estados", cbmUSD: 1357.00 }
+        ];
+
+        // OBTENCIÓN AUTOMÁTICA DE TASA BCV EURO VÍA API CDN CON RESPALDO
+        async function obtenerTasaBCVEuroAutomatica() {
+            const lblStatus = document.getElementById('lblEstadoTasaBCV');
+            const inputTasa = document.getElementById('inputTasaEuroBCV');
+            
+            try {
+                const res = await fetch("https://rates.dolarvzla.com/bcv/current.json");
+                const data = await res.json();
+                if (data && data.current && data.current.eur) {
+                    const tasaEuro = parseFloat(data.current.eur);
+                    inputTasa.value = tasaEuro.toFixed(2);
+                    if (lblStatus) {
+                        lblStatus.innerText = " (Obtenida en tiempo real del BCV)";
+                        lblStatus.style.color = "#28a745";
                     }
-                    deferredPromptPWA = null;
-                });
-            } else {
-                alert("Para instalar la App en tu dispositivo:\n- Android: Toca el menú (⋮) y selecciona 'Instalar aplicación'.\n- iPhone: Toca 'Compartir' (↑) y selecciona 'Agregar a inicio'.");
+                    recalcularTodo();
+                    return;
+                }
+            } catch (e) {
+                console.log("Reintentando con servidor alternativo BCV...");
+            }
+
+            try {
+                const resAlt = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
+                const dataAlt = await resAlt.json();
+                if (dataAlt && dataAlt.promedio) {
+                    const tasaEuroCalculada = parseFloat(dataAlt.promedio) * 1.1606;
+                    inputTasa.value = tasaEuroCalculada.toFixed(2);
+                    if (lblStatus) {
+                        lblStatus.innerText = " (Sincronizada con BCV Oficial)";
+                        lblStatus.style.color = "#28a745";
+                    }
+                    recalcularTodo();
+                    return;
+                }
+            } catch (e2) {
+                if (lblStatus) {
+                    lblStatus.innerText = " (Modo manual - Ingrese la tasa BCV)";
+                    lblStatus.style.color = "#0056b3";
+                }
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            obtenerTasaBCVEuroAutomatica();
+
             fetch(GOOGLE_SHEETS_CSV_URL)
                 .then(r => r.text())
                 .then(txt => { cacheCSVMercancia = txt; })
                 .catch(e => {});
+                
             actualizarTarifasMaritimas();
             cambiarOrigenAereo();
             actualizarPaisesSegunAlmacen();
@@ -1350,117 +1052,6 @@
                 }
             }
         });
-
-        function actualizarPaisesSegunAlmacen() {
-            const almacen = document.getElementById('almacenSeleccionado').value;
-            const selectPais = document.getElementById('pais');
-            selectPais.innerHTML = '';
-
-            if (almacen === 'Miami') {
-                const opciones = ["Venezuela", "Panamá", "Colombia", "Chile", "EEUU"];
-                opciones.forEach(p => {
-                    const opt = document.createElement('option');
-                    opt.value = p;
-                    opt.innerText = p;
-                    selectPais.appendChild(opt);
-                });
-            } else {
-                const opciones = ["Venezuela", "EEUU"];
-                opciones.forEach(p => {
-                    const opt = document.createElement('option');
-                    opt.value = p;
-                    opt.innerText = p;
-                    selectPais.appendChild(opt);
-                });
-            }
-        }
-
-        function toggleFaq(el) {
-            const answer = el.nextElementSibling;
-            answer.style.display = answer.style.display === "block" ? "none" : "block";
-        }
-
-        function rastrearPublico() {
-            const query = document.getElementById('publicTrackingInput').value.trim().toLowerCase();
-            const resDiv = document.getElementById('publicTrackerResult');
-            if (!query) { alert("Por favor ingresa un número de tracking o correo."); return; }
-
-            abrirModal('modalRastreoResultado');
-            resDiv.innerHTML = "🔍 Buscando información de carga...";
-
-            const buscarEnTexto = (csv) => {
-                const lineas = csv.split(/\r?\n/);
-                let encontrado = false;
-
-                for (let i = 1; i < lineas.length; i++) {
-                    if (lineas[i].toLowerCase().includes(query)) {
-                        const col = parsearLineaCSV(lineas[i]);
-                        encontrado = true;
-                        
-                        let estOriginal = col[3] || 'Almacén - Miami';
-                        let estMostrar = estOriginal.replace(/china/gi, '').trim();
-
-                        resDiv.innerHTML = `
-                            <div style="background: #e9f7ef; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;">
-                                <strong> Tracking:</strong> ${col[10] || query}<br>
-                                <strong> Estado:</strong> ${estMostrar}<br>
-                                <strong> Recibo:</strong> ${col[1] || 'N/A'}<br>
-                                <strong> Piezas:</strong> ${col[6] || '1'} | <strong> Peso:</strong> ${col[7] || 'N/A'}
-                            </div>
-                        `;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    resDiv.innerHTML = "<div style='color: #d9534f; padding: 10px; border: 1px solid #f5c6cb; border-radius: 4px; background: #f8d7da;'> Carga no encontrada. Por favor verifica el tracking o inicia sesión.</div>";
-                }
-            };
-
-            if (cacheCSVMercancia) buscarEnTexto(cacheCSVMercancia);
-            else {
-                fetch(GOOGLE_SHEETS_CSV_URL)
-                    .then(r => r.text())
-                    .then(txt => { cacheCSVMercancia = txt; buscarEnTexto(txt); })
-                    .catch(e => { resDiv.innerHTML = " Error al consultar servidor."; });
-            }
-        }
-
-        function filtrarTablaCasillero() {
-            const searchVal = document.getElementById('searchTableInput').value.toLowerCase();
-            const modoVal = document.getElementById('filterModoSelect').value.toLowerCase();
-            const rows = document.querySelectorAll('#tablaMercanciaBody tr');
-
-            rows.forEach(row => {
-                const text = row.innerText.toLowerCase();
-                const matchesSearch = text.includes(searchVal);
-                const matchesModo = modoVal === "" || text.includes(modoVal);
-                row.style.display = (matchesSearch && matchesModo) ? "" : "none";
-            });
-        }
-
-        const TARIFAS_CHINA_MAR = [
-            { destino: "Caracas", cbmUSD: 1198 },
-            { destino: "Valencia", cbmUSD: 1117.50 },
-            { destino: "Maracay y Pto. Cabello", cbmUSD: 1144 },
-            { destino: "Margarita", cbmUSD: 1463 },
-            { destino: "Barquisimeto", cbmUSD: 1223.50 },
-            { destino: "Otros Estados", cbmUSD: 1357 }
-        ];
-
-        const TARIFAS_MIAMI_MAR = [
-            { destino: "Caracas", cbmUSD: 1620 },
-            { destino: "Guarenas – Guatire – Los Teques", cbmUSD: 1670 },
-            { destino: "Maracay – Tejerías y Valencia", cbmUSD: 1770 },
-            { destino: "La Guaira", cbmUSD: 1720 },
-            { destino: "Barquisimeto", cbmUSD: 1820 },
-            { destino: "Maracaibo", cbmUSD: 1820 },
-            { destino: "Valera", cbmUSD: 1820 },
-            { destino: "San Diego", cbmUSD: 1820 },
-            { destino: "Porlamar", cbmUSD: 1820 },
-            { destino: "Valles del Tuy", cbmUSD: 1729 },
-            { destino: "Pto. La Cruz", cbmUSD: 1770 },
-            { destino: "Río Chico", cbmUSD: 1870 }
-        ];
 
         function cambiarTabCalc(evt, tipo) {
             document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
@@ -1478,18 +1069,32 @@
             const origen = document.getElementById('marOrigen').value;
             const select = document.getElementById('marDestinoTarifa');
             const lblMin = document.getElementById('lblMinMaritimo');
+            const lblLargo = document.getElementById('lblMarLargo');
+            const lblAncho = document.getElementById('lblMarAncho');
+            const lblAlto = document.getElementById('lblMarAlto');
+            const lblVolNombre = document.getElementById('lblMarVolNombre');
             select.innerHTML = '';
 
             if (origen === 'miami') {
-                lblMin.innerHTML = "Miami: Carga Mínima una caja de 30×30×30 cm";
+                lblMin.innerHTML = "Miami: Carga Mínima 15×10×15 pulgadas ($55.00 USD)";
+                lblLargo.innerText = "Largo (pulgadas) *";
+                lblAncho.innerText = "Ancho (pulgadas) *";
+                lblAlto.innerText = "Alto (pulgadas) *";
+                lblVolNombre.innerText = "Volumen en Pies Cúbicos (ft³):";
+
                 TARIFAS_MIAMI_MAR.forEach(item => {
                     const opt = document.createElement('option');
-                    opt.value = item.cbmUSD;
+                    opt.value = item.ft3USD;
                     opt.textContent = `${item.destino}`;
                     select.appendChild(opt);
                 });
             } else {
-                lblMin.innerHTML = "China: Envío mínimo 0.20 CBM (Caja de 30×22×30 cm)";
+                lblMin.innerHTML = "China: Envío mínimo 0.20 CBM ($266.00 USD)";
+                lblLargo.innerText = "Largo (cm) *";
+                lblAncho.innerText = "Ancho (cm) *";
+                lblAlto.innerText = "Alto (cm) *";
+                lblVolNombre.innerText = "Volumen en Metros Cúbicos (CBM):";
+
                 TARIFAS_CHINA_MAR.forEach(item => {
                     const opt = document.createElement('option');
                     opt.value = item.cbmUSD;
@@ -1497,23 +1102,33 @@
                     select.appendChild(opt);
                 });
             }
+            calcularMaritimo();
         }
 
         function cambiarOrigenAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const lblPeso = document.getElementById('lblAerPesoInput');
+            const lblLargo = document.getElementById('lblAerLargo');
+            const lblAncho = document.getElementById('lblAerAncho');
+            const lblAlto = document.getElementById('lblAerAlto');
             const lblMin = document.getElementById('lblMinAereo');
             const avisoPrepago = document.getElementById('boxAvisoPrepagoChina');
             const rowNotaChina = document.getElementById('rowNotaImpuestoChina');
 
             if (origen === 'miami') {
                 lblPeso.innerText = "Peso Real en Libras (lbs) *";
-                lblMin.innerText = "Miami: Mínimo 5 lbs (Peso volumétrico L×A×A/166)";
+                lblLargo.innerText = "Largo (pulgadas) *";
+                lblAncho.innerText = "Ancho (pulgadas) *";
+                lblAlto.innerText = "Alto (pulgadas) *";
+                lblMin.innerText = "Miami: $8.00 por libra (Mínimo $40 USD | Volumétrico L×A×A/166)";
                 avisoPrepago.style.display = "none";
                 rowNotaChina.style.display = "none";
             } else {
                 lblPeso.innerText = "Peso Real en Kilogramos (kg) *";
-                lblMin.innerText = "China: Peso volumétrico L×A×A/5000";
+                lblLargo.innerText = "Largo (cm) *";
+                lblAncho.innerText = "Ancho (cm) *";
+                lblAlto.innerText = "Alto (cm) *";
+                lblMin.innerText = "China: $36.00 por kilogramo (Volumétrico L×A×A/5000)";
                 avisoPrepago.style.display = "block";
                 rowNotaChina.style.display = "flex";
             }
@@ -1525,50 +1140,55 @@
             calcularAereo();
         }
 
-        // CÁLCULO MARÍTIMO EN BOLÍVARES Y DÓLARES
         function calcularMaritimo() {
             const origen = document.getElementById('marOrigen').value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
             const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
             const alto = parseFloat(document.getElementById('marAlto').value) || 0;
             const cajas = parseInt(document.getElementById('marCajas').value) || 1;
-            const precioCbmUSD = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
-            const tasaEuro = parseFloat(document.getElementById('inputTasaEuroBCV').value) || 916.02;
+            const precioTarifaUSD = parseFloat(document.getElementById('marDestinoTarifa').value) || 0;
+            const tasaEuro = parseFloat(document.getElementById('inputTasaEuroBCV').value) || 922.69;
 
             if (largo <= 0 || ancho <= 0 || alto <= 0) {
-                document.getElementById('resMarCbm').innerText = "0.000 m³";
+                document.getElementById('resMarCbm').innerText = origen === 'miami' ? "0.000 ft³" : "0.000 m³";
                 document.getElementById('resMarTotalBs').innerText = "0.00 Bs.";
                 document.getElementById('resMarTotalUSD').innerText = "$ 0.00 USD";
                 return;
             }
 
-            const cbmUnidad = (largo * ancho * alto) / 1000000;
-            const cbmTotal = cbmUnidad * cajas;
-            let subtotalUSD = 0;
+            let totalUSD = 0;
 
             if (origen === 'miami') {
-                const cbmMinimo = (30 * 30 * 30) / 1000000;
-                if (cbmTotal <= cbmMinimo) {
-                    subtotalUSD = 53.50;
+                const ft3Unidad = (largo * ancho * alto) / 1728;
+                const ft3Total = ft3Unidad * cajas;
+
+                const ft3Minimo = (15 * 10 * 15) / 1728;
+                if (ft3Total <= ft3Minimo) {
+                    totalUSD = 55.00;
                 } else {
-                    subtotalUSD = cbmTotal * precioCbmUSD;
+                    totalUSD = ft3Total * precioTarifaUSD;
                 }
+
+                document.getElementById('resMarCbm').innerText = ft3Total.toFixed(3) + " ft³";
             } else {
+                const cbmUnidad = (largo * ancho * alto) / 1000000;
+                const cbmTotal = cbmUnidad * cajas;
+
                 if (cbmTotal <= 0.20) {
-                    subtotalUSD = 266.60;
+                    totalUSD = 266.00;
                 } else {
-                    subtotalUSD = cbmTotal * precioCbmUSD;
+                    totalUSD = cbmTotal * precioTarifaUSD;
                 }
+
+                document.getElementById('resMarCbm').innerText = cbmTotal.toFixed(3) + " CBM";
             }
 
-            const totalBs = subtotalUSD * tasaEuro;
+            const totalBs = totalUSD * tasaEuro;
 
-            document.getElementById('resMarCbm').innerText = cbmTotal.toFixed(3) + " m³";
             document.getElementById('resMarTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
-            document.getElementById('resMarTotalUSD').innerText = "$ " + subtotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " USD";
+            document.getElementById('resMarTotalUSD').innerText = "$ " + totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " USD";
         }
 
-        // CÁLCULO AÉREO EN BOLÍVARES Y DÓLARES
         function calcularAereo() {
             const origen = document.getElementById('aerOrigen').value;
             const peso = parseFloat(document.getElementById('aerPeso').value) || 0;
@@ -1577,7 +1197,7 @@
             const alto = parseFloat(document.getElementById('aerAlto').value) || 0;
             const cajas = parseInt(document.getElementById('aerCajas').value) || 1;
             const valorUSD = parseFloat(document.getElementById('aerValor').value) || 0;
-            const tasaEuro = parseFloat(document.getElementById('inputTasaEuroBCV').value) || 916.02;
+            const tasaEuro = parseFloat(document.getElementById('inputTasaEuroBCV').value) || 922.69;
 
             if (peso <= 0 && (largo <= 0 || ancho <= 0 || alto <= 0)) {
                 document.getElementById('resAerPesoVol').innerText = "0.00";
@@ -1632,7 +1252,6 @@
             document.getElementById('resAerTotalBs').innerText = totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
             document.getElementById('resAerTotalUSD').innerText = "$ " + totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " USD";
 
-            // Desglose
             document.getElementById('dgPesoVol').innerText = pesoVol.toFixed(2) + unidadStr;
             document.getElementById('dgPesoCobrar').innerText = pesoCobrar.toFixed(2) + unidadStr;
             document.getElementById('dgCostoCajaBs').innerText = costoCajaBs.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " Bs.";
@@ -1657,9 +1276,7 @@
 
         function cerrarSesion() {
             if (window.OneSignalDeferred) {
-                OneSignalDeferred.push(function(OneSignal) {
-                    OneSignal.logout();
-                });
+                OneSignalDeferred.push(function(OneSignal) { OneSignal.logout(); });
             }
             cerrarModal('modalCasillero');
             alert("Has cerrado sesión correctamente.");
@@ -1687,7 +1304,6 @@
             try {
                 const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
                 cacheCSVMercancia = await res.text();
-                
                 const lineas = cacheCSVMercancia.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {
@@ -1698,7 +1314,6 @@
                         const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
                         if (textoCelda === emailCliente) {
                             resultado.encontrado = true;
-                            
                             var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
                             if (codB !== '') resultado.codigoExistente = codB;
                             
@@ -1712,9 +1327,7 @@
                         }
                     }
                 }
-            } catch (e) {
-                console.log("Error consultando Sheets:", e);
-            }
+            } catch (e) {}
 
             return resultado;
         }
@@ -1938,7 +1551,6 @@
                 const primerCuenta = cuentasEncontradasLogin[0];
                 
                 usuarioSesionActual = primerCuenta;
-                
                 let historial = usuariosLocales.filter(u => u.email !== emailIngresado);
                 historial.push(primerCuenta);
                 localStorage.setItem("usuarios_registrados", JSON.stringify(historial));
@@ -2211,13 +1823,13 @@
         }
     </script>
 
-    <!-- REGISTRO DE SERVICE WORKER PARA APP MÓVIL (PWA) -->
+    <!-- SERVICE WORKER PWA -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('App PWA lista y registrada con éxito:', reg.scope))
-                    .catch(err => console.log('Error al registrar la App:', err));
+                    .then(reg => console.log('App PWA lista:', reg.scope))
+                    .catch(err => console.log('Error PWA:', err));
             });
         }
     </script>

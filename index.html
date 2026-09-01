@@ -1698,7 +1698,7 @@
             const vistaActual = usuarioSesionActual.almacenVista || 'Miami';
             
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
-            facturaContainer.style.display = "none";
+            if (facturaContainer) facturaContainer.style.display = "none";
 
             const renderTabla = (csvTexto) => {
                 const lineas = csvTexto.split(/\r?\n/);
@@ -1725,10 +1725,11 @@
                                 const estLower = estadoOriginal.toLowerCase();
 
                                 let incluirFila = false;
+
                                 if (vistaActual === 'Todos') {
                                     incluirFila = true;
                                 } else if (vistaActual === 'Miami') {
-                                    if (estLower.includes('miami') || (estLower.includes('aduana') && !estLower.includes('china')) || (estLower.includes('entregad') && !estLower.includes('china'))) {
+                                    if (estLower.includes('miami')) {
                                         incluirFila = true;
                                     }
                                 } else if (vistaActual === 'China') {
@@ -1741,28 +1742,32 @@
                                     const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                     const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
-                                    let estadoMostrarVisual = estadoOriginal.replace(/china/gi, '').trim();
-
+                                    // Detección mejorada de etiquetas con colores exactos
                                     let badgeClass = "badge-generico";
-                                    if (estLower.includes("almacen") && estLower.includes("china")) {
-                                        badgeClass = "badge-almacen-china";
-                                    } else if (estLower.includes("almacen") && estLower.includes("miami")) {
-                                        badgeClass = "badge-almacen-miami";
-                                    } else if (estLower.includes("transito") && estLower.includes("china")) {
-                                        badgeClass = "badge-transito-china";
-                                    } else if (estLower.includes("transito") && estLower.includes("miami")) {
-                                        badgeClass = "badge-transito-miami";
-                                    } else if (estLower.includes("aduana")) {
-                                        badgeClass = "badge-aduana";
-                                    } else if (estLower.includes("entregad")) {
-                                        badgeClass = "badge-entregado";
+                                    if (estLower.includes("china")) {
+                                        if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-china";
+                                        else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-china";
+                                        else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
+                                        else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
+                                    } else {
+                                        if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-miami";
+                                        else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-miami";
+                                        else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
+                                        else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
+                                    }
+
+                                    let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
+                                    let celdaFacturaHtml = '';
+                                    if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
+                                        celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
+                                        if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
                                     }
 
                                     filasEncontradas += `
                                         <tr>
                                             <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
                                             <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
-                                            <td><span class="status-badge ${badgeClass}">${estadoMostrarVisual}</span></td>
+                                            <td><span class="status-badge ${badgeClass}">${estadoOriginal}</span></td>
                                             <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
                                             <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
                                             <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
@@ -1772,7 +1777,8 @@
                                             <td>
                                                 <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
                                                     <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
-                                                    <div style="display: flex; gap: 4px;">
+                                                    ${celdaFacturaHtml}
+                                                    <div style="display: flex; gap: 4px; margin-top: 2px;">
                                                         <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
                                                             <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
                                                             <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
@@ -1783,13 +1789,6 @@
                                             </td>
                                         </tr>
                                     `;
-
-                                    if (col[11]) {
-                                        let urlLimpia = col[11].replace(/^"|"$/g, '').trim();
-                                        if (urlLimpia.startsWith("http://") || urlLimpia.startsWith("https://") || urlLimpia.includes("drive.google.com")) {
-                                            enlaceFacturaEncontrado = urlLimpia;
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -1798,7 +1797,7 @@
 
                 if (filasEncontradas !== '') {
                     tbody.innerHTML = filasEncontradas;
-                    if (enlaceFacturaEncontrado !== '') {
+                    if (enlaceFacturaEncontrado !== '' && facturaContainer && btnFactura) {
                         btnFactura.href = enlaceFacturaEncontrado;
                         facturaContainer.style.display = "block";
                     }
@@ -1810,7 +1809,7 @@
             if (cacheCSVMercancia) {
                 renderTabla(cacheCSVMercancia);
             } else {
-                fetch(GOOGLE_SHEETS_CSV_URL)
+                fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
                     .then(res => res.text())
                     .then(data => {
                         cacheCSVMercancia = data;

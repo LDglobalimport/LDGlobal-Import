@@ -927,7 +927,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SCRIPT PRINCIPAL CON API BCV EN TIEMPO REAL CON RESPALDO -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
@@ -1352,10 +1352,10 @@
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
 
             try {
-                // Forzar sincronización remota en el momento del login
                 const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
-                cacheCSVMercancia = await res.text();
-                const lineas = cacheCSVMercancia.split(/\r?\n/);
+                const csvTexto = await res.text();
+                cacheCSVMercancia = csvTexto;
+                const lineas = csvTexto.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
@@ -1365,9 +1365,11 @@
                         const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
                         if (textoCelda === emailLimpio || (emailLimpio !== '' && textoCelda.indexOf(emailLimpio) !== -1)) {
                             resultado.encontrado = true;
+                            // Columna B (Índice 1): Código Cliente real (LDG-XXXX)
                             var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
                             if (codB !== '') resultado.codigoExistente = codB;
 
+                            // Columna E (Índice 4): Nombre real del cliente
                             var nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
                             if (nomE !== '') resultado.expedidor = nomE;
 
@@ -1576,16 +1578,21 @@
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
+            const btnSubmit = document.getElementById('btnLoginSubmit');
 
             if (!emailIngresado) {
                 alert("Por favor ingresa un correo electrónico.");
                 return;
             }
 
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = "Verificando...";
+            }
+
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
             cuentasEncontradasLogin = usuariosLocales.filter(u => u.email === emailIngresado);
 
-            // Búsqueda directa con await obligatorio en Google Sheets
             if (cuentasEncontradasLogin.length === 0) {
                 const datosSheets = await consultarClienteEnSheets(emailIngresado);
                 if (datosSheets.encontrado) {
@@ -1598,6 +1605,11 @@
                         pass: passIngresado
                     });
                 }
+            }
+
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Ingresar";
             }
 
             if (cuentasEncontradasLogin.length > 0) {
@@ -1744,11 +1756,13 @@
             });
         }
 
-        function cargarMercanciaPorCorreo(emailCliente) {
+        function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
             const btnFactura = document.getElementById('btnVerFactura');
             const vistaActual = usuarioSesionActual.almacenVista || 'Miami';
+            const emailCliente = (emailClienteInput || '').toLowerCase().trim();
+            const codigoClienteSesion = (usuarioSesionActual.codigo || '').toLowerCase().trim();
 
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
             if (facturaContainer) facturaContainer.style.display = "none";
@@ -1760,89 +1774,91 @@
 
                 for (let i = 1; i < lineas.length; i++) {
                     const linea = lineas[i];
-                    if (!linea) continue;
+                    if (!linea || !linea.trim()) continue;
 
-                    if (linea.toLowerCase().indexOf(emailCliente) !== -1) {
-                        const col = parsearLineaCSV(linea);
-                        if (col.length >= 2) {
-                            const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
+                    const col = parsearLineaCSV(linea);
+                    if (col.length >= 2) {
+                        const emailEnFila = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
+                        const codEnFila = (col[1] || '').replace(/^"|"$/g, '').toLowerCase().trim();
 
-                            if (emailEnFila === emailCliente) {
-                                if (!usuarioSesionActual.email) {
-                                    usuarioSesionActual.email = emailCliente;
-                                    usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
-                                    usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
-                                }
+                        // Evaluación flexible por email o código de cliente
+                        if ((emailCliente !== '' && (emailEnFila === emailCliente || linea.toLowerCase().includes(emailCliente))) || (codigoClienteSesion !== '' && codEnFila === codigoClienteSesion)) {
 
-                                const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
-                                const estLower = estadoOriginal.toLowerCase();
+                            if (!usuarioSesionActual.email || usuarioSesionActual.nombre === '16224600' || usuarioSesionActual.codigo === 'Miami - China') {
+                                usuarioSesionActual.email = emailEnFila || emailCliente;
+                                usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
+                                usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
 
-                                let incluirFila = false;
-                                if (vistaActual === 'Todos') {
+                                document.getElementById('userNombre').innerText = usuarioSesionActual.nombre;
+                                document.getElementById('userCodigoCliente').innerText = usuarioSesionActual.codigo;
+                            }
+
+                            const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
+                            const estLower = estadoOriginal.toLowerCase();
+
+                            let incluirFila = false;
+                            if (vistaActual === 'Todos') {
+                                incluirFila = true;
+                            } else if (vistaActual === 'Miami') {
+                                if (estLower.includes('miami') || (!estLower.includes('china') && (estLower.includes('almacen') || estLower.includes('almacén') || estLower.includes('transito') || estLower.includes('tránsito') || estLower.includes('aduana') || estLower.includes('entregad')))) {
                                     incluirFila = true;
-                                } else if (vistaActual === 'Miami') {
-                                    if (estLower.includes('miami') || (estLower.includes('aduana') && !estLower.includes('china')) || (estLower.includes('entregad') && !estLower.includes('china'))) {
-                                        incluirFila = true;
-                                    }
-                                } else if (vistaActual === 'China') {
-                                    if (estLower.includes('china')) {
-                                        incluirFila = true;
-                                    }
+                                }
+                            } else if (vistaActual === 'China') {
+                                if (estLower.includes('china')) {
+                                    incluirFila = true;
+                                }
+                            }
+
+                            if (incluirFila) {
+                                const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
+                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
+
+                                let badgeClass = "badge-generico";
+                                if (estLower.includes("china")) {
+                                    if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-china";
+                                    else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-china";
+                                    else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
+                                    else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
+                                } else {
+                                    if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-miami";
+                                    else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-miami";
+                                    else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
+                                    else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
                                 }
 
-                                if (incluirFila) {
-                                    const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
-                                    const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
+                                let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
+                                let celdaFacturaHtml = '';
+                                if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
+                                    celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
+                                    if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
+                                }
 
-                                    let badgeClass = "badge-generico";
-                                    if (estLower.includes("almacen") && estLower.includes("china")) {
-                                        badgeClass = "badge-almacen-china";
-                                    } else if (estLower.includes("almacen") && estLower.includes("miami")) {
-                                        badgeClass = "badge-almacen-miami";
-                                    } else if (estLower.includes("transito") && estLower.includes("china")) {
-                                        badgeClass = "badge-transito-china";
-                                    } else if (estLower.includes("transito") && estLower.includes("miami")) {
-                                        badgeClass = "badge-transito-miami";
-                                    } else if (estLower.includes("aduana")) {
-                                        badgeClass = "badge-aduana";
-                                    } else if (estLower.includes("entregad")) {
-                                        badgeClass = "badge-entregado";
-                                    }
-
-                                    let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
-                                    let celdaFacturaHtml = '';
-                                    if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
-                                        celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
-                                        if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
-                                    }
-
-                                    filasEncontradas += `
-                                        <tr>
-                                            <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
-                                            <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
-                                            <td><span class="status-badge ${badgeClass}">${estadoOriginal}</span></td>
-                                            <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
-                                            <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
-                                            <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
-                                            <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
-                                            <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
-                                            <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
-                                            <td>
-                                                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
-                                                    <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
-                                                    ${celdaFacturaHtml}
-                                                    <div style="display: flex; gap: 4px; margin-top: 2px;">
-                                                        <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
-                                                            <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
-                                                            <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
-                                                        </select>
-                                                        <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>
-                                                    </div>
+                                filasEncontradas += `
+                                    <tr>
+                                        <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
+                                        <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
+                                        <td><span class="status-badge ${badgeClass}">${estadoOriginal}</span></td>
+                                        <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
+                                        <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
+                                        <td>
+                                            <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+                                                <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
+                                                ${celdaFacturaHtml}
+                                                <div style="display: flex; gap: 4px; margin-top: 2px;">
+                                                    <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
+                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
+                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
+                                                    </select>
+                                                    <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    `;
-                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
                             }
                         }
                     }
@@ -1862,7 +1878,7 @@
             if (cacheCSVMercancia) {
                 renderTabla(cacheCSVMercancia);
             } else {
-                fetch(GOOGLE_SHEETS_CSV_URL)
+                fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
                     .then(res => res.text())
                     .then(data => {
                         cacheCSVMercancia = data;

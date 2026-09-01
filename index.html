@@ -744,11 +744,10 @@
                     <input type="password" id="password" placeholder="Password*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
-                    <select id="pais" required></select>
+                    <select id="pais" onchange="actualizarCiudades()" required></select>
 
                     <select id="estado" required>
                         <option value="" disabled selected>:: Seleccione Estado / Región * ::</option>
-                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option><option value="Internacional">Otro Estado / Región Internacional</option>
                     </select>
 
                     <input type="text" id="ciudad" placeholder="Ciudad*" required>
@@ -937,6 +936,62 @@
         let cacheCSVMercancia = null;
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
+
+        // DESPLEGABLE DINÁMICO DE PAÍSES Y CIUDADES SEGÚN ALMACÉN
+        function actualizarPaisesSegunAlmacen() {
+            const almacen = document.getElementById('almacenSeleccionado').value;
+            const selectPais = document.getElementById('pais');
+            selectPais.innerHTML = '';
+
+            if (almacen === 'China') {
+                selectPais.innerHTML = `
+                    <option value="" disabled selected>:: Seleccione País de Destino * ::</option>
+                    <option value="Venezuela">Venezuela 🇻🇪</option>
+                    <option value="EEUU">Estados Unidos (EE.UU.) 🇺🇸</option>
+                `;
+            } else {
+                selectPais.innerHTML = `
+                    <option value="" disabled selected>:: Seleccione País de Destino * ::</option>
+                    <option value="Venezuela">Venezuela 🇻🇪</option>
+                    <option value="Ecuador">Ecuador 🇪🇨</option>
+                    <option value="Panama">Panamá 🇵🇦</option>
+                    <option value="Colombia">Colombia 🇨🇴</option>
+                    <option value="Chile">Chile 🇨🇱</option>
+                    <option value="EEUU">Estados Unidos (EE.UU.) 🇺🇸</option>
+                `;
+            }
+            actualizarCiudades();
+        }
+
+        function actualizarCiudades() {
+            const pais = document.getElementById('pais').value;
+            const selectEstado = document.getElementById('estado');
+            selectEstado.innerHTML = '';
+
+            if (pais === 'Venezuela') {
+                const estadosVzla = ["Amazonas", "Anzoategui", "Apure", "Aragua", "Barinas", "Bolivar", "Carabobo", "Cojedes", "Delta Amacuro", "Distrito Capital", "Falcon", "Guarico", "Lara", "Merida", "Miranda", "Monagas", "Nueva Esparta", "Portuguesa", "Sucre", "Tachira", "Trujillo", "Vargas", "Yaracuy", "Zulia"];
+                selectEstado.innerHTML = '<option value="" disabled selected>:: Seleccione Estado / Región * ::</option>';
+                estadosVzla.forEach(e => {
+                    selectEstado.innerHTML += `<option value="${e}">${e}</option>`;
+                });
+            } else if (pais) {
+                selectEstado.innerHTML = `<option value="${pais} - Principal" selected>${pais} (Región Principal)</option>`;
+            } else {
+                selectEstado.innerHTML = '<option value="" disabled selected>:: Seleccione Estado / Región * ::</option>';
+            }
+        }
+
+        // CONTROL PREGUNTAS FRECUENTES (FAQ)
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const isVisible = answer.style.display === "block";
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = "none");
+            document.querySelectorAll('.faq-question span:last-child').forEach(s => s.innerText = "▼");
+            if (!isVisible) {
+                answer.style.display = "block";
+                element.querySelector('span:last-child').innerText = "▲";
+            }
+        }
 
         // TABLA TARIFAS MARÍTIMAS MIAMI ($/FT3)
         const TARIFAS_MIAMI_MAR = [
@@ -1742,7 +1797,6 @@
                                     const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                     const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
-                                    // Detección mejorada de etiquetas con colores exactos
                                     let badgeClass = "badge-generico";
                                     if (estLower.includes("china")) {
                                         if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-china";

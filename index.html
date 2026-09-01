@@ -1352,8 +1352,10 @@
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
 
             try {
-                const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
-                cacheCSVMercancia = await res.text();
+                if (!cacheCSVMercancia) {
+                    const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
+                    cacheCSVMercancia = await res.text();
+                }
                 const lineas = cacheCSVMercancia.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {

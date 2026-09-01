@@ -105,6 +105,10 @@
         .btn-select-warehouse { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: 2px solid #0056b3; background: #ffffff; color: #0056b3; font-weight: bold; font-size: 1em; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-select-warehouse:hover { background: #0056b3; color: #ffffff; }
 
+        /* Estilo para lista de facturas en modal */
+        .factura-item-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: #f8f9fa; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; text-decoration: none; color: #003366; font-weight: bold; transition: all 0.2s; }
+        .factura-item-link:hover { background: #eef4f8; border-color: #0056b3; }
+
         @media (display-mode: standalone) {
             .hero-puerto, .about-section, .services, .calculator-section, #testimonios, #faq, .contact, footer { display: none !important; }
             body { background-color: #f4f7f6; }
@@ -159,6 +163,16 @@
             <h3 style="color: #003366; margin-bottom: 15px;">🔎 Estado de tu Carga</h3>
             <div id="publicTrackerResult" style="text-align: left; font-size: 0.9em;"></div>
             <button type="button" onclick="cerrarModal('modalRastreoResultado')" class="btn-primary" style="margin-top: 15px; width: 100%;">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal Lista de Múltiples Facturas -->
+    <div id="modalListaFacturas" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-btn" onclick="cerrarModal('modalListaFacturas')">&times;</span>
+            <h3 style="color: #003366; margin-bottom: 15px;">📄 Facturas Disponibles</h3>
+            <div id="contenedorListaFacturas" style="text-align: left;"></div>
+            <button type="button" onclick="cerrarModal('modalListaFacturas')" class="btn-primary" style="margin-top: 15px; width: 100%;">Cerrar</button>
         </div>
     </div>
 
@@ -246,7 +260,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
@@ -850,7 +864,7 @@
                 </div>
                 <div class="header-actions">
                     <div id="btnFacturaContainer" style="display: none;">
-                        <a id="btnVerFactura" href="#" target="_blank" class="btn-factura">📄 Ver Factura</a>
+                        <button type="button" id="btnVerFactura" onclick="gestionarClicFacturasHeader()" class="btn-factura" style="border: none; cursor: pointer;">📄 Ver Facturas</button>
                     </div>
                     <button type="button" onclick="cerrarSesion();" class="btn-logout">🚪 Cerrar Sesión</button>
                 </div>
@@ -936,6 +950,7 @@
         let cacheCSVMercancia = null;
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
+        let facturasAcumuladasCliente = [];
 
         function actualizarPaisesSegunAlmacen() {
             const almacen = document.getElementById('almacenSeleccionado').value;
@@ -1744,7 +1759,31 @@
             });
         }
 
-        // CARGA Y RENDERIZADO DE TABLA (CORREGIDO PARA BÚSQUEDA POR FILA Y VISTA)
+        // LÓGICA PARA GESTIONAR EL CLIC EN EL BOTÓN PRINCIPAL DE FACTURA
+        function gestionarClicFacturasHeader() {
+            if (facturasAcumuladasCliente.length === 0) return;
+
+            if (facturasAcumuladasCliente.length === 1) {
+                window.open(facturasAcumuladasCliente[0].url, '_blank');
+            } else {
+                const contenedor = document.getElementById('contenedorListaFacturas');
+                let htmlModal = '';
+
+                facturasAcumuladasCliente.forEach((factura, idx) => {
+                    htmlModal += `
+                        <a href="${factura.url}" target="_blank" class="factura-item-link">
+                            <span>📄 Factura #${idx + 1} (${factura.origen})</span>
+                            <span style="font-size: 0.85em; color: #0056b3;">Abrir PDF ↗</span>
+                        </a>
+                    `;
+                });
+
+                contenedor.innerHTML = htmlModal;
+                abrirModal('modalListaFacturas');
+            }
+        }
+
+        // CARGA Y RENDERIZADO DE TABLA (CON ACUMULACIÓN DE MÚLTIPLES FACTURAS)
         function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1755,11 +1794,11 @@
 
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
             if (facturaContainer) facturaContainer.style.display = "none";
+            facturasAcumuladasCliente = [];
 
             const renderTabla = (csvTexto) => {
                 const lineas = csvTexto.split(/\r?\n/);
                 let filasEncontradas = '';
-                let enlaceFacturaEncontrado = '';
 
                 for (let i = 1; i < lineas.length; i++) {
                     const linea = lineas[i];
@@ -1771,7 +1810,6 @@
                         const codEnFila = (col[1] || '').replace(/^"|"$/g, '').toLowerCase().trim();
                         const lineaMinuscula = linea.toLowerCase();
 
-                        // Evaluación flexible de coincidencia (por correo, código o contenido)
                         if ((emailCliente !== '' && (emailEnFila === emailCliente || lineaMinuscula.includes(emailCliente))) || (codigoClienteSesion !== '' && codEnFila === codigoClienteSesion)) {
 
                             const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
@@ -1779,7 +1817,6 @@
 
                             let incluirFila = false;
 
-                            // FILTRADO DE FILAS SEGÚN LA VISTA SELECCIONADA
                             if (vistaActual === 'Todos') {
                                 incluirFila = true;
                             } else if (vistaActual === 'Miami') {
@@ -1811,9 +1848,17 @@
 
                                 let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
                                 let celdaFacturaHtml = '';
+                                
                                 if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
                                     celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
-                                    if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
+                                    
+                                    // Acumular enlace para el botón de cabecera si no está repetido
+                                    if (!facturasAcumuladasCliente.some(f => f.url === urlFacturaFila)) {
+                                        facturasAcumuladasCliente.push({
+                                            url: urlFacturaFila,
+                                            origen: (col[1] || 'Recibo').replace(/^"|"$/g, '')
+                                        });
+                                    }
                                 }
 
                                 filasEncontradas += `
@@ -1849,8 +1894,14 @@
 
                 if (filasEncontradas !== '') {
                     tbody.innerHTML = filasEncontradas;
-                    if (enlaceFacturaEncontrado !== '' && facturaContainer && btnFactura) {
-                        btnFactura.href = enlaceFacturaEncontrado;
+                    
+                    // Configurar visualmente el botón de la cabecera según la cantidad de facturas encontradas
+                    if (facturasAcumuladasCliente.length > 0 && facturaContainer && btnFactura) {
+                        if (facturasAcumuladasCliente.length === 1) {
+                            btnFactura.innerText = "📄 Ver Factura";
+                        } else {
+                            btnFactura.innerText = `📄 Ver Facturas (${facturasAcumuladasCliente.length})`;
+                        }
                         facturaContainer.style.display = "block";
                     }
                 } else {

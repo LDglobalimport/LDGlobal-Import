@@ -830,7 +830,7 @@
                 <div class="forgot-pass-container">
                     <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
-                <button type="submit" class="btn-primary btn-block">Ingresar</button>
+                <button type="submit" class="btn-primary btn-block" id="btnLoginSubmit">Ingresar</button>
             </form>
         </div>
     </div>
@@ -1080,7 +1080,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             obtenerTasaBCVEuroAutomatica();
 
-            fetch(GOOGLE_SHEETS_CSV_URL)
+            fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
                 .then(r => r.text())
                 .then(txt => { cacheCSVMercancia = txt; })
                 .catch(e => {});
@@ -1352,18 +1352,19 @@
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
 
             try {
-                if (!cacheCSVMercancia) {
-                    const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
-                    cacheCSVMercancia = await res.text();
-                }
-                const lineas = cacheCSVMercancia.split(/\r?\n/);
+                const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
+                const csvTexto = await res.text();
+                cacheCSVMercancia = csvTexto;
+                
+                const lineas = csvTexto.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
                     const emailCol = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
+                    const lineaMinuscula = lineas[i].toLowerCase();
                     
-                    if (emailCol === emailLimpio || lineas[i].toLowerCase().includes(emailLimpio)) {
+                    if (emailCol === emailLimpio || lineaMinuscula.includes(emailLimpio)) {
                         resultado.encontrado = true;
                         var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
                         if (codB !== '') resultado.codigoExistente = codB;
@@ -1574,16 +1575,22 @@
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
+            const btnSubmit = document.getElementById('btnLoginSubmit');
 
             if (!emailIngresado) {
                 alert("Por favor ingresa un correo electrónico.");
                 return;
             }
 
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = "Verificando...";
+            }
+
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
             cuentasEncontradasLogin = usuariosLocales.filter(u => u.email === emailIngresado);
 
-            // Búsqueda directa en la base de Google Sheets si no existe localmente
+            // Búsqueda directa en Google Sheets si no se encuentra en la memoria local
             if (cuentasEncontradasLogin.length === 0) {
                 const datosSheets = await consultarClienteEnSheets(emailIngresado);
                 if (datosSheets.encontrado) {
@@ -1596,6 +1603,11 @@
                         pass: passIngresado
                     });
                 }
+            }
+
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Ingresar";
             }
 
             if (cuentasEncontradasLogin.length > 0) {

@@ -927,7 +927,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL CON API BCV EN TIEMPO REAL CON RESPALDO -->
+    <!-- SCRIPT PRINCIPAL -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
@@ -1360,24 +1360,25 @@
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
-                    const emailFila = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
 
-                    if (emailFila === emailLimpio || (emailLimpio !== '' && lineas[i].toLowerCase().includes(emailLimpio))) {
-                        resultado.encontrado = true;
-                        
-                        // Extrae el Código Cliente real de la Columna B (Índice 1)
-                        const codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
-                        if (codB && !codB.toLowerCase().includes("miami")) resultado.codigoExistente = codB;
+                    for (let j = 0; j < col.length; j++) {
+                        const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
+                        if (textoCelda === emailLimpio || (emailLimpio !== '' && textoCelda.indexOf(emailLimpio) !== -1)) {
+                            resultado.encontrado = true;
+                            
+                            const codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
+                            if (codB && !codB.toLowerCase().includes("miami")) resultado.codigoExistente = codB;
 
-                        // Extrae el Nombre real del cliente de la Columna E (Índice 4)
-                        const nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
-                        if (nomE && !/^\d+$/.test(nomE)) resultado.expedidor = nomE;
+                            const nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
+                            if (nomE && !/^\d+$/.test(nomE)) resultado.expedidor = nomE;
 
-                        const estadoFila = (col[3] || '').toLowerCase();
-                        if (estadoFila.includes('china')) resultado.existeChina = true;
-                        else resultado.existeMiami = true;
-                        break;
+                            const estadoFila = (col[3] || '').toLowerCase();
+                            if (estadoFila.includes('china')) resultado.existeChina = true;
+                            else resultado.existeMiami = true;
+                            break;
+                        }
                     }
+                    if (resultado.encontrado) break;
                 }
             } catch (e) {}
 
@@ -1588,7 +1589,6 @@
                 btnSubmit.innerText = "Verificando...";
             }
 
-            // Consultar SIEMPRE en directo la hoja de Google Sheets
             const datosSheets = await consultarClienteEnSheets(emailIngresado);
 
             if (btnSubmit) {
@@ -1744,6 +1744,7 @@
             });
         }
 
+        // CARGA DE TABLA SEGÚN EL FILTRO SELECCIONADO (MIAMI / CHINA / TODOS)
         function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1769,10 +1770,11 @@
                         const emailEnFila = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
                         const codEnFila = (col[1] || '').replace(/^"|"$/g, '').toLowerCase().trim();
 
-                        // Búsqueda directa por Email O por Código Cliente (LDG-XXXX)
+                        // Buscar coincidencia por email (Col A) O por Código Cliente (Col B) O contenido de la línea
                         if ((emailCliente !== '' && (emailEnFila === emailCliente || linea.toLowerCase().includes(emailCliente))) || (codigoClienteSesion !== '' && codEnFila === codigoClienteSesion)) {
 
-                            if (!usuarioSesionActual.nombre || usuarioSesionActual.nombre.trim() === '' || /^\d+$/.test(usuarioSesionActual.nombre)) {
+                            // Sincronizar datos del usuario si estaban desalineados
+                            if (!usuarioSesionActual.nombre || usuarioSesionActual.nombre.trim() === '' || /^\d+$/.test(usuarioSesionActual.nombre) || usuarioSesionActual.codigo === 'Miami - China') {
                                 usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
                                 usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
 
@@ -1780,14 +1782,17 @@
                                 document.getElementById('userCodigoCliente').innerText = usuarioSesionActual.codigo;
                             }
 
+                            // Estado oficial desde Columna D (Índice 3)
                             const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
                             const estLower = estadoOriginal.toLowerCase();
 
                             let incluirFila = false;
+
+                            // FILTRADO STRICTO POR SELECCIÓN DE VISTA
                             if (vistaActual === 'Todos') {
                                 incluirFila = true;
                             } else if (vistaActual === 'Miami') {
-                                if (estLower.includes('miami') || (!estLower.includes('china') && (estLower.includes('almacen') || estLower.includes('almacén') || estLower.includes('transito') || estLower.includes('tránsito') || estLower.includes('aduana') || estLower.includes('entregad')))) {
+                                if (estLower.includes('miami')) {
                                     incluirFila = true;
                                 }
                             } else if (vistaActual === 'China') {

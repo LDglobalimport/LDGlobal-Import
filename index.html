@@ -927,7 +927,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL CON API BCV EN TIEMPO REAL CON RESPALDO -->
+    <!-- SCRIPT PRINCIPAL -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
@@ -937,7 +937,6 @@
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
 
-        // DESPLEGABLE DINÁMICO DE PAÍSES Y CIUDADES SEGÚN ALMACÉN
         function actualizarPaisesSegunAlmacen() {
             const almacen = document.getElementById('almacenSeleccionado').value;
             const selectPais = document.getElementById('pais');
@@ -981,7 +980,6 @@
             }
         }
 
-        // CONTROL PREGUNTAS FRECUENTES (FAQ)
         function toggleFaq(element) {
             const answer = element.nextElementSibling;
             const isVisible = answer.style.display === "block";
@@ -993,7 +991,6 @@
             }
         }
 
-        // TABLA TARIFAS MARÍTIMAS MIAMI ($/FT3)
         const TARIFAS_MIAMI_MAR = [
             { destino: "Caracas", ft3USD: 55.00 },
             { destino: "Maracay - Valencia", ft3USD: 58.00 },
@@ -1031,7 +1028,6 @@
             { destino: "Otro País (Internacional)", ft3USD: 45.00 }
         ];
 
-        // TABLA TARIFAS MARÍTIMAS CHINA ($/CBM)
         const TARIFAS_CHINA_MAR = [
             { destino: "Caracas", cbmUSD: 1000.00 },
             { destino: "Valencia", cbmUSD: 950.00 },
@@ -1041,7 +1037,6 @@
             { destino: "Otros Estados", cbmUSD: 1200.00}
         ];
 
-        // OBTENCIÓN AUTOMÁTICA DE TASA BCV EURO VÍA API CDN CON RESPALDO
         async function obtenerTasaBCVEuroAutomatica() {
             const lblStatus = document.getElementById('lblEstadoTasaBCV');
             const inputTasa = document.getElementById('inputTasaEuroBCV');
@@ -1059,9 +1054,7 @@
                     recalcularTodo();
                     return;
                 }
-            } catch (e) {
-                console.log("Reintentando con servidor alternativo BCV...");
-            }
+            } catch (e) {}
 
             try {
                 const resAlt = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
@@ -1356,6 +1349,8 @@
 
         async function consultarClienteEnSheets(emailCliente) {
             let resultado = { existeMiami: false, existeChina: false, codigoExistente: null, expedidor: null, encontrado: false };
+            const emailLimpio = (emailCliente || '').toLowerCase().trim();
+
             try {
                 const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
                 cacheCSVMercancia = await res.text();
@@ -1364,22 +1359,20 @@
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
+                    const emailCol = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
                     
-                    for (let j = 0; j < col.length; j++) {
-                        const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
-                        if (textoCelda === emailCliente) {
-                            resultado.encontrado = true;
-                            var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
-                            if (codB !== '') resultado.codigoExistente = codB;
-                            
-                            var nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
-                            if (nomE !== '') resultado.expedidor = nomE;
-                            
-                            const estadoFila = (col[3] || '').toLowerCase();
-                            if (estadoFila.includes('china')) resultado.existeChina = true;
-                            else resultado.existeMiami = true;
-                            break;
-                        }
+                    if (emailCol === emailLimpio || lineas[i].toLowerCase().includes(emailLimpio)) {
+                        resultado.encontrado = true;
+                        var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
+                        if (codB !== '') resultado.codigoExistente = codB;
+                        
+                        var nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
+                        if (nomE !== '') resultado.expedidor = nomE;
+                        
+                        const estadoFila = (col[3] || '').toLowerCase();
+                        if (estadoFila.includes('china')) resultado.existeChina = true;
+                        else resultado.existeMiami = true;
+                        break;
                     }
                 }
             } catch (e) {}
@@ -1588,6 +1581,7 @@
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
             cuentasEncontradasLogin = usuariosLocales.filter(u => u.email === emailIngresado);
 
+            // Búsqueda directa en la base de Google Sheets si no existe localmente
             if (cuentasEncontradasLogin.length === 0) {
                 const datosSheets = await consultarClienteEnSheets(emailIngresado);
                 if (datosSheets.encontrado) {
@@ -1771,7 +1765,6 @@
                         const emailEnFila = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
                         const codEnFila = (col[1] || '').replace(/^"|"$/g, '').toLowerCase().trim();
                         
-                        // Coincidencia por correo o por código del cliente
                         if ((emailCliente && emailEnFila === emailCliente) || (codigoClienteSesion && codEnFila === codigoClienteSesion) || (emailCliente && linea.toLowerCase().includes(emailCliente))) {
                             
                             if (!usuarioSesionActual.email) {

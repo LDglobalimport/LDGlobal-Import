@@ -48,7 +48,7 @@
     <style>
         .status-badge { padding: 5px 10px; border-radius: 12px; font-size: 0.82em; font-weight: bold; display: inline-block; }
         
-        /* Mapeo exacto según colores de la imagen */
+        /* Mapeo exacto según colores de las etiquetas de Sheets */
         .badge-aduana-miami, .badge-aduana-china { background-color: #e1bee7 !important; color: #4a148c !important; }
         .badge-almacen-miami { background-color: #ffe082 !important; color: #5d4037 !important; }
         .badge-almacen-china { background-color: #ffcc80 !important; color: #e65100 !important; }
@@ -1746,7 +1746,7 @@
             });
         }
 
-        // CARGA Y RENDERIZADO DE TABLA (CON COLORES EXACTOS SEGÚN IMAGEN)
+        // CARGA Y RENDERIZADO DE TABLA (SOLO ACTIVA EL BOTÓN AZUL SUPERIOR)
         function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1812,10 +1812,9 @@
                                     else badgeClass = "badge-entregado-miami";
                                 }
 
+                                // EXTRAE LA URL PARA EL BOTÓN CABECERA (SIN MOSTRAR LINK DENTRO DE LA FILA)
                                 let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
-                                let celdaFacturaHtml = '';
                                 if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
-                                    celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
                                     if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
                                 }
 
@@ -1833,7 +1832,6 @@
                                         <td>
                                             <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
                                                 <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
-                                                ${celdaFacturaHtml}
                                                 <div style="display: flex; gap: 4px; margin-top: 2px;">
                                                     <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
                                                         <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>

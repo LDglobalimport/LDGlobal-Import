@@ -744,10 +744,11 @@
                     <input type="password" id="password" placeholder="Password*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
-                    <select id="pais" onchange="actualizarCiudades()" required></select>
+                    <select id="pais" required></select>
 
                     <select id="estado" required>
                         <option value="" disabled selected>:: Seleccione Estado / Región * ::</option>
+                        <option value="Amazonas">Amazonas</option><option value="Anzoategui">Anzoategui</option><option value="Apure">Apure</option><option value="Aragua">Aragua</option><option value="Barinas">Barinas</option><option value="Bolivar">Bolivar</option><option value="Carabobo">Carabobo</option><option value="Cojedes">Cojedes</option><option value="Delta Amacuro">Delta Amacuro</option><option value="Distrito Capital">Distrito Capital</option><option value="Falcon">Falcon</option><option value="Guarico">Guarico</option><option value="Lara">Lara</option><option value="Merida">Merida</option><option value="Miranda">Miranda</option><option value="Monagas">Monagas</option><option value="Nueva Esparta">Nueva Esparta</option><option value="Portuguesa">Portuguesa</option><option value="Sucre">Sucre</option><option value="Tachira">Tachira</option><option value="Trujillo">Trujillo</option><option value="Vargas">Vargas</option><option value="Yaracuy">Yaracuy</option><option value="Zulia">Zulia</option><option value="Internacional">Otro Estado / Región Internacional</option>
                     </select>
 
                     <input type="text" id="ciudad" placeholder="Ciudad*" required>
@@ -830,7 +831,7 @@
                 <div class="forgot-pass-container">
                     <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
-                <button type="submit" class="btn-primary btn-block" id="btnLoginSubmit">Ingresar</button>
+                <button type="submit" class="btn-primary btn-block">Ingresar</button>
             </form>
         </div>
     </div>
@@ -927,7 +928,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SCRIPT PRINCIPAL CON API BCV EN TIEMPO REAL CON RESPALDO -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
@@ -937,106 +938,55 @@
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
 
-        function actualizarPaisesSegunAlmacen() {
-            const almacen = document.getElementById('almacenSeleccionado').value;
-            const selectPais = document.getElementById('pais');
-            selectPais.innerHTML = '';
-
-            if (almacen === 'China') {
-                selectPais.innerHTML = `
-                    <option value="" disabled selected>:: Seleccione País de Destino * ::</option>
-                    <option value="Venezuela">Venezuela 🇻🇪</option>
-                    <option value="EEUU">Estados Unidos (EE.UU.) 🇺🇸</option>
-                `;
-            } else {
-                selectPais.innerHTML = `
-                    <option value="" disabled selected>:: Seleccione País de Destino * ::</option>
-                    <option value="Venezuela">Venezuela 🇻🇪</option>
-                    <option value="Ecuador">Ecuador 🇪🇨</option>
-                    <option value="Panama">Panamá 🇵🇦</option>
-                    <option value="Colombia">Colombia 🇨🇴</option>
-                    <option value="Chile">Chile 🇨🇱</option>
-                    <option value="EEUU">Estados Unidos (EE.UU.) 🇺🇸</option>
-                `;
-            }
-            actualizarCiudades();
-        }
-
-        function actualizarCiudades() {
-            const pais = document.getElementById('pais').value;
-            const selectEstado = document.getElementById('estado');
-            selectEstado.innerHTML = '';
-
-            if (pais === 'Venezuela') {
-                const estadosVzla = ["Amazonas", "Anzoategui", "Apure", "Aragua", "Barinas", "Bolivar", "Carabobo", "Cojedes", "Delta Amacuro", "Distrito Capital", "Falcon", "Guarico", "Lara", "Merida", "Miranda", "Monagas", "Nueva Esparta", "Portuguesa", "Sucre", "Tachira", "Trujillo", "Vargas", "Yaracuy", "Zulia"];
-                selectEstado.innerHTML = '<option value="" disabled selected>:: Seleccione Estado / Región * ::</option>';
-                estadosVzla.forEach(e => {
-                    selectEstado.innerHTML += `<option value="${e}">${e}</option>`;
-                });
-            } else if (pais) {
-                selectEstado.innerHTML = `<option value="${pais} - Principal" selected>${pais} (Región Principal)</option>`;
-            } else {
-                selectEstado.innerHTML = '<option value="" disabled selected>:: Seleccione Estado / Región * ::</option>';
-            }
-        }
-
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const isVisible = answer.style.display === "block";
-            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = "none");
-            document.querySelectorAll('.faq-question span:last-child').forEach(s => s.innerText = "▼");
-            if (!isVisible) {
-                answer.style.display = "block";
-                element.querySelector('span:last-child').innerText = "▲";
-            }
-        }
-
+        // TABLA TARIFAS MARÍTIMAS MIAMI ($/FT3)
         const TARIFAS_MIAMI_MAR = [
-            { destino: "Caracas", ft3USD: 55.00 },
-            { destino: "Maracay - Valencia", ft3USD: 58.00 },
-            { destino: "Acarigua", ft3USD: 60.00 },
-            { destino: "Anaco", ft3USD: 60.00 },
-            { destino: "Barcelona - Pto la Cruz", ft3USD: 58.00 },
-            { destino: "Barquisimeto", ft3USD: 60.00 },
-            { destino: "Bejuma", ft3USD: 60.00 },
-            { destino: "Maracaibo - Cabimas", ft3USD: 60.00 },
-            { destino: "Cabudare", ft3USD: 60.00 },
-            { destino: "Cagua", ft3USD: 60.00 },
-            { destino: "Carora", ft3USD: 60.00 },
-            { destino: "Ciudad Bolivar - Pto Ordaz", ft3USD: 60.00 },
-            { destino: "Coro - Cumana", ft3USD: 60.00 },
-            { destino: "El tigre", ft3USD: 60.00 },
-            { destino: "Guanta", ft3USD: 58.00 },
-            { destino: "Guarenas - Guatire", ft3USD: 56.00 },
-            { destino: "La Guaira", ft3USD: 57.00 },
-            { destino: "Lecheria", ft3USD: 58.00 },
-            { destino: "Los Teques", ft3USD: 56.00 },
-            { destino: "Maturin", ft3USD: 60.00 },
-            { destino: "Margarita", ft3USD: 60.00 },
-            { destino: "Pto Piritu", ft3USD: 58.00 },
-            { destino: "Pto fijo", ft3USD: 60.00 },
-            { destino: "Rio Chico", ft3USD: 62.00 },
-            { destino: "San Carlos", ft3USD: 60.00 },
-            { destino: "San Cristobal", ft3USD: 60.00 },
-            { destino: "San Diego", ft3USD: 60.00 },
+            { destino: "Caracas", ft3USD: 58.50 },
+            { destino: "Maracay - Valencia", ft3USD: 63.50 },
+            { destino: "Acarigua", ft3USD: 65.52 },
+            { destino: "Anaco", ft3USD: 65.52 },
+            { destino: "Barcelona - Pto la Cruz", ft3USD: 63.50 },
+            { destino: "Barquisimeto", ft3USD: 65.52 },
+            { destino: "Bejuma", ft3USD: 65.52 },
+            { destino: "Maracaibo - Cabimas", ft3USD: 65.52 },
+            { destino: "Cabudare", ft3USD: 65.52 },
+            { destino: "Cagua", ft3USD: 65.52 },
+            { destino: "Carora", ft3USD: 65.52 },
+            { destino: "Ciudad Bolivar - Pto Ordaz", ft3USD: 65.52 },
+            { destino: "Coro - Cumana", ft3USD: 65.52 },
+            { destino: "El tigre", ft3USD: 65.52 },
+            { destino: "Guanta", ft3USD: 63.50 },
+            { destino: "Guarenas - Guatire", ft3USD: 61.00 },
+            { destino: "La Guaira", ft3USD: 62.00 },
+            { destino: "Lecheria", ft3USD: 63.50 },
+            { destino: "Los Teques", ft3USD: 61.00 },
+            { destino: "Maturin", ft3USD: 65.52 },
+            { destino: "Margarita", ft3USD: 65.52 },
+            { destino: "Pto Piritu", ft3USD: 63.50 },
+            { destino: "Pto fijo", ft3USD: 65.52 },
+            { destino: "Rio Chico", ft3USD: 66.30 },
+            { destino: "San Carlos", ft3USD: 65.52 },
+            { destino: "San Cristobal", ft3USD: 65.52 },
+            { destino: "San Diego", ft3USD: 65.52 },
             { destino: "San Felipe", ft3USD: 65.52 },
-            { destino: "San Juan de los Morros", ft3USD: 60.00 },
-            { destino: "Tejerias", ft3USD: 58.00 },
-            { destino: "Turmero", ft3USD: 58.00 },
-            { destino: "Valle de la pascua", ft3USD: 58.00 },
-            { destino: "Charallave", ft3USD: 57.00 },
+            { destino: "San Juan de los Morros", ft3USD: 65.52 },
+            { destino: "Tejerias", ft3USD: 63.50 },
+            { destino: "Turmero", ft3USD: 63.50 },
+            { destino: "Valle de la pascua", ft3USD: 65.52 },
+            { destino: "Charallave", ft3USD: 62.00 },
             { destino: "Otro País (Internacional)", ft3USD: 45.00 }
         ];
 
+        // TABLA TARIFAS MARÍTIMAS CHINA ($/CBM)
         const TARIFAS_CHINA_MAR = [
-            { destino: "Caracas", cbmUSD: 1000.00 },
-            { destino: "Valencia", cbmUSD: 950.00 },
-            { destino: "Maracay - Pto Cabello", cbmUSD: 980.00 },
-            { destino: "Margarita", cbmUSD: 1200.00 },
-            { destino: "Barquisimeto", cbmUSD: 1120.00 },
-            { destino: "Otros Estados", cbmUSD: 1200.00}
+            { destino: "Caracas", cbmUSD: 1198.00 },
+            { destino: "Valencia", cbmUSD: 1118.00 },
+            { destino: "Maracay - Pto Cabello", cbmUSD: 1144.00 },
+            { destino: "Margarita", cbmUSD: 1463.00 },
+            { destino: "Barquisimeto", cbmUSD: 1223.50 },
+            { destino: "Otros Estados", cbmUSD: 1357.00 }
         ];
 
+        // OBTENCIÓN AUTOMÁTICA DE TASA BCV EURO VÍA API CDN CON RESPALDO
         async function obtenerTasaBCVEuroAutomatica() {
             const lblStatus = document.getElementById('lblEstadoTasaBCV');
             const inputTasa = document.getElementById('inputTasaEuroBCV');
@@ -1054,7 +1004,9 @@
                     recalcularTodo();
                     return;
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.log("Reintentando con servidor alternativo BCV...");
+            }
 
             try {
                 const resAlt = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
@@ -1080,7 +1032,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             obtenerTasaBCVEuroAutomatica();
 
-            fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
+            fetch(GOOGLE_SHEETS_CSV_URL)
                 .then(r => r.text())
                 .then(txt => { cacheCSVMercancia = txt; })
                 .catch(e => {});
@@ -1349,36 +1301,31 @@
 
         async function consultarClienteEnSheets(emailCliente) {
             let resultado = { existeMiami: false, existeChina: false, codigoExistente: null, expedidor: null, encontrado: false };
-            const emailLimpio = (emailCliente || '').toLowerCase().trim();
-
             try {
                 const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
-                const csvTexto = await res.text();
-                cacheCSVMercancia = csvTexto;
-                const lineas = csvTexto.split(/\r?\n/);
+                cacheCSVMercancia = await res.text();
+                const lineas = cacheCSVMercancia.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
-
+                    
                     for (let j = 0; j < col.length; j++) {
                         const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
-                        if (textoCelda === emailLimpio || (emailLimpio !== '' && textoCelda.indexOf(emailLimpio) !== -1)) {
+                        if (textoCelda === emailCliente) {
                             resultado.encontrado = true;
+                            var codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
+                            if (codB !== '') resultado.codigoExistente = codB;
                             
-                            const codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
-                            if (codB && !codB.toLowerCase().includes("miami")) resultado.codigoExistente = codB;
-
-                            const nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
-                            if (nomE && !/^\d+$/.test(nomE)) resultado.expedidor = nomE;
-
+                            var nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
+                            if (nomE !== '') resultado.expedidor = nomE;
+                            
                             const estadoFila = (col[3] || '').toLowerCase();
                             if (estadoFila.includes('china')) resultado.existeChina = true;
                             else resultado.existeMiami = true;
                             break;
                         }
                     }
-                    if (resultado.encontrado) break;
                 }
             } catch (e) {}
 
@@ -1410,7 +1357,7 @@
 
             const localNum = parseInt(localStorage.getItem("ultimo_num_codigo") || "1000", 10);
             let numFinal = Math.max(ultimoNumero, localNum) + 1;
-
+            
             if (isNaN(numFinal) || numFinal <= 1000) {
                 numFinal = Math.floor(1000 + Math.random() * 9000);
             }
@@ -1508,7 +1455,7 @@
 
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
-
+            
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
@@ -1517,7 +1464,7 @@
                 telefono, pais: paisVal, estado, ciudad, direccion1, identificacion, 
                 almacen: almacenReg 
             };
-
+            
             usuariosLocales.push(nuevoUsuario);
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
@@ -1577,41 +1524,35 @@
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value;
-            const btnSubmit = document.getElementById('btnLoginSubmit');
 
             if (!emailIngresado) {
                 alert("Por favor ingresa un correo electrónico.");
                 return;
             }
 
-            if (btnSubmit) {
-                btnSubmit.disabled = true;
-                btnSubmit.innerText = "Verificando...";
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            cuentasEncontradasLogin = usuariosLocales.filter(u => u.email === emailIngresado);
+
+            if (cuentasEncontradasLogin.length === 0) {
+                const datosSheets = await consultarClienteEnSheets(emailIngresado);
+                if (datosSheets.encontrado) {
+                    cuentasEncontradasLogin.push({
+                        email: emailIngresado,
+                        nombre: datosSheets.expedidor || emailIngresado.split('@')[0],
+                        codigo: datosSheets.codigoExistente || "LDG-CLIENTE",
+                        direccion1: "Consultar en soporte",
+                        almacen: datosSheets.existeChina ? "China" : "Miami",
+                        pass: passIngresado
+                    });
+                }
             }
 
-            const datosSheets = await consultarClienteEnSheets(emailIngresado);
-
-            if (btnSubmit) {
-                btnSubmit.disabled = false;
-                btnSubmit.innerText = "Ingresar";
-            }
-
-            if (datosSheets.encontrado) {
-                const usuario = {
-                    email: emailIngresado,
-                    nombre: datosSheets.expedidor || emailIngresado.split('@')[0],
-                    codigo: datosSheets.codigoExistente || "LDG-CLIENTE",
-                    direccion1: "Consultar en soporte",
-                    almacen: datosSheets.existeChina ? "China" : "Miami",
-                    pass: passIngresado
-                };
-
-                cuentasEncontradasLogin = [usuario];
-                usuarioSesionActual = usuario;
-
-                const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            if (cuentasEncontradasLogin.length > 0) {
+                const primerCuenta = cuentasEncontradasLogin[0];
+                
+                usuarioSesionActual = primerCuenta;
                 let historial = usuariosLocales.filter(u => u.email !== emailIngresado);
-                historial.push(usuario);
+                historial.push(primerCuenta);
                 localStorage.setItem("usuarios_registrados", JSON.stringify(historial));
 
                 if (window.OneSignalDeferred) {
@@ -1627,7 +1568,12 @@
                 }
 
                 cerrarModal('modalLogin');
-                confirmarAlmacenLogin(usuario.almacen || 'Miami');
+
+                if (cuentasEncontradasLogin.length > 1) {
+                    abrirModal('modalSeleccionAlmacenLogin');
+                } else {
+                    confirmarAlmacenLogin(primerCuenta.almacen || 'Miami');
+                }
             } else {
                 alert("⚠️ Correo no encontrado. Por favor crea tu casillero para comenzar.");
             }
@@ -1636,16 +1582,17 @@
         function confirmarAlmacenLogin(almacenElegido) {
             cerrarModal('modalSeleccionAlmacenLogin');
             
-            const baseUser = usuarioSesionActual;
+            const baseUser = cuentasEncontradasLogin[0] || { email: document.getElementById('loginEmail').value.trim() };
             baseUser.almacenVista = almacenElegido;
+            usuarioSesionActual = baseUser;
 
+            document.getElementById('userNombre').innerText = baseUser.nombre || baseUser.email.split('@')[0];
+            document.getElementById('userCodigoCliente').innerText = baseUser.codigo || 'LDG-CLIENTE';
+            
+            const lblCasillero = document.getElementById('userCasillero');
             const clienteNom = baseUser.nombre || baseUser.email.split('@')[0];
             const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
 
-            document.getElementById('userNombre').innerText = clienteNom;
-            document.getElementById('userCodigoCliente').innerText = clienteCod;
-            
-            const lblCasillero = document.getElementById('userCasillero');
             if (almacenElegido === 'China') {
                 lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteNom} - ${clienteCod}`;
             } else {
@@ -1744,17 +1691,14 @@
             });
         }
 
-        // CARGA DE TABLA SEGÚN EL FILTRO SELECCIONADO (MIAMI / CHINA / TODOS)
-        function cargarMercanciaPorCorreo(emailClienteInput) {
+        function cargarMercanciaPorCorreo(emailCliente) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
             const btnFactura = document.getElementById('btnVerFactura');
             const vistaActual = usuarioSesionActual.almacenVista || 'Miami';
-            const emailCliente = (emailClienteInput || '').toLowerCase().trim();
-            const codigoClienteSesion = (usuarioSesionActual.codigo || '').toLowerCase().trim();
-
+            
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
-            if (facturaContainer) facturaContainer.style.display = "none";
+            facturaContainer.style.display = "none";
 
             const renderTabla = (csvTexto) => {
                 const lineas = csvTexto.split(/\r?\n/);
@@ -1763,94 +1707,90 @@
 
                 for (let i = 1; i < lineas.length; i++) {
                     const linea = lineas[i];
-                    if (!linea || !linea.trim()) continue;
+                    if (!linea) continue;
 
-                    const col = parsearLineaCSV(linea);
-                    if (col.length >= 2) {
-                        const emailEnFila = (col[0] || '').replace(/^"|"$/g, '').toLowerCase().trim();
-                        const codEnFila = (col[1] || '').replace(/^"|"$/g, '').toLowerCase().trim();
+                    if (linea.toLowerCase().indexOf(emailCliente) !== -1) {
+                        const col = parsearLineaCSV(linea);
+                        if (col.length >= 2) {
+                            const emailEnFila = col[0].replace(/^"|"$/g, '').toLowerCase().trim();
+                            
+                            if (emailEnFila === emailCliente) {
+                                if (!usuarioSesionActual.email) {
+                                    usuarioSesionActual.email = emailCliente;
+                                    usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
+                                    usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
+                                }
 
-                        // Buscar coincidencia por email (Col A) O por Código Cliente (Col B) O contenido de la línea
-                        if ((emailCliente !== '' && (emailEnFila === emailCliente || linea.toLowerCase().includes(emailCliente))) || (codigoClienteSesion !== '' && codEnFila === codigoClienteSesion)) {
+                                const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
+                                const estLower = estadoOriginal.toLowerCase();
 
-                            // Sincronizar datos del usuario si estaban desalineados
-                            if (!usuarioSesionActual.nombre || usuarioSesionActual.nombre.trim() === '' || /^\d+$/.test(usuarioSesionActual.nombre) || usuarioSesionActual.codigo === 'Miami - China') {
-                                usuarioSesionActual.nombre = col[4] ? col[4].replace(/^"|"$/g, '') : emailCliente.split('@')[0];
-                                usuarioSesionActual.codigo = col[1] ? col[1].replace(/^"|"$/g, '') : 'LDG-0000';
-
-                                document.getElementById('userNombre').innerText = usuarioSesionActual.nombre;
-                                document.getElementById('userCodigoCliente').innerText = usuarioSesionActual.codigo;
-                            }
-
-                            // Estado oficial desde Columna D (Índice 3)
-                            const estadoOriginal = (col[3] || 'Almacén - Miami').replace(/^"|"$/g, '').trim();
-                            const estLower = estadoOriginal.toLowerCase();
-
-                            let incluirFila = false;
-
-                            // FILTRADO STRICTO POR SELECCIÓN DE VISTA
-                            if (vistaActual === 'Todos') {
-                                incluirFila = true;
-                            } else if (vistaActual === 'Miami') {
-                                if (estLower.includes('miami')) {
+                                let incluirFila = false;
+                                if (vistaActual === 'Todos') {
                                     incluirFila = true;
-                                }
-                            } else if (vistaActual === 'China') {
-                                if (estLower.includes('china')) {
-                                    incluirFila = true;
-                                }
-                            }
-
-                            if (incluirFila) {
-                                const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
-                                const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
-
-                                let badgeClass = "badge-generico";
-                                if (estLower.includes("china")) {
-                                    if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-china";
-                                    else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-china";
-                                    else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
-                                    else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
-                                } else {
-                                    if (estLower.includes("almacen") || estLower.includes("almacén")) badgeClass = "badge-almacen-miami";
-                                    else if (estLower.includes("transito") || estLower.includes("tránsito")) badgeClass = "badge-transito-miami";
-                                    else if (estLower.includes("aduana")) badgeClass = "badge-aduana";
-                                    else if (estLower.includes("entregad")) badgeClass = "badge-entregado";
+                                } else if (vistaActual === 'Miami') {
+                                    if (estLower.includes('miami') || (estLower.includes('aduana') && !estLower.includes('china')) || (estLower.includes('entregad') && !estLower.includes('china'))) {
+                                        incluirFila = true;
+                                    }
+                                } else if (vistaActual === 'China') {
+                                    if (estLower.includes('china')) {
+                                        incluirFila = true;
+                                    }
                                 }
 
-                                let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
-                                let celdaFacturaHtml = '';
-                                if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
-                                    celdaFacturaHtml = `<br><a href="${urlFacturaFila}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: underline; font-size: 0.8em;">📄 Ver Factura</a>`;
-                                    if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;
-                                }
+                                if (incluirFila) {
+                                    const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
+                                    const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
-                                filasEncontradas += `
-                                    <tr>
-                                        <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
-                                        <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
-                                        <td><span class="status-badge ${badgeClass}">${estadoOriginal}</span></td>
-                                        <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
-                                        <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
-                                        <td>
-                                            <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
-                                                <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
-                                                ${celdaFacturaHtml}
-                                                <div style="display: flex; gap: 4px; margin-top: 2px;">
-                                                    <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
-                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
-                                                        <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
-                                                    </select>
-                                                    <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>
+                                    let estadoMostrarVisual = estadoOriginal.replace(/china/gi, '').trim();
+
+                                    let badgeClass = "badge-generico";
+                                    if (estLower.includes("almacen") && estLower.includes("china")) {
+                                        badgeClass = "badge-almacen-china";
+                                    } else if (estLower.includes("almacen") && estLower.includes("miami")) {
+                                        badgeClass = "badge-almacen-miami";
+                                    } else if (estLower.includes("transito") && estLower.includes("china")) {
+                                        badgeClass = "badge-transito-china";
+                                    } else if (estLower.includes("transito") && estLower.includes("miami")) {
+                                        badgeClass = "badge-transito-miami";
+                                    } else if (estLower.includes("aduana")) {
+                                        badgeClass = "badge-aduana";
+                                    } else if (estLower.includes("entregad")) {
+                                        badgeClass = "badge-entregado";
+                                    }
+
+                                    filasEncontradas += `
+                                        <tr>
+                                            <td class="highlight-recibo">${(col[1] || '').replace(/^"|"$/g, '')} 📎</td>
+                                            <td>${(col[2] || '').replace(/^"|"$/g, '')}</td>
+                                            <td><span class="status-badge ${badgeClass}">${estadoMostrarVisual}</span></td>
+                                            <td class="expedidor-red">${(col[4] || '').replace(/^"|"$/g, '')}</td>
+                                            <td class="green-val">${(col[5] || '').replace(/^"|"$/g, '')}</td>
+                                            <td>${(col[6] || '').replace(/^"|"$/g, '')}</td>
+                                            <td>${(col[7] || '').replace(/^"|"$/g, '')}</td>
+                                            <td>${(col[8] || '').replace(/^"|"$/g, '')}</td>
+                                            <td>${(col[9] || '').replace(/^"|"$/g, '')}</td>
+                                            <td>
+                                                <div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-start;">
+                                                    <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
+                                                    <div style="display: flex; gap: 4px;">
+                                                        <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
+                                                            <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
+                                                            <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
+                                                        </select>
+                                                        <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                                            </td>
+                                        </tr>
+                                    `;
+
+                                    if (col[11]) {
+                                        let urlLimpia = col[11].replace(/^"|"$/g, '').trim();
+                                        if (urlLimpia.startsWith("http://") || urlLimpia.startsWith("https://") || urlLimpia.includes("drive.google.com")) {
+                                            enlaceFacturaEncontrado = urlLimpia;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1858,7 +1798,7 @@
 
                 if (filasEncontradas !== '') {
                     tbody.innerHTML = filasEncontradas;
-                    if (enlaceFacturaEncontrado !== '' && facturaContainer && btnFactura) {
+                    if (enlaceFacturaEncontrado !== '') {
                         btnFactura.href = enlaceFacturaEncontrado;
                         facturaContainer.style.display = "block";
                     }
@@ -1870,7 +1810,7 @@
             if (cacheCSVMercancia) {
                 renderTabla(cacheCSVMercancia);
             } else {
-                fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
+                fetch(GOOGLE_SHEETS_CSV_URL)
                     .then(res => res.text())
                     .then(data => {
                         cacheCSVMercancia = data;

@@ -932,10 +932,12 @@
     <!-- SCRIPT PRINCIPAL -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
+        const SHEETS_REGISTRO_CLIENTES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?gid=444025548&single=true&output=csv";
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
         let cacheCSVMercancia = null;
+        let cacheCSVClientes = null;
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
 
@@ -1085,6 +1087,11 @@
             fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime())
                 .then(r => r.text())
                 .then(txt => { cacheCSVMercancia = txt; })
+                .catch(e => {});
+
+            fetch(SHEETS_REGISTRO_CLIENTES_CSV_URL + "&t=" + new Date().getTime())
+                .then(r => r.text())
+                .then(txt => { cacheCSVClientes = txt; })
                 .catch(e => {});
                 
             actualizarTarifasMaritimas();
@@ -1349,75 +1356,72 @@
             return resultado;
         }
 
+        // BÚSQUEDA Y VALIDACIÓN DE CLIENTES EN LA SEGUNDA PESTAÑA: "Registro de clientes"
         async function consultarClienteEnSheets(emailCliente) {
-            let resultado = { existeMiami: false, existeChina: false, codigoExistente: null, expedidor: null, encontrado: false };
+            let resultado = { existeMiami: false, existeChina: false, codigoExistente: null, expedidor: null, encontrado: false, pass: null };
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
 
             try {
-                const res = await fetch(GOOGLE_SHEETS_CSV_URL + "&t=" + new Date().getTime());
+                const res = await fetch(SHEETS_REGISTRO_CLIENTES_CSV_URL + "&t=" + new Date().getTime());
                 const csvTexto = await res.text();
-                cacheCSVMercancia = csvTexto;
+                cacheCSVClientes = csvTexto;
                 const lineas = csvTexto.split(/\r?\n/);
 
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
 
-                    for (let j = 0; j < col.length; j++) {
-                        const textoCelda = col[j].replace(/^"|"$/g, '').toLowerCase().trim();
-                        if (textoCelda === emailLimpio || (emailLimpio !== '' && textoCelda.indexOf(emailLimpio) !== -1)) {
-                            resultado.encontrado = true;
-                            
-                            const codB = col[1] ? col[1].replace(/^"|"$/g, '').trim() : '';
-                            if (codB && !codB.toLowerCase().includes("miami")) resultado.codigoExistente = codB;
+                    // Columna F (Índice 5) contiene el email en la pestaña "Registro de clientes"
+                    const emailFila = col[5] ? col[5].replace(/^"|"$/g, '').toLowerCase().trim() : '';
 
-                            const nomE = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
-                            if (nomE && !/^\d+$/.test(nomE)) resultado.expedidor = nomE;
+                    if (emailFila === emailLimpio) {
+                        resultado.encontrado = true;
+                        
+                        // Columna C (Índice 2): Código Cliente (LDG-XXXX)
+                        const codC = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
+                        if (codC) resultado.codigoExistente = codC;
 
-                            const estadoFila = (col[3] || '').toLowerCase();
-                            if (estadoFila.includes('china')) resultado.existeChina = true;
-                            else resultado.existeMiami = true;
-                            break;
-                        }
+                        // Columna D (Índice 3): Nombre real del cliente
+                        const nomD = col[3] ? col[4] ? col[3].replace(/^"|"$/g, '').trim() : col[3].replace(/^"|"$/g, '').trim() : '';
+                        if (nomD) resultado.expedidor = nomD;
+
+                        // Columna J (Índice 9): Contraseña del cliente
+                        const passJ = col[9] ? col[9].replace(/^"|"$/g, '').trim() : '';
+                        if (passJ) resultado.pass = passJ;
+
+                        // Columna B (Índice 1): Casillero (Miami / China / Miami - China)
+                        const casilleroFila = (col[1] || '').toLowerCase();
+                        if (casilleroFila.includes('china')) resultado.existeChina = true;
+                        if (casilleroFila.includes('miami')) resultado.existeMiami = true;
                     }
-                    if (resultado.encontrado) break;
                 }
             } catch (e) {}
 
             return resultado;
         }
 
+        // GENERACIÓN AUTOMÁTICA Y SECUENCIAL DE CÓDIGO LDG-XXXX LEYENDO DE LA HOJA
         async function generarCodigoClienteUnico() {
-            let ultimoNumero = 1000;
+            let ultimoNumero = 8830;
             try {
-                if (!cacheCSVMercancia) {
-                    const res = await fetch(GOOGLE_SHEETS_CSV_URL);
-                    cacheCSVMercancia = await res.text();
-                }
-                if (cacheCSVMercancia) {
-                    const lineas = cacheCSVMercancia.split(/\r?\n/);
-                    for (let i = 1; i < lineas.length; i++) {
-                        if (!lineas[i].trim()) continue;
-                        const col = parsearLineaCSV(lineas[i]);
-                        col.forEach(val => {
-                            const txt = val.replace(/^"|"$/g, '').trim();
-                            if (txt.startsWith("LDG-")) {
-                                const num = parseInt(txt.replace("LDG-", "").replace(" ", ""), 10);
-                                if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
-                            }
-                        });
+                const res = await fetch(SHEETS_REGISTRO_CLIENTES_CSV_URL + "&t=" + new Date().getTime());
+                const csvTexto = await res.text();
+                cacheCSVClientes = csvTexto;
+                const lineas = csvTexto.split(/\r?\n/);
+
+                for (let i = 1; i < lineas.length; i++) {
+                    if (!lineas[i].trim()) continue;
+                    const col = parsearLineaCSV(lineas[i]);
+                    // Columna C (Índice 2) en "Registro de clientes"
+                    const txt = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
+                    if (txt.includes("LDG-")) {
+                        const num = parseInt(txt.replace("LDG-", "").replace(" ", "").trim(), 10);
+                        if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
                     }
                 }
             } catch (e) {}
 
-            const localNum = parseInt(localStorage.getItem("ultimo_num_codigo") || "1000", 10);
-            let numFinal = Math.max(ultimoNumero, localNum) + 1;
-
-            if (isNaN(numFinal) || numFinal <= 1000) {
-                numFinal = Math.floor(1000 + Math.random() * 9000);
-            }
-
-            localStorage.setItem("ultimo_num_codigo", numFinal.toString());
+            const numFinal = ultimoNumero + 1;
             return "LDG-" + numFinal;
         }
 
@@ -1426,46 +1430,31 @@
             if (!emailIngresado) return;
 
             const emailLimpio = emailIngresado.toLowerCase().trim();
-            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
-            let usuario = usuariosLocales.find(u => u.email === emailLimpio);
+            const datosSheets = await consultarClienteEnSheets(emailLimpio);
 
-            if (!usuario) {
-                const datosSheets = await consultarClienteEnSheets(emailLimpio);
-                if (datosSheets.encontrado) {
-                    usuario = {
-                        email: emailLimpio,
-                        nombre: datosSheets.expedidor || emailLimpio.split('@')[0],
-                        codigo: datosSheets.codigoExistente || "LDG-CLIENTE",
-                        pass: "No disponible (recuperar vía soporte)",
-                        almacen: "Miami"
-                    };
-                }
-            }
-
-            if (usuario) {
+            if (datosSheets.encontrado) {
                 const paramsEmail = {
-                    nombre_completo: usuario.nombre,
-                    nombre: usuario.nombre,
-                    email: usuario.email,
-                    user_email: usuario.email,
-                    codigo_cliente: usuario.codigo,
-                    almacen_registro: usuario.almacen || "Miami",
-                    casillero_completo: `SMA03776 LENNIS GONZALEZ / ${usuario.codigo} - ${usuario.nombre}`,
-                    contrasena: usuario.pass,
-                    password: usuario.pass,
-                    subject: `Registro de Casillero [${usuario.almacen || "Miami"}] - ${usuario.nombre} (${usuario.codigo})`
+                    nombre_completo: datosSheets.expedidor || emailLimpio.split('@')[0],
+                    nombre: datosSheets.expedidor || emailLimpio.split('@')[0],
+                    email: emailLimpio,
+                    user_email: emailLimpio,
+                    codigo_cliente: datosSheets.codigoExistente || "LDG-CLIENTE",
+                    contrasena: datosSheets.pass || "Consulte en soporte",
+                    password: datosSheets.pass || "Consulte en soporte",
+                    subject: `Restablecimiento de clave - ${datosSheets.expedidor} (${datosSheets.codigoExistente})`
                 };
 
                 emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
                 .then(function() {
-                    alert(`Te hemos reenviado la información a tu correo (${usuario.email}).`);
+                    alert(`Te hemos reenviado la información a tu correo (${emailLimpio}).`);
                     window.open(`https://wa.me/584242474580?text=Hola,%20solicite%20restablecimiento%20de%20clave%20para%20${emailLimpio}`, '_blank');
                 });
             } else {
-                alert(`El correo ${emailLimpio} no se encuentra registrado.`);
+                alert(`El correo ${emailLimpio} no se encuentra registrado en nuestro sistema.`);
             }
         }
 
+        // REGISTRO DE CLIENTE (CON CONSULTA A PESTAÑA "Registro de clientes")
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1497,6 +1486,7 @@
                 return;
             }
 
+            // Verificar en la pestaña "Registro de clientes"
             const estadoRegistro = await consultarClienteEnSheets(email);
 
             if (almacenReg === 'Miami' && estadoRegistro.existeMiami) {
@@ -1511,15 +1501,16 @@
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
+            // Reutiliza código si ya está registrado en el otro almacén, de lo contrario calcula el siguiente LDG-XXXX
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
-            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
             const nuevoUsuario = { 
                 email, pass, nombre: nombreCompleto, codigo: codigoCliente, 
                 telefono, pais: paisVal, estado, ciudad, direccion1, identificacion, 
                 almacen: almacenReg 
             };
 
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
             usuariosLocales.push(nuevoUsuario);
             localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
 
@@ -1536,10 +1527,24 @@
                 });
             }
 
+            // Envío directo a la hoja de cálculo via Apps Script
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ codigoCliente, nombre: nombreCompleto, identificacion, email, telefono, pais: paisVal, estado, tipoRegistro, almacen: almacenReg })
+                    body: JSON.stringify({ 
+                        codigoCliente, 
+                        nombre: nombreCompleto, 
+                        identificacion, 
+                        email, 
+                        telefono, 
+                        pais: paisVal, 
+                        estado, 
+                        ciudad, 
+                        direccion: direccion1, 
+                        tipoRegistro, 
+                        almacen: almacenReg, 
+                        password: pass 
+                    })
                 }).catch(e => {});
             }
 
@@ -1576,9 +1581,10 @@
             });
         }
 
+        // LOGIN VERIFICANDO DIRECTAMENTE LA PESTAÑA "Registro de clientes"
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
-            const passIngresado = document.getElementById('loginPass').value;
+            const passIngresado = document.getElementById('loginPass').value.trim();
             const btnSubmit = document.getElementById('btnLoginSubmit');
 
             if (!emailIngresado) {
@@ -1599,6 +1605,12 @@
             }
 
             if (datosSheets.encontrado) {
+                // Verificar contraseña si está en la hoja
+                if (datosSheets.pass && datosSheets.pass.trim() !== "" && datosSheets.pass.trim() !== passIngresado) {
+                    alert("⚠️ Contraseña incorrecta. Por favor reintenta.");
+                    return;
+                }
+
                 const usuario = {
                     email: emailIngresado,
                     nombre: datosSheets.expedidor || emailIngresado.split('@')[0],
@@ -1635,21 +1647,24 @@
             }
         }
 
+        // MOSTRAR FORMATO CORRECTO DE TITULAR Y CASILLERO EN PANTALLA
         function confirmarAlmacenLogin(almacenElegido) {
             cerrarModal('modalSeleccionAlmacenLogin');
             
             const baseUser = usuarioSesionActual;
             baseUser.almacenVista = almacenElegido;
 
-            const clienteNom = baseUser.nombre || baseUser.email.split('@')[0];
+            const clienteNom = baseUser.nombre || 'Cliente';
             const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
 
+            // PUNTO 4: Titular = Nombre y Apellido
             document.getElementById('userNombre').innerText = clienteNom;
             document.getElementById('userCodigoCliente').innerText = clienteCod;
             
+            // PUNTO 4: Formato de Casillero para Miami vs China
             const lblCasillero = document.getElementById('userCasillero');
             if (almacenElegido === 'China') {
-                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteNom} - ${clienteCod}`;
+                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteCod} - ${clienteNom}`;
             } else {
                 lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
             }
@@ -1669,11 +1684,11 @@
             usuarioSesionActual.almacenVista = nuevoAlmacen;
             
             const lblCasillero = document.getElementById('userCasillero');
-            const clienteNom = usuarioSesionActual.nombre || usuarioSesionActual.email.split('@')[0];
+            const clienteNom = usuarioSesionActual.nombre || 'Cliente';
             const clienteCod = usuarioSesionActual.codigo || 'LDG-CLIENTE';
 
             if (nuevoAlmacen === 'China') {
-                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteNom} - ${clienteCod}`;
+                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteCod} - ${clienteNom}`;
             } else {
                 lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
             }
@@ -1746,7 +1761,7 @@
             });
         }
 
-        // CARGA Y RENDERIZADO DE TABLA (SOLO ACTIVA EL BOTÓN AZUL SUPERIOR)
+        // CARGA Y RENDERIZADO DE TABLA DE PAQUETES
         function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1796,7 +1811,6 @@
                                 const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                 const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
-                                // ASIGNACIÓN EXACTA DE CLASES SEGÚN ETIQUETAS DE LA IMAGEN
                                 let badgeClass = "badge-generico";
                                 if (estLower.includes("aduana")) {
                                     if (estLower.includes("china")) badgeClass = "badge-aduana-china";
@@ -1812,7 +1826,6 @@
                                     else badgeClass = "badge-entregado-miami";
                                 }
 
-                                // EXTRAE LA URL PARA EL BOTÓN CABECERA (SIN MOSTRAR LINK DENTRO DE LA FILA)
                                 let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
                                 if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
                                     if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;

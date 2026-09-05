@@ -1376,9 +1376,16 @@
                     if (emailFila === emailLimpio) {
                         resultado.encontrado = true;
                         
-                        // Columna C (Índice 2): Código Cliente (LDG-XXXX)
-                        const codC = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
-                        if (codC) resultado.codigoExistente = codC;
+                        // Columna C (Índice 2): Código Cliente (LDG-XXXX o LDG- XXXX o LDG -XXXX)
+                        let codC = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
+                        if (codC) {
+                            // Limpieza flexible para normalizar espacios internos en el código
+                            codC = codC.replace(/\s+/g, '');
+                            if (codC.startsWith("LDG") && !codC.startsWith("LDG-")) {
+                                codC = codC.replace("LDG", "LDG-");
+                            }
+                            resultado.codigoExistente = codC;
+                        }
 
                         // Columna D (Índice 3): Nombre real del cliente
                         const nomD = col[3] ? col[3].replace(/^"|"$/g, '').trim() : '';
@@ -1399,7 +1406,7 @@
             return resultado;
         }
 
-        // GENERACIÓN DE CÓDIGO TEMPORAL ATÓMICO PARA EVITAR COLISIONES EN REGISTROS SIMULTÁNEOS
+        // GENERACIÓN SECUENCIAL AUTOMÁTICA LEYENDO EL MÁXIMO LDG-XXXX DE LA HOJA
         async function generarCodigoClienteUnico() {
             let ultimoNumero = 8830;
             try {
@@ -1411,10 +1418,13 @@
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
-                    const txt = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
-                    if (txt.includes("LDG-")) {
-                        const num = parseInt(txt.replace("LDG-", "").replace(" ", "").trim(), 10);
-                        if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
+                    const txt = col[2] ? col[2].replace(/^"|"$/g, '').replace(/\s+/g, '').trim() : '';
+                    if (txt.includes("LDG")) {
+                        const match = txt.match(/\d+/);
+                        if (match) {
+                            const num = parseInt(match[0], 10);
+                            if (!isNaN(num) && num > ultimoNumero) ultimoNumero = num;
+                        }
                     }
                 }
             } catch (e) {}
@@ -1499,7 +1509,7 @@
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
-            // Conservar código si ya existía en el otro almacén, de lo contrario generar el código único
+            // Conservar código si ya existía en el otro almacén, de lo contrario generar el código único en secuencia
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
             const nuevoUsuario = { 
@@ -1594,9 +1604,9 @@
                 btnSubmit.innerText = "Verificando...";
             }
 
-            // 1. Revisar si la cuenta está guardada localmente
+            // 1. Revisar si la cuenta está guardada localmente y coincide la contraseña
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
-            let usuarioLocal = usuariosLocales.find(u => u.email === emailIngresado);
+            let usuarioLocal = usuariosLocales.find(u => u.email === emailIngresado && u.pass === passIngresado);
 
             if (usuarioLocal) {
                 if (btnSubmit) {
@@ -1609,7 +1619,7 @@
                 return;
             }
 
-            // 2. Si es un navegador nuevo, consultar la pestaña "Registro de clientes" en Sheets
+            // 2. Si es un navegador nuevo o no está en local, consultar la pestaña "Registro de clientes" en Sheets
             const datosSheets = await consultarClienteEnSheets(emailIngresado);
 
             if (btnSubmit) {
@@ -1618,6 +1628,7 @@
             }
 
             if (datosSheets.encontrado) {
+                // Validación flexible de contraseña
                 if (datosSheets.pass && datosSheets.pass.trim() !== "" && datosSheets.pass.trim() !== passIngresado) {
                     alert("⚠️ Contraseña incorrecta. Por favor reintenta.");
                     return;

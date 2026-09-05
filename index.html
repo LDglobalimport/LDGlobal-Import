@@ -25,8 +25,7 @@
       OneSignalDeferred.push(async function(OneSignal) {
         await OneSignal.init({
           appId: "d7541d92-aca4-4ce1-a780-43c87f7b6acc",
-          serviceWorkerParam: { scope: "/" },
-          serviceWorkerPath: "OneSignalSDKWorker.js",
+          allowLocalhostAsSecureOrigin: true,
           notifyButton: { enable: true, position: 'bottom-left' },
           slidedown: {
             prompts: [
@@ -1356,7 +1355,7 @@
             return resultado;
         }
 
-        // BÚSQUEDA Y VALIDACIÓN DE CLIENTES EN LA SEGUNDA PESTAÑA: "Registro de clientes"
+        // BÚSQUEDA DE CLIENTES EN LA PESTAÑA "Registro de clientes"
         async function consultarClienteEnSheets(emailCliente) {
             let resultado = { existeMiami: false, existeChina: false, codigoExistente: null, expedidor: null, encontrado: false, pass: null };
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
@@ -1371,7 +1370,7 @@
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
 
-                    // Columna F (Índice 5) contiene el email en la pestaña "Registro de clientes"
+                    // Columna F (Índice 5) contiene el correo en "Registro de clientes"
                     const emailFila = col[5] ? col[5].replace(/^"|"$/g, '').toLowerCase().trim() : '';
 
                     if (emailFila === emailLimpio) {
@@ -1382,14 +1381,14 @@
                         if (codC) resultado.codigoExistente = codC;
 
                         // Columna D (Índice 3): Nombre real del cliente
-                        const nomD = col[3] ? col[4] ? col[3].replace(/^"|"$/g, '').trim() : col[3].replace(/^"|"$/g, '').trim() : '';
+                        const nomD = col[3] ? col[3].replace(/^"|"$/g, '').trim() : '';
                         if (nomD) resultado.expedidor = nomD;
 
-                        // Columna J (Índice 9): Contraseña del cliente
+                        // Columna J (Índice 9): Contraseña registrada
                         const passJ = col[9] ? col[9].replace(/^"|"$/g, '').trim() : '';
                         if (passJ) resultado.pass = passJ;
 
-                        // Columna B (Índice 1): Casillero (Miami / China / Miami - China)
+                        // Columna B (Índice 1): Almacén registrado (Miami / China / Miami - China)
                         const casilleroFila = (col[1] || '').toLowerCase();
                         if (casilleroFila.includes('china')) resultado.existeChina = true;
                         if (casilleroFila.includes('miami')) resultado.existeMiami = true;
@@ -1400,7 +1399,7 @@
             return resultado;
         }
 
-        // GENERACIÓN AUTOMÁTICA Y SECUENCIAL DE CÓDIGO LDG-XXXX LEYENDO DE LA HOJA
+        // GENERACIÓN DE CÓDIGO TEMPORAL ATÓMICO PARA EVITAR COLISIONES EN REGISTROS SIMULTÁNEOS
         async function generarCodigoClienteUnico() {
             let ultimoNumero = 8830;
             try {
@@ -1412,7 +1411,6 @@
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
-                    // Columna C (Índice 2) en "Registro de clientes"
                     const txt = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
                     if (txt.includes("LDG-")) {
                         const num = parseInt(txt.replace("LDG-", "").replace(" ", "").trim(), 10);
@@ -1454,7 +1452,7 @@
             }
         }
 
-        // REGISTRO DE CLIENTE (CON CONSULTA A PESTAÑA "Registro de clientes")
+        // REGISTRO DE CLIENTE CON INGRESO DIRECTO Y AUTOASIGNACIÓN AUTOMÁTICA
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1486,7 +1484,7 @@
                 return;
             }
 
-            // Verificar en la pestaña "Registro de clientes"
+            // Consultar en la pestaña "Registro de clientes" de la hoja
             const estadoRegistro = await consultarClienteEnSheets(email);
 
             if (almacenReg === 'Miami' && estadoRegistro.existeMiami) {
@@ -1501,7 +1499,7 @@
             const nombreCompleto = nombreVal + " " + apellidoVal;
             const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
 
-            // Reutiliza código si ya está registrado en el otro almacén, de lo contrario calcula el siguiente LDG-XXXX
+            // Conservar código si ya existía en el otro almacén, de lo contrario generar el código único
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
             const nuevoUsuario = { 
@@ -1511,8 +1509,11 @@
             };
 
             const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
-            usuariosLocales.push(nuevoUsuario);
-            localStorage.setItem("usuarios_registrados", JSON.stringify(usuariosLocales));
+            let historial = usuariosLocales.filter(u => u.email !== email);
+            historial.push(nuevoUsuario);
+            localStorage.setItem("usuarios_registrados", JSON.stringify(historial));
+
+            usuarioSesionActual = nuevoUsuario;
 
             if (window.OneSignalDeferred) {
                 OneSignalDeferred.push(function(OneSignal) {
@@ -1527,7 +1528,7 @@
                 });
             }
 
-            // Envío directo a la hoja de cálculo via Apps Script
+            // Envío asíncrono a Google Apps Script que asigna el código en orden en Sheets
             if (WEB_APP_SHEETS_URL) {
                 fetch(WEB_APP_SHEETS_URL, {
                     method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
@@ -1567,21 +1568,17 @@
                 subject: `Nuevo Casillero [${almacenReg}] - ${codigoCliente}`
             };
 
-            Promise.all([
-                emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail),
-                emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail)
-            ]).then(() => {
-                alert(`¡Bienvenido/a! Tu Código de Cliente es: ${codigoCliente} (Casillero ${almacenReg})`);
-                cerrarModal('modalRegister');
-                abrirModal('modalLogin');
-            }).catch(() => {
-                alert(`¡Registro realizado! Código: ${codigoCliente} (Casillero ${almacenReg})`);
-                cerrarModal('modalRegister');
-                abrirModal('modalLogin');
-            });
+            emailjs.send("service_hn885sb", "template_f9by2on", paramsEmail).catch(e => {});
+            emailjs.send("service_hn885sb", "template_fxz5gi3", paramsEmail).catch(e => {});
+
+            alert(`¡Bienvenido/a ${nombreCompleto}! Tu Código de Cliente asignado es: ${codigoCliente}`);
+            cerrarModal('modalRegister');
+            
+            // Ingreso directo inmediato
+            confirmarAlmacenLogin(almacenReg);
         }
 
-        // LOGIN VERIFICANDO DIRECTAMENTE LA PESTAÑA "Registro de clientes"
+        // PROCESAR LOGIN BUSCANDO EN LOCAL O EN HOJA REMOTA
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value.trim();
@@ -1597,6 +1594,22 @@
                 btnSubmit.innerText = "Verificando...";
             }
 
+            // 1. Revisar si la cuenta está guardada localmente
+            const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
+            let usuarioLocal = usuariosLocales.find(u => u.email === emailIngresado);
+
+            if (usuarioLocal) {
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = "Ingresar";
+                }
+                usuarioSesionActual = usuarioLocal;
+                cerrarModal('modalLogin');
+                confirmarAlmacenLogin(usuarioLocal.almacen || 'Miami');
+                return;
+            }
+
+            // 2. Si es un navegador nuevo, consultar la pestaña "Registro de clientes" en Sheets
             const datosSheets = await consultarClienteEnSheets(emailIngresado);
 
             if (btnSubmit) {
@@ -1605,7 +1618,6 @@
             }
 
             if (datosSheets.encontrado) {
-                // Verificar contraseña si está en la hoja
                 if (datosSheets.pass && datosSheets.pass.trim() !== "" && datosSheets.pass.trim() !== passIngresado) {
                     alert("⚠️ Contraseña incorrecta. Por favor reintenta.");
                     return;
@@ -1620,10 +1632,8 @@
                     pass: passIngresado
                 };
 
-                cuentasEncontradasLogin = [usuario];
                 usuarioSesionActual = usuario;
 
-                const usuariosLocales = JSON.parse(localStorage.getItem("usuarios_registrados") || "[]");
                 let historial = usuariosLocales.filter(u => u.email !== emailIngresado);
                 historial.push(usuario);
                 localStorage.setItem("usuarios_registrados", JSON.stringify(historial));
@@ -1647,7 +1657,6 @@
             }
         }
 
-        // MOSTRAR FORMATO CORRECTO DE TITULAR Y CASILLERO EN PANTALLA
         function confirmarAlmacenLogin(almacenElegido) {
             cerrarModal('modalSeleccionAlmacenLogin');
             
@@ -1657,11 +1666,11 @@
             const clienteNom = baseUser.nombre || 'Cliente';
             const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
 
-            // PUNTO 4: Titular = Nombre y Apellido
+            // Titular = Nombre y Apellido
             document.getElementById('userNombre').innerText = clienteNom;
             document.getElementById('userCodigoCliente').innerText = clienteCod;
             
-            // PUNTO 4: Formato de Casillero para Miami vs China
+            // Formato de Casillero para Miami vs China
             const lblCasillero = document.getElementById('userCasillero');
             if (almacenElegido === 'China') {
                 lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteCod} - ${clienteNom}`;
@@ -1811,6 +1820,7 @@
                                 const trackingVal = (col[10] || '').replace(/^"|"$/g, '');
                                 const modoGuardado = localStorage.getItem(`instruccion_${trackingVal}`);
 
+                                // ASIGNACIÓN EXACTA DE CLASES SEGÚN ETIQUETAS DE LA IMAGEN
                                 let badgeClass = "badge-generico";
                                 if (estLower.includes("aduana")) {
                                     if (estLower.includes("china")) badgeClass = "badge-aduana-china";
@@ -1826,6 +1836,7 @@
                                     else badgeClass = "badge-entregado-miami";
                                 }
 
+                                // EXTRAE LA URL PARA EL BOTÓN CABECERA (SIN MOSTRAR LINK DENTRO DE LA FILA)
                                 let urlFacturaFila = col[11] ? col[11].replace(/^"|"$/g, '').trim() : '';
                                 if (urlFacturaFila.startsWith("http://") || urlFacturaFila.startsWith("https://") || urlFacturaFila.includes("drive.google.com")) {
                                     if (!enlaceFacturaEncontrado) enlaceFacturaEncontrado = urlFacturaFila;

@@ -248,7 +248,7 @@
                 </div>
                 <div class="extra-service-card">
                     <h4>📋 Control de Calidad</h4>
-                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla estrictamente con tus especificaciones.</p>
+                    <p>Ejecutamos una inspección técnica detallada en fábrica o almacén previo al embalaje y pago final, garantizando que el producto cumpla strictly con tus especificaciones.</p>
                 </div>
                 <div class="extra-service-card">
                     <h4>🚢 Logística Integral Puerta a Puerta</h4>
@@ -933,7 +933,9 @@
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const SHEETS_REGISTRO_CLIENTES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?gid=444025548&single=true&output=csv";
-        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwU-kF-5DFCN-acGjkii7DCFnqns3hpn8TupQZF44ScneuXEvjkbXuzIHQvQyll2xN9Dg/exec";
+        
+        // URL EXACTA DE TU IMPLEMENTACIÓN ACTIVA EN GOOGLE APPS SCRIPT
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwrxKsggMbcnuAEX4e4naUQiGbRRcGvam2U7eNJXQWeNH-t6st82JjJ0emKw8C3Y-16_g/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
         let cacheCSVMercancia = null;
@@ -1371,25 +1373,20 @@
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
 
-                    // Columna F (Índice 5) contiene el email en la pestaña "Registro de clientes"
                     const emailFila = col[5] ? col[5].replace(/^"|"$/g, '').toLowerCase().trim() : '';
 
                     if (emailFila === emailLimpio) {
                         resultado.encontrado = true;
                         
-                        // Columna C (Índice 2): Código Cliente (LDG-XXXX)
                         const codC = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
                         if (codC) resultado.codigoExistente = codC;
 
-                        // Columna D (Índice 3): Nombre real del cliente
-                        const nomD = col[3] ? col[3].replace(/^"|"$/g, '').trim() : '';
+                        const nomD = col[3] ? col[4] ? col[3].replace(/^"|"$/g, '').trim() : col[3].replace(/^"|"$/g, '').trim() : '';
                         if (nomD) resultado.expedidor = nomD;
 
-                        // Columna J (Índice 9): Contraseña del cliente
                         const passJ = col[9] ? col[9].replace(/^"|"$/g, '').trim() : '';
                         if (passJ) resultado.pass = passJ;
 
-                        // Columna B (Índice 1): Casillero (Miami / China / Miami - China)
                         const casilleroFila = (col[1] || '').toLowerCase();
                         if (casilleroFila.includes('china')) resultado.existeChina = true;
                         if (casilleroFila.includes('miami')) resultado.existeMiami = true;
@@ -1412,7 +1409,6 @@
                 for (let i = 1; i < lineas.length; i++) {
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
-                    // Columna C (Índice 2) en "Registro de clientes"
                     const txt = col[2] ? col[2].replace(/^"|"$/g, '').trim() : '';
                     if (txt.includes("LDG-")) {
                         const num = parseInt(txt.replace("LDG-", "").replace(" ", "").trim(), 10);
@@ -1454,7 +1450,7 @@
             }
         }
 
-        // REGISTRO DE CLIENTE CON ENVÍO DIRECTO Y COMPATIBLE A GOOGLE SHEETS
+        // REGISTRO DE CLIENTE CON ENVÍO EN FORMATO GARANTIZADO COMPATIBLE
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1527,7 +1523,7 @@
                 });
             }
 
-            // ENVÍO EN FORMATO COMPATIBLE CON GOOGLE APPS SCRIPT
+            // ENVÍO ASÍNCRONO DIRECTO A GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
                 const payloadSheets = {
                     almacen: almacenReg,
@@ -1546,7 +1542,7 @@
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payloadSheets)
-                }).catch(e => console.error("Error al enviar a Sheets:", e));
+                }).catch(e => console.error("Error enviando datos:", e));
             }
 
             const paramsEmail = {

@@ -931,6 +931,41 @@
 
     <!-- SCRIPT PRINCIPAL -->
     <script>
+// =================================================================
+// CONTROL DE INSTALACIÓN PWA
+// =================================================================
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevenir el mensaje automático por defecto
+    e.preventDefault();
+    // Guardar el evento para dispararlo cuando el usuario presione el botón
+    deferredPromptPWA = e;
+    
+    // Mostrar el botón de instalación en pantalla
+    const btnInstall = document.getElementById('btnInstallApp');
+    if (btnInstall) {
+        btnInstall.style.display = 'inline-flex';
+    }
+});
+
+function instalarAppPWA() {
+    if (!deferredPromptPWA) {
+        alert("📲 Para instalar la app en tu teléfono:\n\n• En Android (Chrome): Toca el menú (⋮) de tres puntos arriba a la derecha y selecciona 'Agregar a la pantalla principal' o 'Instalar aplicación'.\n\n• En iPhone (Safari): Toca el botón Compartir (⎋) en la parte inferior y selecciona 'Agregar a inicio'.");
+        return;
+    }
+
+    // Mostrar el aviso de instalación nativo del sistema
+    deferredPromptPWA.prompt();
+
+    // Esperar la respuesta del usuario
+    deferredPromptPWA.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('El usuario aceptó instalar la PWA');
+        } else {
+            console.log('El usuario rechazó instalar la PWA');
+        }
+        deferredPromptPWA = null;
+    });
+}
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const SHEETS_REGISTRO_CLIENTES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?gid=444025548&single=true&output=csv";
         

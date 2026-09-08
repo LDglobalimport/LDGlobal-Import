@@ -271,7 +271,33 @@
             </div>
         </div>
     </section>
+<!-- SECCIÓN PAGO ASISTIDO Y COMPRAS -->
+<div style="max-width: 1100px; margin: 40px auto 0 auto;">
+  <h3 style="color: #003366; font-size: 1.6em; margin-bottom: 20px;">🛒 Pago Asistido y Gestión de Compras</h3>
+  <div class="extra-services-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+    
+    <div class="extra-service-card">
+      <h4>💳 1. Pago de Factura o Carrito</h4>
+      <p>Tú armas tu carrito de compras o negocias con tu proveedor. Nos envías el enlace o factura y nosotros realizamos el pago por ti.</p>
+      <p style="margin-top: 10px; font-weight: bold; color: #0d6efd;">Comisión: 5% sobre el total</p>
+    </div>
 
+    <div class="extra-service-card">
+      <h4>🛍️ 2. Gestión Completa de Compra</h4>
+      <p>Nos encargamos de todo: negociamos con proveedores en China/EE. UU. (Amazon, SHEIN, Temu, Alibaba) y realizamos la compra.</p>
+      <p style="margin-top: 10px; font-weight: bold; color: #198754;">Comisión: 15% sobre el total</p>
+    </div>
+
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://wa.me/584242474580?text=Hola,%20deseo%20solicitar%20la%20cotizaci%C3%B3n%20de%20un%20Pago%20Asistido" 
+       target="_blank" 
+       style="display: inline-block; background-color: #25D366; color: white; padding: 12px 25px; border-radius: 25px; font-weight: bold; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      💬 Cotizar Pago Asistido por WhatsApp
+    </a>
+  </div>
+</div>
     <!-- CALCULADORA DE ENVÍOS AUTOMÁTICA BCV -->
     <section id="calculadora" class="calculator-section">
         <div class="calculator-container">
@@ -362,7 +388,7 @@
                 <div id="calcAereo" class="calc-content">
                     
                     <div class="calc-header-tag" id="tagAereoInfo">
-                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00 / lb | China: $36.00 / kg</span>
+                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00 / lb | China: $65.00 / kg</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -690,8 +716,8 @@
                 </div>
                 <div class="office-col">
                     <h4>🇨🇳 CHINA (Agente Receptor)</h4>
-                    <p>• 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 (Contacto: Raby / Tel: +58 4242474580)</p>
-                    <p style="margin-top: 4px;">• 12-5# No.12 nanwei road, liwan district, guangzhou, China (Contacto: Miss Huang / Tel: +58 4242474580)</p>
+                    <p>•Leyun Foreign Trade Company, Unidad 6, Edificio 14, Zona 5 de Zongzhai, Subdistrito de Futian, Ciudad de Yiwu, Provincia de Zhejiang (Contacto: Raby / Tel: +58 4242474580)</p>
+                    <p style="margin-top: 4px;">• 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120  (Contacto: Miss Huang / Tel: +58 4242474580)</p>
                 </div>
                 <div class="office-col">
                     <h4>🇻🇪 CARACAS (Oficinas)</h4>
@@ -894,14 +920,14 @@
                     <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: +58 4242474580</p>
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblNombreChinaUserA">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
-
-                <div class="warehouse-card" id="cardDirChinaMaritimo" style="display: none;">
-                    <div class="card-title-flex">
-                        <h4>🚢 CHINA (MARÍTIMO)</h4>
-                        <button type="button" onclick="copiarTexto('12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang Tel: +58 4242474580 / Ref: SMA03776 LENNIS GONZALEZ / ' + (usuarioSesionActual.nombre || '') + ' - ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
-                    </div>
-                    <p><strong>Dirección:</strong> 12-5# No.12 nanwei road, liwan district, guangzhou, China contact: Miss Huang Tel: +58 4242474580</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblNombreChinaUserM">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
+<div class="warehouse-card" id="cardDirChinaMaritimo" style="display: none;">
+    <div class="card-title-flex">
+        <h4>🇨🇳 CHINA (MARÍTIMO)</h4>
+        <button type="button" onclick="copiarTexto('浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985 / Ref: AF10-51-' + ((usuarioSesionActual.codigo || '').replace(/\D/g, '') || '1') + ' / ' + (usuarioSesionActual.nombre || '') + ' / ' + (usuarioSesionActual.codigo || ''))">📋 Copiar Dirección</button>
+    </div>
+    <p><strong>Dirección:</strong> 浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985</p>
+    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">AF10-51-<span class="lblNumCliente">1</span> / <span class="lblNombreChinaUserM">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
+</div>      
                 </div>
             </div>
 
@@ -1685,37 +1711,41 @@ const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRr
             document.getElementById('userNombre').innerText = clienteNom;
             document.getElementById('userCodigoCliente').innerText = clienteCod;
             
-            const lblCasillero = document.getElementById('userCasillero');
-            if (almacenElegido === 'China') {
-                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteCod} - ${clienteNom}`;
-            } else {
-                lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
-            }
+        // --- REEMPLAZAR DESDE LÍNEA 1687 HASTA LÍNEA 1717 ---
 
-            document.getElementById('lblNombreMiamiUser').innerText = clienteNom;
-            document.querySelectorAll('.lblNombreChinaUserA, .lblNombreChinaUserM').forEach(el => el.innerText = clienteNom);
-            document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = clienteCod);
-            
-            document.getElementById('selectVerAlmacenVista').value = almacenElegido;
+    const lblCasillero = document.getElementById('userCasillero');
+    if (almacenElegido === 'China') {
+        const numCliente = (baseUser.codigo || '').replace(/\D/g, '') || '1';
+        lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
+    } else {
+        lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+    }
 
-            actualizarVisibilidadDireccionesYTabla(almacenElegido);
-            abrirModal('modalCasillero');
-            cargarMercanciaPorCorreo(baseUser.email);
-        }
+    document.getElementById('lblNombreMiamiUser').innerText = clienteNom;
+    document.querySelectorAll('.lblNombreChinaUserA, .lblNombreChinaUserM').forEach(el => el.innerText = clienteNom);
+    document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = clienteCod);
 
-        function cambiarVistaAlmacenCliente(nuevoAlmacen) {
-            usuarioSesionActual.almacenVista = nuevoAlmacen;
-            
-            const lblCasillero = document.getElementById('userCasillero');
-            const clienteNom = usuarioSesionActual.nombre || 'Cliente';
-            const clienteCod = usuarioSesionActual.codigo || 'LDG-CLIENTE';
+    document.getElementById('selectVerAlmacenVista').value = almacenElegido;
 
-            if (nuevoAlmacen === 'China') {
-                lblCasillero.innerText = `SMA03776 LENNIS GONZALEZ / ${clienteCod} - ${clienteNom}`;
-            } else {
-                lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
-            }
+    actualizarVisibilidadDireccionesYTabla(almacenElegido);
+    abrirModal('modalCasillero');
+    cargarMercanciaPorCorreo(baseUser.email);
+}
 
+function cambiarVistaAlmacenCliente(nuevoAlmacen) {
+    usuariosSesionActual.almacenVista = nuevoAlmacen;
+
+    const lblCasillero = document.getElementById('userCasillero');
+    const clienteNom = usuariosSesionActual.nombre || 'Cliente';
+    const clienteCod = usuariosSesionActual.codigo || 'LDG-CLIENTE';
+
+    if (nuevoAlmacen === 'China') {
+        const numCliente = (usuariosSesionActual.codigo || '').replace(/\D/g, '') || '1';
+        lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
+    } else {
+        lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+    }
+          
             actualizarVisibilidadDireccionesYTabla(nuevoAlmacen);
             cargarMercanciaPorCorreo(usuarioSesionActual.email);
         }

@@ -912,22 +912,25 @@
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag"><span id="lblNombreMiamiUser">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
                 </div>
 
-                <div class="warehouse-card" id="cardDirChinaAereo" style="display: none;">
-                    <div class="card-title-flex">
-                        <h4>🇨🇳 CHINA (AÉREO)</h4>
-                        <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: +58 4242474580 / Ref: SMA03776 LENNIS GONZALEZ / ' + (usuarioSesionActual.nombre || '') + ' - ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
-                    </div>
-                    <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: +58 4242474580</p>
-                    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">SMA03776 LENNIS GONZALEZ / <span class="lblNombreChinaUserA">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
-                </div>
+          <!-- CHINA AÉREO -->
+<div class="warehouse-card" id="cardDirChinaAereo" style="display: none;">
+    <div class="card-title-flex">
+        <h4>🇨🇳 CHINA (AÉREO)</h4>
+        <button type="button" onclick="copiarTexto('24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: +58 4242474580 / Ref: AF10-51-' + ((usuariosSesionActual.codigo || '').replace(/\D/g, '') || '') + ' / ' + (usuariosSesionActual.nombre || '') + ' / ' + (usuariosSesionActual.codigo || ''))">📋 Copiar</button>
+    </div>
+    <p><strong>Dirección:</strong> 24# Xihaoer road, yuexiu area, guangzhou city, guangdong province. Post code: 510120 Contacto: Raby Tel: +58 4242474580</p>
+    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">AF10-51-<span class="lblNumClienteA"></span> / <span class="lblNombreChinaUserA">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
+</div>
+
+<!-- CHINA MARÍTIMO -->
 <div class="warehouse-card" id="cardDirChinaMaritimo" style="display: none;">
     <div class="card-title-flex">
         <h4>🇨🇳 CHINA (MARÍTIMO)</h4>
-        <button type="button" onclick="copiarTexto('浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985 / Ref: AF10-51-' + ((usuarioSesionActual.codigo || '').replace(/\D/g, '') || '1') + ' / ' + (usuarioSesionActual.nombre || '') + ' / ' + (usuarioSesionActual.codigo || ''))">📋 Copiar Dirección</button>
+        <button type="button" onclick="copiarTexto('浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985 / Ref: AF10-51-' + ((usuariosSesionActual.codigo || '').replace(/\D/g, '') || '') + ' / ' + (usuariosSesionActual.nombre || '') + ' / ' + (usuariosSesionActual.codigo || ''))">📋 Copiar Dirección</button>
     </div>
     <p><strong>Dirección:</strong> 浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985</p>
-    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">AF10-51-<span class="lblNumCliente">1</span> / <span class="lblNombreChinaUserM">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
-</div>      
+    <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag">AF10-51-<span class="lblNumClienteM"></span> / <span class="lblNombreChinaUserM">Nombre</span> - <span class="lblUserCodigo">LDG-0000</span></span></p>
+</div>
                 </div>
             </div>
 
@@ -1711,11 +1714,10 @@ const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRr
             document.getElementById('userNombre').innerText = clienteNom;
             document.getElementById('userCodigoCliente').innerText = clienteCod;
             
-        // --- REEMPLAZAR DESDE LÍNEA 1687 HASTA LÍNEA 1717 ---
+      const lblCasillero = document.getElementById('userCasillero');
+    const numCliente = (baseUser.codigo || '').replace(/\D/g, '') || '1';
 
-    const lblCasillero = document.getElementById('userCasillero');
     if (almacenElegido === 'China') {
-        const numCliente = (baseUser.codigo || '').replace(/\D/g, '') || '1';
         lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
     } else {
         lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
@@ -1724,6 +1726,7 @@ const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRr
     document.getElementById('lblNombreMiamiUser').innerText = clienteNom;
     document.querySelectorAll('.lblNombreChinaUserA, .lblNombreChinaUserM').forEach(el => el.innerText = clienteNom);
     document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = clienteCod);
+    document.querySelectorAll('.lblNumClienteA, .lblNumClienteM').forEach(el => el.innerText = numCliente);
 
     document.getElementById('selectVerAlmacenVista').value = almacenElegido;
 
@@ -1738,13 +1741,16 @@ function cambiarVistaAlmacenCliente(nuevoAlmacen) {
     const lblCasillero = document.getElementById('userCasillero');
     const clienteNom = usuariosSesionActual.nombre || 'Cliente';
     const clienteCod = usuariosSesionActual.codigo || 'LDG-CLIENTE';
+    const numClienteOnly = (clienteCod || '').replace(/\D/g, '') || '1';
 
     if (nuevoAlmacen === 'China') {
-        const numCliente = (usuariosSesionActual.codigo || '').replace(/\D/g, '') || '1';
-        lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
+        lblCasillero.innerText = `AF10-51-${numClienteOnly} / ${clienteNom} / ${clienteCod}`;
     } else {
         lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
     }
+
+    document.querySelectorAll('.lblNumClienteA, .lblNumClienteM').forEach(el => el.innerText = numClienteOnly);
+}
           
             actualizarVisibilidadDireccionesYTabla(nuevoAlmacen);
             cargarMercanciaPorCorreo(usuarioSesionActual.email);

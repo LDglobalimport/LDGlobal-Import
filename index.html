@@ -1701,22 +1701,21 @@ const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRr
             }
         }
 
-        // MOSTRAR FORMATO CORRECTO DE TITULAR Y CASILLERO EN PANTALLA
-        function confirmarAlmacenLogin(almacenElegido) {
-            cerrarModal('modalSeleccionAlmacenLogin');
-            
-            const baseUser = usuarioSesionActual;
-            baseUser.almacenVista = almacenElegido;
+      
+function confirmarAlmacenLogin(almacenElegido) {
+    cerrarModal('modalSeleccionAlmacenLogin');
 
-            const clienteNom = baseUser.nombre || 'Cliente';
-            const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
+    const baseUser = usuarioSesionActual;
+    baseUser.almacenVista = almacenElegido;
 
-            document.getElementById('userNombre').innerText = clienteNom;
-            document.getElementById('userCodigoCliente').innerText = clienteCod;
-            
-      const lblCasillero = document.getElementById('userCasillero');
-    const numCliente = (baseUser.codigo || '').replace(/\D/g, '') || '1';
+    const clienteNom = baseUser.nombre || 'Cliente';
+    const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
+    const numCliente = (clienteCod || '').replace(/\D/g, '') || '1';
 
+    document.getElementById('userNombre').innerText = clienteNom;
+    document.getElementById('userCodigoCliente').innerText = clienteCod;
+
+    const lblCasillero = document.getElementById('userCasillero');
     if (almacenElegido === 'China') {
         lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
     } else {
@@ -1736,26 +1735,24 @@ const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRr
 }
 
 function cambiarVistaAlmacenCliente(nuevoAlmacen) {
-    usuariosSesionActual.almacenVista = nuevoAlmacen;
+    usuarioSesionActual.almacenVista = nuevoAlmacen;
 
     const lblCasillero = document.getElementById('userCasillero');
-    const clienteNom = usuariosSesionActual.nombre || 'Cliente';
-    const clienteCod = usuariosSesionActual.codigo || 'LDG-CLIENTE';
-    const numClienteOnly = (clienteCod || '').replace(/\D/g, '') || '1';
+    const clienteNom = usuarioSesionActual.nombre || 'Cliente';
+    const clienteCod = usuarioSesionActual.codigo || 'LDG-CLIENTE';
+    const numCliente = (clienteCod || '').replace(/\D/g, '') || '1';
 
     if (nuevoAlmacen === 'China') {
-        lblCasillero.innerText = `AF10-51-${numClienteOnly} / ${clienteNom} / ${clienteCod}`;
+        lblCasillero.innerText = `AF10-51-${numCliente} / ${clienteNom} / ${clienteCod}`;
     } else {
         lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
     }
 
-    document.querySelectorAll('.lblNumClienteA, .lblNumClienteM').forEach(el => el.innerText = numClienteOnly);
-}
-          
-            actualizarVisibilidadDireccionesYTabla(nuevoAlmacen);
-            cargarMercanciaPorCorreo(usuarioSesionActual.email);
-        }
+    document.querySelectorAll('.lblNumClienteA, .lblNumClienteM').forEach(el => el.innerText = numCliente);
 
+    actualizarVisibilidadDireccionesYTabla(nuevoAlmacen);
+    cargarMercanciaPorCorreo(usuarioSesionActual.email);
+}
         function actualizarVisibilidadDireccionesYTabla(almacenVista) {
             const cardMiami = document.getElementById('cardDirMiami');
             const cardChinaAereo = document.getElementById('cardDirChinaAereo');

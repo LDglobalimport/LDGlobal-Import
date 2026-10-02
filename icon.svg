@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <g transform="translate(10, 10)">
+    <!-- Flecha naranja "D" -->
+    <path d="M 235 60 C 370 60, 470 120, 470 250 C 470 380, 360 450, 200 450 L 80 430 L 115 390 L 80 430 L 200 400 C 330 400, 410 340, 410 250 C 410 150, 330 110, 235 110 Z" fill="#FF5500"/>
+    <!-- Sombra/Doblez -->
+    <path d="M 235 60 L 265 130 L 235 130 Z" fill="#8B2500"/>
+    <!-- Letra L azul -->
+    <path d="M 175 60 L 250 60 L 180 320 L 290 320 L 290 370 L 125 370 Z" fill="#001F9F"/>
+    <!-- Marcador de mapa azul -->
+    <path d="M 60 300 C 40 300, 25 315, 25 335 C 25 365, 60 400, 60 400 C 60 400, 95 365, 95 335 C 95 315, 80 300, 60 300 Z M 60 345 C 52 345, 46 339, 46 331 C 46 323, 52 317, 60 317 C 68 317, 74 323, 74 331 C 74 339, 68 345, 60 345 Z" fill="#001F9F"/>
+  </g>
+</svg>

@@ -987,60 +987,55 @@
         </div>
     </div>
 
-    <!-- SCRIPT PRINCIPAL -->
+ <!-- SCRIPT PRINCIPAL -->
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const SHEETS_REGISTRO_CLIENTES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?gid=444025548&single=true&output=csv";
         
         // URL EXACTA DE TU IMPLEMENTACIÓN ACTIVA EN GOOGLE APPS SCRIPT
-       const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRrA3I_GPS5Ny-E5W_Nqj3VXX2tNBJyKbVsK7Wkfy8gC_Rw3w6MAtxLrm9CA/exec";
+        const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRrA3I_GPS5Ny-E5W_Nqj3VXX2tNBJyKbVsK7Wkfy8gC_Rw3w6MAtxLrm9CA/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
         let cacheCSVMercancia = null;
         let cacheCSVClientes = null;
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
-    // === INICIO CÓDIGO NUEVO PWA ===
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevenir que el navegador muestre su banner por defecto
-    e.preventDefault();
-    // Guardar el evento para dispararlo cuando el usuario presione el botón
-    deferredPromptPWA = e;
-    
-    // Opcional: Asegurarse de que el botón sea visible
-    const btnInstall = document.getElementById('btnInstallApp');
-    if (btnInstall) {
-        btnInstall.style.display = 'inline-flex';
-    }
-});
 
-//Función que se ejecuta al presionar el botón "📲 Instalar App"
-function instalarAppPWA() {
-    // Detectar si el usuario está en iOS (Safari)
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    if (isIOS) {
-        alert("📲 Para instalar en iOS/iPhone:\n1. Toca el botón de 'Compartir' (el icono del cuadrado con la flecha hacia arriba en Safari).\n2. Selecciona 'Agregar a la pantalla de inicio'.");
-        return;
-    }
-
-    if (deferredPromptPWA) {
-        // Mostrar el prompt nativo de instalación
-        deferredPromptPWA.prompt();
-        
-        // Esperar la respuesta del usuario
-        deferredPromptPWA.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('El usuario aceptó la instalación de la PWA');
-            } else {
-                console.log('El usuario rechazó la instalación de la PWA');
+        // --- CÓDIGO PWA ---
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPromptPWA = e;
+            
+            const btnInstall = document.getElementById('btnInstallApp');
+            if (btnInstall) {
+                btnInstall.style.display = 'inline-flex';
             }
-            deferredPromptPWA = null;
         });
-    } else {
-        alert("La aplicación ya está instalada o tu navegador no cumple con los requisitos de instalación de PWA en este momento.");
-    }
-}
+
+        function instalarAppPWA() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+            if (isIOS) {
+                alert("📲 Para instalar en iOS/iPhone:\n1. Toca el botón de 'Compartir' (el icono del cuadrado con la flecha hacia arriba en Safari).\n2. Selecciona 'Agregar a la pantalla de inicio'.");
+                return;
+            }
+
+            if (deferredPromptPWA) {
+                deferredPromptPWA.prompt();
+                deferredPromptPWA.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('El usuario aceptó la instalación de la PWA');
+                    } else {
+                        console.log('El usuario rechazó la instalación de la PWA');
+                    }
+                    deferredPromptPWA = null;
+                });
+            } else {
+                alert("La aplicación ya está instalada o tu navegador no cumple con los requisitos de instalación de PWA en este momento.");
+            }
+        }
+        // ------------------
+
         function actualizarPaisesSegunAlmacen() {
             const almacen = document.getElementById('almacenSeleccionado').value;
             const selectPais = document.getElementById('pais');
@@ -1083,7 +1078,7 @@ function instalarAppPWA() {
                 selectEstado.innerHTML = '<option value="" disabled selected>:: Seleccione Estado / Región * ::</option>';
             }
         }
-
+    </script>
         function toggleFaq(element) {
             const answer = element.nextElementSibling;
             const isVisible = answer.style.display === "block";

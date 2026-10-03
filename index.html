@@ -107,6 +107,11 @@
         .btn-select-warehouse { width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; border: 2px solid #0056b3; background: #ffffff; color: #0056b3; font-weight: bold; font-size: 1em; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-select-warehouse:hover { background: #0056b3; color: #ffffff; }
 
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .calc-content { display: none; }
+        .calc-content.active { display: block; }
+        .calc-tab.active { background-color: #0056b3; color: white; }
+
         @media (display-mode: standalone) {
             .hero-puerto, .about-section, .services, .calculator-section, #testimonios, #faq, .contact, footer { display: none !important; }
             body { background-color: #f4f7f6; }
@@ -156,8 +161,8 @@
 
     <!-- Modal Resultados Rastreo Público -->
     <div id="modalRastreoResultado" class="modal">
-        <div class="modal-content" style="max-width: 450px;">
-            <span class="close-btn" onclick="cerrarModal('modalRastreoResultado')">&times;</span>
+        <div class="modal-content" style="max-width: 450px; background: #fff; padding: 20px; border-radius: 8px; position: relative;">
+            <span class="close-btn" onclick="cerrarModal('modalRastreoResultado')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             <h3 style="color: #003366; margin-bottom: 15px;">🔎 Estado de tu Carga</h3>
             <div id="publicTrackerResult" style="text-align: left; font-size: 0.9em;"></div>
             <button type="button" onclick="cerrarModal('modalRastreoResultado')" class="btn-primary" style="margin-top: 15px; width: 100%;">Cerrar</button>
@@ -391,7 +396,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO MARÍTIMO</button>
+                    <button type="button" class="btn-calc-submit" onclick="calcularMaritimo()" style="width: 100%; font-size: 1em; padding: 12px; background: #0056b3; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">CALCULAR ENVÍO MARÍTIMO</button>
 
                     <div class="calc-results-import2ven">
                         <div class="calc-res-row">
@@ -419,7 +424,7 @@
                 <!-- CALCULADORA AÉREA -->
                 <div id="calcAereo" class="calc-content">
                     <div class="calc-header-tag" id="tagAereoInfo">
-                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $7.00 / lb | China: $60.00 / kg</span>
+                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00 / lb | China: $36.00 / kg</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -462,7 +467,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1em; padding: 12px;">CALCULAR ENVÍO AÉREO</button>
+                    <button type="button" class="btn-calc-submit" onclick="calcularAereo()" style="width: 100%; font-size: 1em; padding: 12px; background: #0056b3; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">CALCULAR ENVÍO AÉREO</button>
 
                     <div id="boxAvisoPrepagoChina" style="display: none; background: #ffe3e3; border: 1px solid #f5c6cb; color: #721c24; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: bold; font-size: 0.9em;">
                         ✈️ IMPORTANTE: Este envío AÉREO debe ser PREPAGADO para que salga de China. El pago se realiza antes de que la mercancía sea despachada.
@@ -647,7 +652,7 @@
             </div>
 
             <div style="margin-top: 35px;">
-                <a href="https://wa.me/584242474580?text=Hola,%20quisiera%20dejar%20mi%20testimonio%20sobre%20mi%20env%C3%ADo." target="_blank" class="btn-primary" style="background-color: #25d366; border: none; padding: 12px 25px;">💬 ¿Eres cliente? Déjanos tu opinión por WhatsApp</a>
+                <a href="https://wa.me/584242474580?text=Hola,%20quisiera%20dejar%20mi%20testimonio%20sobre%20mi%20env%C3%ADo." target="_blank" class="btn-primary" style="background-color: #25d366; border: none; padding: 12px 25px; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">💬 ¿Eres cliente? Déjanos tu opinión por WhatsApp</a>
             </div>
         </div>
     </section>
@@ -667,8 +672,8 @@
                 </div>
                 <div class="faq-answer">
                     <ul>
-                        <li><strong>Aéreo Miami - Venezuela:</strong> 3 a 7 días hábiles.</li>
-                        <li><strong>Aéreo China - Venezuela:</strong> 15 a 20días hábiles.</li>
+                        <li><strong>Aéreo Miami - Venezuela:</strong> 5 a 7 días hábiles.</li>
+                        <li><strong>Aéreo China - Venezuela:</strong> 30 a 45 días hábiles.</li>
                         <li><strong>Marítimo Miami - Venezuela:</strong> 2 a 3 semanas.</li>
                         <li><strong>Marítimo China - Venezuela:</strong> 60 a 70 días continuos.</li>
                     </ul>
@@ -771,8 +776,8 @@
 
     <!-- MODALES -->
     <div id="modalRegister" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close-btn" onclick="cerrarModal('modalRegister')">&times;</span>
+        <div class="modal-content modal-large" style="background: #fff; padding: 25px; border-radius: 8px; position: relative; max-width: 600px; width: 90%;">
+            <span class="close-btn" onclick="cerrarModal('modalRegister')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             <h2>Formulario de Registro - Crea tu Casillero</h2>
             
             <form id="registerForm" onsubmit="event.preventDefault(); procesarRegistro();">
@@ -793,13 +798,13 @@
                     </select>
                 </div>
 
-                <div class="form-grid">
+                <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <input type="text" id="identificacion" placeholder="Cédula / Pasaporte / ID*" required>
                     <input type="text" id="nombre" placeholder="Nombres*" required>
                     <input type="text" id="apellido" placeholder="Apellidos*" required>
                     <input type="email" id="email" placeholder="Email*" required>
                     <input type="email" id="confirmEmail" placeholder="Confirmar Email*" required>
-                    <input type="password" id="password" placeholder="Password (mín. 6 caract: letras, núm, especial)*" required>
+                    <input type="password" id="password" placeholder="Password (mín. 6 caract)*" required>
                     <input type="password" id="confirmPassword" placeholder="Confirmar Password*" required>
 
                     <select id="pais" onchange="actualizarCiudades()" required></select>
@@ -822,13 +827,13 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn-primary btn-block">Registrarse y Crear Casillero</button>
+                <button type="submit" class="btn-primary btn-block" style="width: 100%; padding: 10px; background: #0056b3; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Registrarse y Crear Casillero</button>
             </form>
         </div>
     </div>
 
     <div id="modalSeleccionAlmacenLogin" class="modal">
-        <div class="modal-content" style="max-width: 420px; text-align: center;">
+        <div class="modal-content" style="max-width: 420px; text-align: center; background: #fff; padding: 25px; border-radius: 8px;">
             <h3 style="color: #003366; margin-bottom: 10px;">📦 Selecciona tu Casillero</h3>
             <p style="font-size: 0.9em; color: #555; margin-bottom: 20px;">Tu cuenta posee casilleros registrados en varios almacenes. ¿A cuál deseas ingresar?</p>
             
@@ -840,8 +845,8 @@
     </div>
 
     <div id="modalTerminos" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close-btn" onclick="cerrarModal('modalTerminos')">&times;</span>
+        <div class="modal-content modal-large" style="background: #fff; padding: 25px; border-radius: 8px; position: relative; max-width: 700px; width: 90%;">
+            <span class="close-btn" onclick="cerrarModal('modalTerminos')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             <h2>Términos y Condiciones del Servicio - LD Global Import & Logistics</h2>
             
             <div class="terms-text-container" style="max-height: 420px; overflow-y: auto; text-align: left; padding: 20px; font-size: 0.9em; line-height: 1.6; border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 6px;">
@@ -864,41 +869,41 @@
                 <p>Los fletes se calcularán con base en las tarifas vigentes por peso real o volumétrico según corresponda a cada ruta.</p>
             </div>
             
-            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px;">Entendido y Acepto</button>
+            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalTerminos')" style="margin-top: 15px; width: 100%;">Entendido y Acepto</button>
         </div>
     </div>
 
     <div id="modalPrivacidad" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close-btn" onclick="cerrarModal('modalPrivacidad')">&times;</span>
+        <div class="modal-content modal-large" style="background: #fff; padding: 25px; border-radius: 8px; position: relative;">
+            <span class="close-btn" onclick="cerrarModal('modalPrivacidad')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             <h2>Política de Privacidad y Protección de Datos</h2>
             <div style="max-height: 380px; overflow-y: auto; text-align: left; padding: 15px; font-size: 0.9em; line-height: 1.5; background: #f9f9f9; border: 1px solid #ddd;">
                 <p>En LDGlobal Import & Logistics valoramos y respetamos la privacidad de nuestros clientes.</p>
             </div>
-            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalPrivacidad')" style="margin-top: 15px;">Cerrar</button>
+            <button type="button" class="btn-primary btn-block" onclick="cerrarModal('modalPrivacidad')" style="margin-top: 15px; width: 100%;">Cerrar</button>
         </div>
     </div>
 
     <div id="modalLogin" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="cerrarModal('modalLogin')">&times;</span>
+        <div class="modal-content" style="background: #fff; padding: 25px; border-radius: 8px; position: relative; max-width: 400px; width: 90%;">
+            <span class="close-btn" onclick="cerrarModal('modalLogin')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             <h2>Inicio de Sesión</h2>
             <form onsubmit="event.preventDefault(); procesarLogin();">
-                <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input">
-                <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input">
-                <div class="forgot-pass-container">
-                    <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link">¿Olvidaste tu contraseña? Restablecer contraseña</a>
+                <input type="email" id="loginEmail" placeholder="Correo Electrónico" required class="full-input" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                <input type="password" id="loginPass" placeholder="Contraseña" required class="full-input" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                <div class="forgot-pass-container" style="margin-bottom: 15px;">
+                    <a href="#" onclick="procesarOlvidoPass(); return false;" class="forgot-pass-link" style="font-size: 0.85em; color: #0056b3;">¿Olvidaste tu contraseña? Restablecer contraseña</a>
                 </div>
-                <button type="submit" class="btn-primary btn-block" id="btnLoginSubmit">Ingresar</button>
+                <button type="submit" class="btn-primary btn-block" id="btnLoginSubmit" style="width: 100%; padding: 10px; background: #0056b3; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Ingresar</button>
             </form>
         </div>
     </div>
 
     <div id="modalCasillero" class="modal">
-        <div class="modal-content modal-extra-large">
-            <span class="close-btn" onclick="cerrarModal('modalCasillero')">&times;</span>
+        <div class="modal-content modal-extra-large" style="background: #fff; padding: 25px; border-radius: 8px; position: relative; max-width: 95%; width: 1100px;">
+            <span class="close-btn" onclick="cerrarModal('modalCasillero')" style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 1.5em;">&times;</span>
             
-            <div class="dashboard-header-flex">
+            <div class="dashboard-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <div>
                     <h2>📄 Ingresos en Almacén</h2>
                     <div class="user-badge-info">
@@ -911,7 +916,7 @@
                     <div id="btnFacturaContainer" style="display: none;">
                         <a id="btnVerFactura" href="#" target="_blank" class="btn-factura">📄 Ver Factura</a>
                     </div>
-                    <button type="button" onclick="cerrarSesion();" class="btn-logout">🚪 Cerrar Sesión</button>
+                    <button type="button" onclick="cerrarSesion();" class="btn-logout" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">🚪 Cerrar Sesión</button>
                 </div>
             </div>
 
@@ -971,10 +976,10 @@
                 </div>
             </div>
 
-            <div class="table-responsive-container">
-                <table class="ingresos-table" id="tablaCasilleroMain">
+            <div class="table-responsive-container" style="overflow-x: auto;">
+                <table class="ingresos-table" id="tablaCasilleroMain" style="width: 100%; border-collapse: collapse;">
                     <thead>
-                        <tr>
+                        <tr style="background: #f1f5f9;">
                             <th>Recibo</th>
                             <th>Fecha</th>
                             <th>Estado</th>
@@ -999,8 +1004,6 @@
     <script>
         const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?output=csv";
         const SHEETS_REGISTRO_CLIENTES_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQT2WnU7wXuYFYUkUW67bRCkIyAVZ4HhRUvnXStfwwrDJprGIn8-ibI08wPtjxjfZlwOp2w1YWMNJvH/pub?gid=444025548&single=true&output=csv";
-        
-        // URL EXACTA DE TU IMPLEMENTACIÓN ACTIVA EN GOOGLE APPS SCRIPT
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRrA3I_GPS5Ny-E5W_Nqj3VXX2tNBJyKbVsK7Wkfy8gC_Rw3w6MAtxLrm9CA/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
@@ -1009,7 +1012,6 @@
         let deferredPromptPWA = null;
         let cuentasEncontradasLogin = [];
 
-        // EVENTOS PARA INSTALACIÓN PWA
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPromptPWA = e;
@@ -1031,7 +1033,6 @@
             }
         }
 
-        // BÚSQUEDA PÚBLICA DE TRACKING EN COLUMNA K (ÍNDICE 10) Y MUESTRA COLUMNA D (ÍNDICE 3)
         async function rastrearPublico() {
             const trackingBuscado = document.getElementById('publicTrackingInput').value.trim().toLowerCase();
             const divResultado = document.getElementById('publicTrackerResult');
@@ -1055,12 +1056,10 @@
                     if (!lineas[i].trim()) continue;
                     const col = parsearLineaCSV(lineas[i]);
                     
-                    // Columna K es índice 10 (Seguimientos)
                     const seguimientoFila = col[10] ? col[10].replace(/^"|"$/g, '').toLowerCase().trim() : '';
 
                     if (seguimientoFila.includes(trackingBuscado)) {
                         encontrado = true;
-                        // Columna D es índice 3 (Transporte / Estado)
                         const estatusD = col[3] ? col[3].replace(/^"|"$/g, '').trim() : 'En proceso';
                         const reciboA = col[1] ? col[1].replace(/^"|"$/g, '').trim() : 'N/A';
                         const fechaB = col[2] ? col[2].replace(/^"|"$/g, '').trim() : 'N/A';
@@ -1098,6 +1097,7 @@
         function actualizarPaisesSegunAlmacen() {
             const almacen = document.getElementById('almacenSeleccionado').value;
             const selectPais = document.getElementById('pais');
+            if(!selectPais) return;
             selectPais.innerHTML = '';
 
             if (almacen === 'China') {
@@ -1126,8 +1126,11 @@
         }
 
         function actualizarCiudades() {
-            const pais = document.getElementById('pais').value;
+            const selectPais = document.getElementById('pais');
+            if(!selectPais) return;
+            const pais = selectPais.value;
             const selectEstado = document.getElementById('estado');
+            if(!selectEstado) return;
             selectEstado.innerHTML = '';
 
             if (pais === 'Venezuela') {
@@ -1199,6 +1202,7 @@
             { destino: "Barquisimeto", cbmUSD: 890.00 },
             { destino: "Yaracuy", cbmUSD: 820.00}
             { destino: "Otros Estados", cbmUSD: 1020.00}
+      
         ];
 
         async function obtenerTasaBCVEuroAutomatica() {
@@ -1210,7 +1214,7 @@
                 const data = await res.json();
                 if (data && data.current && data.current.eur) {
                     const tasaEuro = parseFloat(data.current.eur);
-                    inputTasa.value = tasaEuro.toFixed(2);
+                    if(inputTasa) inputTasa.value = tasaEuro.toFixed(2);
                     if (lblStatus) {
                         lblStatus.innerText = " (Obtenida en tiempo real del BCV)";
                         lblStatus.style.color = "#28a745";
@@ -1225,7 +1229,7 @@
                 const dataAlt = await resAlt.json();
                 if (dataAlt && dataAlt.promedio) {
                     const tasaEuroCalculada = parseFloat(dataAlt.promedio) * 1.1606;
-                    inputTasa.value = tasaEuroCalculada.toFixed(2);
+                    if(inputTasa) inputTasa.value = tasaEuroCalculada.toFixed(2);
                     if (lblStatus) {
                         lblStatus.innerText = " (Sincronizada con BCV Oficial)";
                         lblStatus.style.color = "#28a745";
@@ -1283,21 +1287,24 @@
         }
 
         function actualizarTarifasMaritimas() {
-            const origen = document.getElementById('marOrigen').value;
+            const marOrigenEl = document.getElementById('marOrigen');
+            if(!marOrigenEl) return;
+            const origen = marOrigenEl.value;
             const select = document.getElementById('marDestinoTarifa');
             const lblMin = document.getElementById('lblMinMaritimo');
             const lblLargo = document.getElementById('lblMarLargo');
             const lblAncho = document.getElementById('lblMarAncho');
             const lblAlto = document.getElementById('lblMarAlto');
             const lblVolNombre = document.getElementById('lblMarVolNombre');
+            if(!select) return;
             select.innerHTML = '';
 
             if (origen === 'miami') {
-                lblMin.innerHTML = "Miami: Carga Mínima 12x12x12 pulgadas ($47.00 USD)";
-                lblLargo.innerText = "Largo (pulgadas) *";
-                lblAncho.innerText = "Ancho (pulgadas) *";
-                lblAlto.innerText = "Alto (pulgadas) *";
-                lblVolNombre.innerText = "Volumen en Pies Cúbicos (ft³):";
+                if(lblMin) lblMin.innerHTML = "Miami: Carga Mínima 12x12x12 pulgadas ($47.00 USD)";
+                if(lblLargo) lblLargo.innerText = "Largo (pulgadas) *";
+                if(lblAncho) lblAncho.innerText = "Ancho (pulgadas) *";
+                if(lblAlto) lblAlto.innerText = "Alto (pulgadas) *";
+                if(lblVolNombre) lblVolNombre.innerText = "Volumen en Pies Cúbicos (ft³):";
 
                 TARIFAS_MIAMI_MAR.forEach(item => {
                     const opt = document.createElement('option');
@@ -1306,11 +1313,11 @@
                     select.appendChild(opt);
                 });
             } else {
-                lblMin.innerHTML = "China: Envío mínimo 0.20 CBM ($220.00 USD)";
-                lblLargo.innerText = "Largo (cm) *";
-                lblAncho.innerText = "Ancho (cm) *";
-                lblAlto.innerText = "Alto (cm) *";
-                lblVolNombre.innerText = "Volumen en Metros Cúbicos (CBM):";
+                if(lblMin) lblMin.innerHTML = "China: Envío mínimo 0.20 CBM ($220.00 USD)";
+                if(lblLargo) lblLargo.innerText = "Largo (cm) *";
+                if(lblAncho) lblAncho.innerText = "Ancho (cm) *";
+                if(lblAlto) lblAlto.innerText = "Alto (cm) *";
+                if(lblVolNombre) lblVolNombre.innerText = "Volumen en Metros Cúbicos (CBM):";
 
                 TARIFAS_CHINA_MAR.forEach(item => {
                     const opt = document.createElement('option');
@@ -1323,7 +1330,9 @@
         }
 
         function cambiarOrigenAereo() {
-            const origen = document.getElementById('aerOrigen').value;
+            const aerOrigenEl = document.getElementById('aerOrigen');
+            if(!aerOrigenEl) return;
+            const origen = aerOrigenEl.value;
             const lblPeso = document.getElementById('lblAerPesoInput');
             const lblLargo = document.getElementById('lblAerLargo');
             const lblAncho = document.getElementById('lblAerAncho');
@@ -1333,21 +1342,21 @@
             const rowNotaChina = document.getElementById('rowNotaImpuestoChina');
 
             if (origen === 'miami') {
-                lblPeso.innerText = "Peso Real en Libras (lbs) *";
-                lblLargo.innerText = "Largo (pulgadas) *";
-                lblAncho.innerText = "Ancho (pulgadas) *";
-                lblAlto.innerText = "Alto (pulgadas) *";
-                lblMin.innerText = "Miami: $7.00 por libra (Mínimo $35 USD | Volumétrico L×A×A/166)";
-                avisoPrepago.style.display = "none";
-                rowNotaChina.style.display = "none";
+                if(lblPeso) lblPeso.innerText = "Peso Real en Libras (lbs) *";
+                if(lblLargo) lblLargo.innerText = "Largo (pulgadas) *";
+                if(lblAncho) lblAncho.innerText = "Ancho (pulgadas) *";
+                if(lblAlto) lblAlto.innerText = "Alto (pulgadas) *";
+                if(lblMin) lblMin.innerText = "Miami: $7.00 por libra (Mínimo $35 USD | Volumétrico L×A×A/166)";
+                if(avisoPrepago) avisoPrepago.style.display = "none";
+                if(rowNotaChina) rowNotaChina.style.display = "none";
             } else {
-                lblPeso.innerText = "Peso Real en Kilogramos (kg) *";
-                lblLargo.innerText = "Largo (cm) *";
-                lblAncho.innerText = "Ancho (cm) *";
-                lblAlto.innerText = "Alto (cm) *";
-                lblMin.innerText = "China: $60.00 por kilogramo (Volumétrico L×A×A/5000)";
-                avisoPrepago.style.display = "block";
-                rowNotaChina.style.display = "flex";
+                if(lblPeso) lblPeso.innerText = "Peso Real en Kilogramos (kg) *";
+                if(lblLargo) lblLargo.innerText = "Largo (cm) *";
+                if(lblAncho) lblAncho.innerText = "Ancho (cm) *";
+                if(lblAlto) lblAlto.innerText = "Alto (cm) *";
+                if(lblMin) lblMin.innerText = "China: $60.00 por kilogramo (Volumétrico L×A×A/5000)";
+                if(avisoPrepago) avisoPrepago.style.display = "block";
+                if(rowNotaChina) rowNotaChina.style.display = "flex";
             }
             calcularAereo();
         }
@@ -1358,7 +1367,9 @@
         }
 
         function calcularMaritimo() {
-            const origen = document.getElementById('marOrigen').value;
+            const marOrigenEl = document.getElementById('marOrigen');
+            if(!marOrigenEl) return;
+            const origen = marOrigenEl.value;
             const largo = parseFloat(document.getElementById('marLargo').value) || 0;
             const ancho = parseFloat(document.getElementById('marAncho').value) || 0;
             const alto = parseFloat(document.getElementById('marAlto').value) || 0;
@@ -1407,7 +1418,9 @@
         }
 
         function calcularAereo() {
-            const origen = document.getElementById('aerOrigen').value;
+            const aerOrigenEl = document.getElementById('aerOrigen');
+            if(!aerOrigenEl) return;
+            const origen = aerOrigenEl.value;
             const peso = parseFloat(document.getElementById('aerPeso').value) || 0;
             const largo = parseFloat(document.getElementById('aerLargo').value) || 0;
             const ancho = parseFloat(document.getElementById('aerAncho').value) || 0;
@@ -1449,7 +1462,7 @@
                 pesoCobrar = Math.max(peso, pesoVol);
                 unidadStr = " kg";
 
-                fleteUSD = pesoCobrar * 36.00;
+                fleteUSD = pesoCobrar * 60.00;
                 costoCajaUSD = fleteUSD / cajas;
             }
 
@@ -1516,7 +1529,6 @@
             return resultado;
         }
 
-        // BÚSQUEDA Y VALIDACIÓN DE CLIENTES EN LA SEGUNDA PESTAÑA: "Registro de clientes"
         async function consultarClienteEnSheets(emailCliente) {
             let resultado = { existeMiami: false, existeChina: false, existePanama: false, codigoExistente: null, expedidor: null, encontrado: false, pass: null };
             const emailLimpio = (emailCliente || '').toLowerCase().trim();
@@ -1556,7 +1568,6 @@
             return resultado;
         }
 
-        // GENERACIÓN AUTOMÁTICA Y SECUENCIAL DE CÓDIGO LDG-XXXX LEYENDO DE LA HOJA
         async function generarCodigoClienteUnico() {
             let ultimoNumero = 8830;
             try {
@@ -1609,7 +1620,6 @@
             }
         }
 
-        // REGISTRO DE CLIENTE CON VALIDACIÓN DE CONTRASEÑA Y ALMACENES
         async function procesarRegistro() {
             const identificacion = document.getElementById('identificacion').value.trim();
             const nombreVal = document.getElementById('nombre').value.trim();
@@ -1636,7 +1646,6 @@
                 return;
             }
 
-            // Validar requerimiento exacto de contraseña: mínimo 6 caracteres, letras, números y carácter especial
             const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#._\-\+\=])[A-Za-z\d@$!%*?&#._\-\+\=]{6,}$/;
             if (!regexPassword.test(pass)) {
                 alert("⚠️ La contraseña debe tener como mínimo 6 caracteres e incluir combinación de letras, números y al menos un carácter especial (ej. @ $ ! % * ? & # . _ -).");
@@ -1664,7 +1673,8 @@
             }
 
             const nombreCompleto = nombreVal + " " + apellidoVal;
-            const tipoRegistro = document.querySelector('input[name="tipoRegistro"]:checked').value;
+            const tipoRegistroOpt = document.querySelector('input[name="tipoRegistro"]:checked');
+            const tipoRegistro = tipoRegistroOpt ? tipoRegistroOpt.value : 'Persona';
             const codigoCliente = estadoRegistro.codigoExistente ? estadoRegistro.codigoExistente : await generarCodigoClienteUnico();
 
             const nuevoUsuario = { 
@@ -1693,7 +1703,6 @@
                 });
             }
 
-            // ENVÍO ASÍNCRONO DIRECTO A GOOGLE SHEETS
             if (WEB_APP_SHEETS_URL) {
                 const payloadSheets = {
                     almacen: almacenReg,
@@ -1730,7 +1739,7 @@
                 contrasena: pass,
                 password: pass,
                 almacen_registro: almacenReg,
-                casillero_completo: `Almacén ${almacenReg} - AF10-51 ${codigoCliente} - ${nombreCompleto}`,
+                casillero_completo: `Almacén ${almacenReg} - SMA03776 LENNIS GONZALEZ / ${codigoCliente} - ${nombreCompleto}`,
                 subject: `Nuevo Casillero [${almacenReg}] - ${codigoCliente}`
             };
 
@@ -1742,7 +1751,6 @@
             confirmarAlmacenLogin(almacenReg);
         }
 
-        // PROCESAR LOGIN BUSCANDO EN LOCAL O EN HOJA REMOTA
         async function procesarLogin() {
             const emailIngresado = document.getElementById('loginEmail').value.toLowerCase().trim();
             const passIngresado = document.getElementById('loginPass').value.trim();
@@ -1808,11 +1816,10 @@
                 cerrarModal('modalLogin');
                 confirmarAlmacenLogin(usuario.almacen || 'Miami');
             } else {
-                alert("⚠️ Correo no encontrado. Por favor crea tu casillero para comenzar.");
+                alert("⚠️️ Correo no encontrado. Por favor crea tu casillero para comenzar.");
             }
         }
 
-        // MOSTRAR FORMATO CORRECTO DE TITULAR Y CASILLERO EN PANTALLA
         function confirmarAlmacenLogin(almacenElegido) {
             cerrarModal('modalSeleccionAlmacenLogin');
             
@@ -1822,18 +1829,23 @@
             const clienteNom = baseUser.nombre || 'Cliente';
             const clienteCod = baseUser.codigo || 'LDG-CLIENTE';
 
-            document.getElementById('userNombre').innerText = clienteNom;
-            document.getElementById('userCodigoCliente').innerText = clienteCod;
+            const userNombreEl = document.getElementById('userNombre');
+            const userCodigoEl = document.getElementById('userCodigoCliente');
+            if(userNombreEl) userNombreEl.innerText = clienteNom;
+            if(userCodigoEl) userCodigoEl.innerText = clienteCod;
             
             const lblCasillero = document.getElementById('userCasillero');
-            if (almacenElegido === 'China') {
-                const numCorrelativo = baseUser.idChina || clienteCod.replace(/\D/g, '') || '1';
-                lblCasillero.innerText = `AF10-51-${numCorrelativo} / ${clienteCod} - ${clienteNom}`;
-            } else {
-                lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+            if(lblCasillero) {
+                if (almacenElegido === 'China') {
+                    const numCorrelativo = baseUser.idChina || clienteCod.replace(/\D/g, '') || '1';
+                    lblCasillero.innerText = `AF10-51-${numCorrelativo} / ${clienteCod} - ${clienteNom}`;
+                } else {
+                    lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+                }
             }
 
-            document.getElementById('lblNombreMiamiUser').innerText = clienteNom;
+            const elMiami = document.getElementById('lblNombreMiamiUser');
+            if(elMiami) elMiami.innerText = clienteNom;
             const elPanama = document.getElementById('lblNombrePanamaUser');
             if (elPanama) elPanama.innerText = clienteNom;
             document.querySelectorAll('.lblNombreChinaUserA, .lblNombreChinaUserM').forEach(el => el.innerText = clienteNom);
@@ -1844,7 +1856,8 @@
             
             document.querySelectorAll('.lblUserCodigo').forEach(el => el.innerText = clienteCod);
             
-            document.getElementById('selectVerAlmacenVista').value = almacenElegido;
+            const selVista = document.getElementById('selectVerAlmacenVista');
+            if(selVista) selVista.value = almacenElegido;
 
             actualizarVisibilidadDireccionesYTabla(almacenElegido);
             abrirModal('modalCasillero');
@@ -1858,11 +1871,13 @@
             const clienteNom = usuarioSesionActual.nombre || 'Cliente';
             const clienteCod = usuarioSesionActual.codigo || 'LDG-CLIENTE';
 
-            if (nuevoAlmacen === 'China') {
-                const numCorrelativo = usuarioSesionActual.idChina || clienteCod.replace(/\D/g, '') || '1';
-                lblCasillero.innerText = `AF10-51-${numCorrelativo} / ${clienteCod} - ${clienteNom}`;
-            } else {
-                lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+            if(lblCasillero) {
+                if (nuevoAlmacen === 'China') {
+                    const numCorrelativo = usuarioSesionActual.idChina || clienteCod.replace(/\D/g, '') || '1';
+                    lblCasillero.innerText = `AF10-51-${numCorrelativo} / ${clienteCod} - ${clienteNom}`;
+                } else {
+                    lblCasillero.innerText = `${clienteNom} - ${clienteCod}`;
+                }
             }
 
             actualizarVisibilidadDireccionesYTabla(nuevoAlmacen);
@@ -1875,22 +1890,22 @@
             const cardChinaMar = document.getElementById('cardDirChinaMaritimo');
             const cardPanama = document.getElementById('cardDirPanama');
 
-            cardMiami.style.display = 'none';
-            cardChinaAereo.style.display = 'none';
-            cardChinaMar.style.display = 'none';
+            if(cardMiami) cardMiami.style.display = 'none';
+            if(cardChinaAereo) cardChinaAereo.style.display = 'none';
+            if(cardChinaMar) cardChinaMar.style.display = 'none';
             if (cardPanama) cardPanama.style.display = 'none';
 
             if (almacenVista === 'Miami') {
-                cardMiami.style.display = 'block';
+                if(cardMiami) cardMiami.style.display = 'block';
             } else if (almacenVista === 'China') {
-                cardChinaAereo.style.display = 'block';
-                cardChinaMar.style.display = 'block';
+                if(cardChinaAereo) cardChinaAereo.style.display = 'block';
+                if(cardChinaMar) cardChinaMar.style.display = 'block';
             } else if (almacenVista === 'Panama') {
                 if (cardPanama) cardPanama.style.display = 'block';
             } else {
-                cardMiami.style.display = 'block';
-                cardChinaAereo.style.display = 'block';
-                cardChinaMar.style.display = 'block';
+                if(cardMiami) cardMiami.style.display = 'block';
+                if(cardChinaAereo) cardChinaAereo.style.display = 'block';
+                if(cardChinaMar) cardChinaMar.style.display = 'block';
                 if (cardPanama) cardPanama.style.display = 'block';
             }
         }
@@ -1901,9 +1916,9 @@
             if (!selectModo || !btn) return;
 
             const modoElegido = selectModo.value;
-            const clienteNombre = usuarioSesionActual.nombre || document.getElementById('userNombre').innerText || 'Cliente LDGlobal';
+            const clienteNombre = usuarioSesionActual.nombre || (document.getElementById('userNombre') ? document.getElementById('userNombre').innerText : 'Cliente LDGlobal');
             const clienteEmail = usuarioSesionActual.email || 'cliente@ldglobalimport.com';
-            const clienteCodigo = usuarioSesionActual.codigo || document.getElementById('userCodigoCliente').innerText || 'LDG-0000';
+            const clienteCodigo = usuarioSesionActual.codigo || (document.getElementById('userCodigoCliente') ? document.getElementById('userCodigoCliente').innerText : 'LDG-0000');
             const clienteDireccion = usuarioSesionActual.direccion1 || 'Dirección registrada en casillero';
             const almacenOrigen = usuarioSesionActual.almacenVista || 'Miami';
 
@@ -1943,6 +1958,7 @@
             const inputVal = document.getElementById('searchTableInput').value.toLowerCase();
             const modoVal = document.getElementById('filterModoSelect').value.toLowerCase();
             const tabla = document.getElementById('tablaCasilleroMain');
+            if(!tabla) return;
             const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
             for (let i = 0; i < filas.length; i++) {
@@ -1958,7 +1974,6 @@
             }
         }
 
-        // CARGA Y RENDERIZADO DE TABLA DE PAQUETES
         function cargarMercanciaPorCorreo(emailClienteInput) {
             const tbody = document.getElementById('tablaMercanciaBody');
             const facturaContainer = document.getElementById('btnFacturaContainer');
@@ -1967,6 +1982,7 @@
             const emailCliente = (emailClienteInput || '').toLowerCase().trim();
             const codigoClienteSesion = (usuarioSesionActual.codigo || '').toLowerCase().trim();
 
+            if(!tbody) return;
             tbody.innerHTML = '<tr><td colspan="10" class="loading-data">Cargando mercancía de almacén...</td></tr>';
             if (facturaContainer) facturaContainer.style.display = "none";
 

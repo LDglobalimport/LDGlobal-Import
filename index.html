@@ -1157,7 +1157,7 @@
             }
         }
 
-        const TARIFAS_MIAMI_MAR = [
+          const TARIFAS_MIAMI_MAR = [
             { destino: "Caracas", ft3USD: 47.00 },
             { destino: "Maracay - Valencia", ft3USD: 50.00 },
             { destino: "Acarigua", ft3USD: 53.00 },
@@ -1815,7 +1815,7 @@
                 cerrarModal('modalLogin');
                 confirmarAlmacenLogin(usuario.almacen || 'Miami');
             } else {
-                alert("⚠️️ Correo no encontrado. Por favor crea tu casillero para comenzar.");
+                alert("⚠️ Correo no encontrado. Por favor crea tu casillero para comenzar.");
             }
         }
 
@@ -2057,7 +2057,7 @@
                                                 <span style="font-weight: bold; font-size: 0.85em;">${trackingVal}</span>
                                                 <div style="display: flex; gap: 4px; margin-top: 2px;">
                                                     <select id="modoEnvio_${i}" style="padding: 2px 4px; font-size: 0.8em; border-radius: 4px; border: 1px solid #ccc;">
-                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️ Aéreo</option>
+                                                        <option value="Aéreo" ${modoGuardado === 'Aéreo' ? 'selected' : ''}>✈️️ Aéreo</option>
                                                         <option value="Marítimo" ${modoGuardado === 'Marítimo' || !modoGuardado ? 'selected' : ''}>🚢 Marítimo</option>
                                                     </select>
                                                     <button type="button" id="btnOk_${i}" onclick="enviarInstruccionDespacho('${trackingVal}', ${i})" class="${modoGuardado ? 'btn-confirmado' : ''}" style="padding: 2px 8px; font-size: 0.75em; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">${modoGuardado ? '✔ Confirmado' : 'OK'}</button>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ldglobal-cache-v6';
+const CACHE_NAME = 'ldglobal-cache-v7';
 
 // Archivos estáticos principales para trabajar offline
 const urlsToCache = [

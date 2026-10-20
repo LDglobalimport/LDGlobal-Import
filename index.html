@@ -191,7 +191,7 @@
                 <h2 style="font-size: 2.6em; color: #003366;">¿Quiénes Somos?</h2>
             </div>
             
-            <p class="about-subtitle" style="font-size: 1.5em; font-weight: bold; color: #003366; margin-bottom: 25px;">“Somos el puente estratégico que simplifica tu crecimiento global”</p>
+            <p class="about-subtitle" style="font-size: 1.5em; font-weight: bold; color: #003366; margin-bottom: 25px;">“Somos el puente estratégico que impulsa tu crecimiento global”</p>
             
             <div class="about-text-content" style="font-size: 1.12em; line-height: 1.7; text-align: justify;">
                 <p>En <strong>LD Global</strong> asumimos el control absoluto de tu cadena de suministro para transformar la complejidad logística internacional en una ventaja competitiva real para tu empresa en Venezuela.</p>
@@ -424,7 +424,7 @@
                 <!-- CALCULADORA AÉREA -->
                 <div id="calcAereo" class="calc-content">
                     <div class="calc-header-tag" id="tagAereoInfo">
-                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $8.00 / lb | China: $36.00 / kg</span>
+                        ✈️ <strong>Tarifas Aéreas:</strong> <span id="lblMinAereo">Miami: $7.00 / lb | China: $60.00 / kg</span>
                     </div>
 
                     <div class="calc-grid-form">
@@ -674,8 +674,8 @@
                     <ul>
                         <li><strong>Aéreo Miami - Venezuela:</strong> 5 a 7 días hábiles.</li>
                         <li><strong>Aéreo China - Venezuela:</strong> 30 a 45 días hábiles.</li>
-                        <li><strong>Marítimo Miami - Venezuela:</strong> 2 a 3 semanas.</li>
-                        <li><strong>Marítimo China - Venezuela:</strong> 60 a 70 días continuos.</li>
+                        <li><strong>Marítimo Miami - Venezuela:</strong> 3 a 4 semanas.</li>
+                        <li><strong>Marítimo China - Venezuela:</strong> 65 a 90 días continuos.</li>
                     </ul>
                 </div>
             </div>
@@ -961,7 +961,9 @@
                 <div class="warehouse-card" id="cardDirChinaMaritimo" style="display: none;">
                     <div class="card-title-flex">
                         <h4>🚢 Dirección para Envíos Marítimos (China)</h4>
+                        <button type="button" onclick="copiarTexto ('浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985/ Panamá - Ref: ' + (usuarioSesionActual.nombre || '') + ' - ' + (document.getElementById('userCodigoCliente').innerText || ''))" class="btn-copy">📋 Copiar</button>
                     </div>
+                
                     <p><strong>Dirección:</strong> 浙江省义乌市福田街道宗宅5区14栋6单元 乐运外贸公司，13968915985</p>
                     <p class="ref-code"><strong>Identificador:</strong> <span class="code-tag"><span id="lblIdentificadorChinaMaritimo">AF10-51-1</span> / <span class="lblNombreChinaUserM">Nombre</span></span></p>
                 </div>
@@ -1007,10 +1009,63 @@
         const WEB_APP_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzrOCJ2_wJRrA3I_GPS5Ny-E5W_Nqj3VXX2tNBJyKbVsK7Wkfy8gC_Rw3w6MAtxLrm9CA/exec";
 
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
-        let cacheCSVMercancia = null;
-        let cacheCSVClientes = null;
-        let deferredPromptPWA = null;
-        let cuentasEncontradasLogin = [];
+        async function consultarClienteEnSheets(emailCliente) {
+    let resultado = { 
+        existeMiami: false, 
+        existeChina: false, 
+        existePanama: false, 
+        codigoExistente: null, 
+        expedidor: null, 
+        encontrado: false, 
+        pass: null 
+    };
+    
+    const emailLimpio = (emailCliente || '').toLowerCase().trim();
+    if (!emailLimpio) return resultado;
+
+    try {
+        const res = await fetch(SHEETS_REGISTRO_CLIENTES_CSV_URL + "&t=" + new Date().getTime());
+        const csvTexto = await res.text();
+        cacheCSVClientes = csvTexto;
+        
+       const lineas = csvTexto.split(/\r?\n/);
+
+        for (let i = 1; i < lineas.length; i++) {
+            if (!lineas[i].trim()) continue;
+            
+            const col = parsearLineaCSV(lineas[i]);
+
+            // Columna F (índice 5) -> email
+            const emailFila = col[5] ? col[5].replace(/^"|"$/g, '').toLowerCase().trim() : '';
+
+            if (emailFila === emailLimpio) {
+                resultado.encontrado = true;
+                
+                // Columna C (índice 3) -> CDG Cliente
+                const codC = col[3] ? col[3].replace(/^"|"$/g, '').trim() : '';
+                if (codC) resultado.codigoExistente = codC;
+
+                // Columna D (índice 3) -> Nombre cliente
+                const nomD = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
+                if (nomD) resultado.expedidor = nomD;
+
+                // Columna J (índice 10) -> Contraseña del cliente
+                const passJ = col[10] ? col[10].replace(/^"|"$/g, '').trim() : '';
+                if (passJ) resultado.pass = passJ;
+
+                // Columna B (índice 2) -> Casillero (Miami, China, Panama)
+                const casilleroFila = (col[2] || '').toLowerCase();
+                if (casilleroFila.includes('china')) resultado.existeChina = true;
+                if (casilleroFila.includes('miami')) resultado.existeMiami = true;
+                if (casilleroFila.includes('panama') || casilleroFila.includes('panamá')) resultado.existePanama = true;
+            }
+        }
+    } catch (e) {
+        console.error("Error consultando Sheets:", e);
+    }
+
+    return resultado;
+}
 
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();

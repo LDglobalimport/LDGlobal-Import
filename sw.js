@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ldglobal-cache-v8';
+const CACHE_NAME = 'ldglobal-cache-v9';
 
 // Archivos estáticos para soporte offline
 const urlsToCache = [
@@ -7,7 +7,8 @@ const urlsToCache = [
   './styles.css',
   './manifest.json',
   './logo-secundario.png',
-  './logo-principal.png'
+  './logo-principal.png',
+  './banner-navidad.jpg'
 ];
 
 // Registrar eventos globales en la evaluación inicial

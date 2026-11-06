@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LD Global Import & Logistics | Tu aliado logístico</title>
     <link rel="icon" type="image/png" href="logo-secundario.png">
-    <link rel="stylesheet" href="styles.css?v=39">
+    <link rel="stylesheet" href="styles.css?v=40">
     
     <!-- MANIFEST PWA -->
     <link rel="manifest" href="manifest.json">
@@ -169,7 +169,30 @@
         </div>
     </div>
 
-    <!-- Hero -->
+ <!-- ==========================================
+         HERO NAVIDAD (Activo para temporada navideña)
+         Para regresar al original: borra este bloque y
+         descomenta el 'Hero Original' de abajo.
+         ========================================== -->
+    <section id="inicio" class="hero-navidad-wrapper">
+        <!-- Bolas de Navidad colgantes animadas -->
+        <div class="bolas-navidad-container" aria-hidden="true">
+            <div class="cuerda c1"><div class="bola bola-roja"></div></div>
+            <div class="cuerda c2"><div class="bola bola-dorada"></div></div>
+            <div class="cuerda c3"><div class="bola bola-roja bola-grande"></div></div>
+            <div class="cuerda c4"><div class="bola bola-verde"></div></div>
+            <div class="cuerda c5"><div class="bola bola-dorada bola-grande"></div></div>
+            <div class="cuerda c6"><div class="bola bola-roja"></div></div>
+            <div class="cuerda c7"><div class="bola bola-verde bola-grande"></div></div>
+        </div>
+
+        <!-- Banner Navideño con desplazamiento suave hacia el formulario -->
+        <a href="#contacto" class="banner-navidad-link" onclick="desplazarAContacto(event)" title="Cotiza tu envío navideño">
+            <img src="banner-navidad.jpg" alt="Tu Navidad Puesta a Puerta - LD Global Import" class="img-banner-navidad">
+        </a>
+    </section>
+
+    <!-- Hero Original Guardado (Inactivo temporalmente):
     <section id="inicio" class="hero-puerto">
         <div class="hero-overlay-puerto">
             <div class="hero-content-puerto">
@@ -182,6 +205,7 @@
             </div>
         </div>
     </section>
+    -->
 
     <!-- SECCIÓN QUIÉNES SOMOS -->
     <section id="quienes-somos" class="about-section" style="padding: 70px 20px;">

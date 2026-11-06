@@ -719,17 +719,15 @@ footer {
     border-radius: 4px;
     width: 100%;
 }
-
-.btn-block { width: 100%; margin-top: 10px; }
 /* =======================================================
-   TEMPORADA NAVIDAD - BANNER Y BOLAS COLGANTES
+   TEMPORADA NAVIDAD - BANNER Y NIEVE CAYENDO
    ======================================================= */
 html {
     scroll-behavior: smooth;
 }
 
 #contacto {
-    scroll-margin-top: 85px; /* Evita que el menú sticky tape el título */
+    scroll-margin-top: 85px;
 }
 
 .hero-navidad-wrapper {
@@ -756,84 +754,68 @@ html {
     display: block;
 }
 
-/* Contenedor de las bambalinas / bolas navideñas */
-.bolas-navidad-container {
+/* Contenedor de la nieve (no bloquea clics al banner) */
+.nieve-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 140px;
+    height: 100%;
+    overflow: hidden;
     pointer-events: none;
-    z-index: 20;
-    display: flex;
-    justify-content: space-around;
+    z-index: 10;
 }
 
-.cuerda {
-    position: relative;
-    width: 2px;
-    background: linear-gradient(to bottom, #d4af37, #aa820a);
-    transform-origin: top center;
-    animation: balanceoNavidad 3.5s ease-in-out infinite alternate;
-}
-
-.cuerda.c1 { height: 45px; animation-duration: 3.2s; }
-.cuerda.c2 { height: 75px; animation-duration: 4.1s; animation-delay: 0.3s; }
-.cuerda.c3 { height: 55px; animation-duration: 3.6s; animation-delay: 0.7s; }
-.cuerda.c4 { height: 85px; animation-duration: 4.4s; animation-delay: 0.2s; }
-.cuerda.c5 { height: 50px; animation-duration: 3.8s; animation-delay: 0.5s; }
-.cuerda.c6 { height: 70px; animation-duration: 4.2s; animation-delay: 0.8s; }
-.cuerda.c7 { height: 60px; animation-duration: 3.5s; animation-delay: 0.4s; }
-
-.bola {
+/* Estilos individuales del copo */
+.copo {
     position: absolute;
-    bottom: -32px;
-    left: -16px;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+    top: -10%;
+    color: rgba(255, 255, 255, 0.85);
+    user-select: none;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+    animation: caerNieve linear infinite;
 }
 
-.bola.bola-grande {
-    bottom: -40px;
-    left: -20px;
-    width: 42px;
-    height: 42px;
-}
+/* Distribución, tamaños, trayectorias y tiempos diferentes para realismo */
+.copo.c1  { left: 5%;  font-size: 16px; animation-duration: 7s;   animation-delay: 0s; }
+.copo.c2  { left: 14%; font-size: 22px; animation-duration: 9.5s; animation-delay: 1.5s; opacity: 0.9; }
+.copo.c3  { left: 23%; font-size: 14px; animation-duration: 6.5s; animation-delay: 3s; opacity: 0.7; }
+.copo.c4  { left: 32%; font-size: 26px; animation-duration: 11s;  animation-delay: 0.5s; opacity: 0.85; }
+.copo.c5  { left: 41%; font-size: 18px; animation-duration: 8s;   animation-delay: 2.2s; }
+.copo.c6  { left: 52%; font-size: 13px; animation-duration: 6s;   animation-delay: 4s; opacity: 0.65; }
+.copo.c7  { left: 61%; font-size: 24px; animation-duration: 10s;  animation-delay: 1s; opacity: 0.9; }
+.copo.c8  { left: 70%; font-size: 15px; animation-duration: 7.5s; animation-delay: 2.8s; }
+.copo.c9  { left: 79%; font-size: 20px; animation-duration: 8.8s; animation-delay: 0.8s; opacity: 0.8; }
+.copo.c10 { left: 88%; font-size: 14px; animation-duration: 6.8s; animation-delay: 3.5s; opacity: 0.7; }
+.copo.c11 { left: 94%; font-size: 25px; animation-duration: 10.5s; animation-delay: 2s; opacity: 0.85; }
+.copo.c12 { left: 47%; font-size: 19px; animation-duration: 8.2s; animation-delay: 4.5s; opacity: 0.75; }
 
-.bola::before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 6px;
-    background: #d4af37;
-    border-radius: 2px;
-}
-
-.bola-roja {
-    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c91818 60%, #590404);
-}
-
-.bola-dorada {
-    background: radial-gradient(circle at 30% 30%, #fff2a3, #e5a919 60%, #7c5400);
-}
-
-.bola-verde {
-    background: radial-gradient(circle at 30% 30%, #5cdb80, #0f8a37 60%, #063c15);
-}
-
-@keyframes balanceoNavidad {
-    0%   { transform: rotate(-5deg); }
-    100% { transform: rotate(5deg); }
+/* Animación de caída vertical con ligero vaivén horizontal */
+@keyframes caerNieve {
+    0% {
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.9;
+    }
+    50% {
+        transform: translateX(20px) rotate(180deg);
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        top: 105%;
+        transform: translateX(-15px) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 @media (max-width: 768px) {
-    .bolas-navidad-container { height: 90px; }
-    .cuerda.c2, .cuerda.c4, .cuerda.c6 { display: none; }
-    .bola { width: 24px; height: 24px; bottom: -24px; left: -11px; }
-    .bola.bola-grande { width: 28px; height: 28px; bottom: -28px; left: -13px; }
+    /* En móviles dejamos menos copos para mantener la fluidez */
+    .copo.c2, .copo.c5, .copo.c8, .copo.c11 {
+        display: none;
+    }
 }

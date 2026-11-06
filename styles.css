@@ -721,3 +721,119 @@ footer {
 }
 
 .btn-block { width: 100%; margin-top: 10px; }
+/* =======================================================
+   TEMPORADA NAVIDAD - BANNER Y BOLAS COLGANTES
+   ======================================================= */
+html {
+    scroll-behavior: smooth;
+}
+
+#contacto {
+    scroll-margin-top: 85px; /* Evita que el menú sticky tape el título */
+}
+
+.hero-navidad-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: #0b1a30;
+    line-height: 0;
+}
+
+.banner-navidad-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.img-banner-navidad {
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* Contenedor de las bambalinas / bolas navideñas */
+.bolas-navidad-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    pointer-events: none;
+    z-index: 20;
+    display: flex;
+    justify-content: space-around;
+}
+
+.cuerda {
+    position: relative;
+    width: 2px;
+    background: linear-gradient(to bottom, #d4af37, #aa820a);
+    transform-origin: top center;
+    animation: balanceoNavidad 3.5s ease-in-out infinite alternate;
+}
+
+.cuerda.c1 { height: 45px; animation-duration: 3.2s; }
+.cuerda.c2 { height: 75px; animation-duration: 4.1s; animation-delay: 0.3s; }
+.cuerda.c3 { height: 55px; animation-duration: 3.6s; animation-delay: 0.7s; }
+.cuerda.c4 { height: 85px; animation-duration: 4.4s; animation-delay: 0.2s; }
+.cuerda.c5 { height: 50px; animation-duration: 3.8s; animation-delay: 0.5s; }
+.cuerda.c6 { height: 70px; animation-duration: 4.2s; animation-delay: 0.8s; }
+.cuerda.c7 { height: 60px; animation-duration: 3.5s; animation-delay: 0.4s; }
+
+.bola {
+    position: absolute;
+    bottom: -32px;
+    left: -16px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+}
+
+.bola.bola-grande {
+    bottom: -40px;
+    left: -20px;
+    width: 42px;
+    height: 42px;
+}
+
+.bola::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 2px;
+}
+
+.bola-roja {
+    background: radial-gradient(circle at 30% 30%, #ff6b6b, #c91818 60%, #590404);
+}
+
+.bola-dorada {
+    background: radial-gradient(circle at 30% 30%, #fff2a3, #e5a919 60%, #7c5400);
+}
+
+.bola-verde {
+    background: radial-gradient(circle at 30% 30%, #5cdb80, #0f8a37 60%, #063c15);
+}
+
+@keyframes balanceoNavidad {
+    0%   { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+@media (max-width: 768px) {
+    .bolas-navidad-container { height: 90px; }
+    .cuerda.c2, .cuerda.c4, .cuerda.c6 { display: none; }
+    .bola { width: 24px; height: 24px; bottom: -24px; left: -11px; }
+    .bola.bola-grande { width: 28px; height: 28px; bottom: -28px; left: -13px; }
+}

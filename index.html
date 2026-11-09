@@ -1056,53 +1056,6 @@
         let cuentasEncontradasLogin = [];
         let usuarioSesionActual = { email: "", nombre: "", codigo: "", direccion1: "", almacenVista: "Miami" };
     
-    const emailLimpio = (emailCliente || '').toLowerCase().trim();
-    if (!emailLimpio) return resultado;
-
-    try {
-        const res = await fetch(SHEETS_REGISTRO_CLIENTES_CSV_URL + "&t=" + new Date().getTime());
-        const csvTexto = await res.text();
-        cacheCSVClientes = csvTexto;
-        
-       const lineas = csvTexto.split(/\r?\n/);
-
-        for (let i = 1; i < lineas.length; i++) {
-            if (!lineas[i].trim()) continue;
-            
-            const col = parsearLineaCSV(lineas[i]);
-
-            // Columna F (índice 5) -> email
-            const emailFila = col[5] ? col[5].replace(/^"|"$/g, '').toLowerCase().trim() : '';
-
-            if (emailFila === emailLimpio) {
-                resultado.encontrado = true;
-                
-                // Columna C (índice 3) -> CDG Cliente
-                const codC = col[3] ? col[3].replace(/^"|"$/g, '').trim() : '';
-                if (codC) resultado.codigoExistente = codC;
-
-                // Columna D (índice 3) -> Nombre cliente
-                const nomD = col[4] ? col[4].replace(/^"|"$/g, '').trim() : '';
-                if (nomD) resultado.expedidor = nomD;
-
-                // Columna J (índice 10) -> Contraseña del cliente
-                const passJ = col[10] ? col[10].replace(/^"|"$/g, '').trim() : '';
-                if (passJ) resultado.pass = passJ;
-
-                // Columna B (índice 2) -> Casillero (Miami, China, Panama)
-                const casilleroFila = (col[2] || '').toLowerCase();
-                if (casilleroFila.includes('china')) resultado.existeChina = true;
-                if (casilleroFila.includes('miami')) resultado.existeMiami = true;
-                if (casilleroFila.includes('panama') || casilleroFila.includes('panamá')) resultado.existePanama = true;
-            }
-        }
-    } catch (e) {
-        console.error("Error consultando Sheets:", e);
-    }
-
-    return resultado;
-}
-
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPromptPWA = e;
